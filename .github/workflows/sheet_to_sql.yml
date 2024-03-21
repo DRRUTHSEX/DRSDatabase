@@ -1,0 +1,37 @@
+name: Sheet to SQL Database
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  update_database:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    
+    - name: Install Python Dependencies
+      run: |
+        pip install gspread oauth2client
+    
+    - name: Read Google Sheet and Write to SQL Database
+      env:
+        SHEET_ID: ${{ secrets.SHEET_ID }}
+        GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
+      run: |
+        python update_sql.py
+    
+    - name: Commit and Push Database File
+      run: |
+        git config --global user.name 'DRRUTHSEX'
+        git config --global user.email 'drsf500@gmail.com'
+        git add database.db
+        git commit -m "Updated SQL database" -a || echo "No changes to commit."
+        git push
