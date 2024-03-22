@@ -32,10 +32,10 @@ jobs:
       run: |
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
-        git add database.db
-        git diff-index --quiet HEAD || git commit -m "Updated SQL database"
+        git add database.db data.json  # Add both the database and the JSON file
+        git commit -m "Updated database and JSON files" -a || echo "No changes to commit."
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
 
+            - name: Commit and Push Database File
