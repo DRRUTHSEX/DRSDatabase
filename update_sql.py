@@ -18,6 +18,8 @@ data = worksheet.get('A2:W' + str(worksheet.row_count))
 
 # Connect to a SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('database.db')
+# Set the row factory right after connecting
+conn.row_factory = sqlite3.Row
 cursor = conn.cursor()
 
 # Create a table if it doesn't exist
@@ -64,7 +66,20 @@ for row in data:
     else:
         print(f"Skipping row due to incorrect number of elements: {row}")
 
-# Commit the changes and close the database connection
+# Commit the changes to the SQL database
 conn.commit()
+
+# Now query all data from the database for JSON conversion
+cursor.execute('SELECT * FROM full_database_backend')
+rows = cursor.fetchall()
+
+# Convert the rows to dictionaries
+data_json = [dict(ix) for ix in rows]
+
+# Write the data to a JSON file
+with open('data.json', 'w', encoding='utf-8') as f:
+    json.dump(data_json, f, ensure_ascii=False, indent=4)
+
+# Close the database connection
 cursor.close()
 conn.close()
