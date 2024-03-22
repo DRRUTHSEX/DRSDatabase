@@ -33,5 +33,8 @@ jobs:
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
         git add database.db
-        git commit -m "Updated SQL database" -a || echo "No changes to commit."
+        git diff-index --quiet HEAD || git commit -m "Updated SQL database"
         git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
