@@ -5,25 +5,25 @@ import json
 
 # Load credentials from the environment variable
 creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])
-credentials = gspread.service_account.Credentials.from_service_account_info(creds_json)
 
-# Authenticate with Google Sheets using the credentials
-gc = gspread.authorize(credentials)
+# Authenticate with the Google Sheets API
+gc = gspread.service_account_from_dict(creds_json)
 
-# Open the sheet and select the right worksheet by name
-worksheet = gc.open_by_key(os.environ['SHEET_ID']).worksheet("Full_Database_Backend")
+# Open the Google Sheet using the provided SHEET_ID
+sheet = gc.open_by_key(os.environ['SHEET_ID'])
+worksheet = sheet.worksheet("Full_Database_Backend")
 
-# Retrieve all data from the worksheet starting at row 2 to skip the headers
-data = worksheet.get_all_values()[1:]  # This skips the first row (headers)
+# Get all values from columns A to W (adjust the range if the sheet grows)
+data = worksheet.get('A2:W' + str(worksheet.row_count))
 
 # Connect to a SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
 
-# Create a table if it doesn't exist with the specified headers
+# Create a table if it doesn't exist
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS full_database_backend (
-    Ticker TEXT,
+    Ticker TEXT PRIMARY KEY,
     Exchange TEXT,
     CompanyNameIssuer TEXT,
     TransferAgent TEXT,
@@ -45,43 +45,24 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
     DRS TEXT,
     PercentSharesDRSd TEXT,
     SubmissionReceived TEXT,
-    TimestampsUTC TEXT,
-    PRIMARY KEY (Ticker, TimestampsUTC)
+    TimestampsUTC TEXT
 )
 ''')
 
 # Insert or update values into the database
 for row in data:
-    cursor.execute('''
-    INSERT INTO full_database_backend (
-        Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
-        TransferAgentPct, IREmails, IRPhoneNum, IRCompanyAddress, IRURL, IRContactInfo, SharesOutstanding,
-        CUSIP, CompanyInfoURL, CompanyInfo, FullProgressPct, CIK, DRS, PercentSharesDRSd, SubmissionReceived,
-        TimestampsUTC
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT(Ticker, TimestampsUTC) DO UPDATE SET
-        Exchange=excluded.Exchange,
-        CompanyNameIssuer=excluded.CompanyNameIssuer,
-        TransferAgent=excluded.TransferAgent,
-        OnlinePurchase=excluded.OnlinePurchase,
-        DTCMemberNum=excluded.DTCMemberNum,
-        TAURL=excluded.TAURL,
-        TransferAgentPct=excluded.TransferAgentPct,
-        IREmails=excluded.IREmails,
-        IRPhoneNum=excluded.IRPhoneNum,
-        IRCompanyAddress=excluded.IRCompanyAddress,
-        IRURL=excluded.IRURL,
-        IRContactInfo=excluded.IRContactInfo,
-        SharesOutstanding=excluded.SharesOutstanding,
-        CUSIP=excluded.CUSIP,
-        CompanyInfoURL=excluded.CompanyInfoURL,
-        CompanyInfo=excluded.CompanyInfo,
-        FullProgressPct=excluded.FullProgressPct,
-        CIK=excluded.CIK,
-        DRS=excluded.DRS,
-        PercentSharesDRSd=excluded.PercentSharesDRSd,
-        SubmissionReceived=excluded.SubmissionReceived
-    ''', tuple(row))
+    # Ensure that the row has 23 elements as expected
+    if len(row) == 23:
+        cursor.execute('''
+        INSERT OR REPLACE INTO full_database_backend (
+            Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
+            TransferAgentPct, IREmails, IRPhoneNum, IRCompanyAddress, IRURL, IRContactInfo, SharesOutstanding,
+            CUSIP, CompanyInfoURL, CompanyInfo, FullProgressPct, CIK, DRS, PercentSharesDRSd, SubmissionReceived,
+            TimestampsUTC
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', tuple(row))
+    else:
+        print(f"Skipping row due to incorrect number of elements: {row}")
 
 # Commit the changes and close the database connection
 conn.commit()
