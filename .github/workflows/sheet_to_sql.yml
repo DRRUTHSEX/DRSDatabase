@@ -35,5 +35,7 @@ jobs:
         git add database.db
         git diff-index --quiet HEAD || git commit -m "Updated SQL database"
         git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
 
