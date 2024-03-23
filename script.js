@@ -3,14 +3,19 @@ fetch('data.json')
     .then(response => response.json())
     .then(data => {
         const table = document.getElementById('data-table');
+        
+        // Clear previous table body
+        table.tBodies[0].innerHTML = '';
+
         // Create table headers from the keys of the first JSON object
         const headers = Object.keys(data[0]);
         const headerRow = document.createElement('tr');
         headers.forEach(headerText => {
             const header = document.createElement('th');
-            header.textContent = headerText;
+            header.textContent = headerText.replace(/([A-Z])/g, ' $1').trim(); // Add space before capital letters for readability
             headerRow.appendChild(header);
         });
+        table.tHead.innerHTML = '';  // Clear any existing headers
         table.tHead.appendChild(headerRow);
 
         // Create the table body rows
@@ -23,4 +28,12 @@ fetch('data.json')
             });
             table.tBodies[0].appendChild(row);
         });
+
+        // Initialize DataTables
+        $(document).ready( function () {
+            $('#data-table').DataTable();
+        });
+    })
+    .catch(error => {
+        console.error('Error loading the data:', error);
     });
