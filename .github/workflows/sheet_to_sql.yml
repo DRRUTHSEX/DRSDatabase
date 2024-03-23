@@ -32,7 +32,7 @@ jobs:
       run: |
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
-        git add data.json  # Add the JSON file
+        git add database.db data.json  # Add the JSON file
         git commit -m "Updated database and JSON files" -a || echo "No changes to commit."
         git push
       env:
