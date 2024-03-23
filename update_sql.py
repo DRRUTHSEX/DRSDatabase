@@ -1,47 +1,85 @@
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+import sqlite3
 import os
 import json
-from datetime import datetime
 
-# Function to fetch the last timestamp in column W
-def fetch_last_timestamp(sheet, worksheet_name):
-    worksheet = sheet.worksheet(worksheet_name)
-    timestamps = worksheet.col_values(23)  # Assuming the timestamp is in the 23rd column
-    return max(timestamps[1:], key=lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S'))  # Skip the header and find the latest
+# Load credentials from the environment variable
+creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])
 
-# Compare the last timestamp from the sheet with the stored last run timestamp
-def check_for_updates(sheet, worksheet_name, last_run_file):
-    sheet_last_timestamp = fetch_last_timestamp(sheet, worksheet_name)
-    sheet_last_timestamp = datetime.strptime(sheet_last_timestamp, '%Y-%m-%d %H:%M:%S')
+# Authenticate with the Google Sheets API
+gc = gspread.service_account_from_dict(creds_json)
 
-    if os.path.exists(last_run_file):
-        with open(last_run_file, 'r') as file:
-            last_run_timestamp = datetime.strptime(file.read().strip(), '%Y-%m-%d %H:%M:%S')
-    else:
-        last_run_timestamp = datetime.min
+# Open the Google Sheet using the provided SHEET_ID
+sheet = gc.open_by_key(os.environ['SHEET_ID'])
+worksheet = sheet.worksheet("Full_Database_Backend")
 
-    return sheet_last_timestamp > last_run_timestamp
+# Get all values from columns A to W (adjust the range if the sheet grows)
+data = worksheet.get('A2:W' + str(worksheet.row_count))
 
-# Load the credentials and sheet ID from environment variables
-credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-    json.loads(os.environ['GOOGLE_API_KEYS']),
-    ['https://www.googleapis.com/auth/spreadsheets.readonly']
+# Connect to a SQLite database (or create it if it doesn't exist)
+conn = sqlite3.connect('database.db')
+# Set the row factory right after connecting
+conn.row_factory = sqlite3.Row
+cursor = conn.cursor()
+
+# Create a table if it doesn't exist
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS full_database_backend (
+    Ticker TEXT PRIMARY KEY,
+    Exchange TEXT,
+    CompanyNameIssuer TEXT,
+    TransferAgent TEXT,
+    OnlinePurchase TEXT,
+    DTCMemberNum TEXT,
+    TAURL TEXT,
+    TransferAgentPct TEXT,
+    IREmails TEXT,
+    IRPhoneNum TEXT,
+    IRCompanyAddress TEXT,
+    IRURL TEXT,
+    IRContactInfo TEXT,
+    SharesOutstanding TEXT,
+    CUSIP TEXT,
+    CompanyInfoURL TEXT,
+    CompanyInfo TEXT,
+    FullProgressPct TEXT,
+    CIK TEXT,
+    DRS TEXT,
+    PercentSharesDRSd TEXT,
+    SubmissionReceived TEXT,
+    TimestampsUTC TEXT
 )
-gc = gspread.authorize(credentials)
-sheet_id = os.environ['SHEET_ID']
-last_run_file = 'last_run_timestamp.txt'
+''')
 
-# Open the sheet
-sheet = gc.open_by_key(sheet_id)
+# Insert or update values into the database
+for row in data:
+    # Ensure that the row has 23 elements as expected
+    if len(row) == 23:
+        cursor.execute('''
+        INSERT OR REPLACE INTO full_database_backend (
+            Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
+            TransferAgentPct, IREmails, IRPhoneNum, IRCompanyAddress, IRURL, IRContactInfo, SharesOutstanding,
+            CUSIP, CompanyInfoURL, CompanyInfo, FullProgressPct, CIK, DRS, PercentSharesDRSd, SubmissionReceived,
+            TimestampsUTC
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', tuple(row))
+    else:
+        print(f"Skipping row due to incorrect number of elements: {row}")
 
-# Check if an update is needed and write the new timestamp
-if check_for_updates(sheet, "Full_Database_Backend", last_run_file):
-    new_timestamp = fetch_last_timestamp(sheet, "Full_Database_Backend")
-    with open(last_run_file, 'w') as file:
-        file.write(new_timestamp)
-    print("Update required.")
-    os.system('exit 0')
-else:
-    print("No update required.")
-    os.system('exit 1')
+# Commit the changes to the SQL database
+conn.commit()
+
+# Now query all data from the database for JSON conversion
+cursor.execute('SELECT * FROM full_database_backend')
+rows = cursor.fetchall()
+
+# Convert the rows to dictionaries
+data_json = [dict(ix) for ix in rows]
+
+# Write the data to a JSON file
+with open('data.json', 'w', encoding='utf-8') as f:
+    json.dump(data_json, f, ensure_ascii=False, indent=4)
+
+# Close the database connection
+cursor.close()
+conn.close()
