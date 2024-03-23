@@ -2,8 +2,6 @@ import gspread
 import sqlite3
 import os
 import json
-import hashlib
-
 
 # Load credentials from the environment variable
 creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])
@@ -20,8 +18,7 @@ data = worksheet.get('A2:W' + str(worksheet.row_count))
 
 # Connect to a SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('database.db')
-# Set the row factory right after connecting
-conn.row_factory = sqlite3.Row
+conn.row_factory = sqlite3.Row  # Set the row factory right after connecting
 cursor = conn.cursor()
 
 # Create a table if it doesn't exist
@@ -53,20 +50,19 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 )
 ''')
 
-# Generate a pre-update hash of the database content
-def generate_data_hash(cursor):
-    cursor.execute('SELECT * FROM full_database_backend ORDER BY Ticker')
-    rows = cursor.fetchall()
-    data_str = ''.join(str(row) for row in rows)
-    return hashlib.sha256(data_str.encode()).hexdigest()
+# Function to check if a row needs to be updated based on the Google Sheet data
+def row_needs_update(cursor, sheet_row):
+    cursor.execute("SELECT * FROM full_database_backend WHERE Ticker = ?", (sheet_row[0],))
+    db_row = cursor.fetchone()
+    if db_row is None:
+        return True  # Row does not exist in the database, needs insert
+    # Comparing each cell in the row to check for any difference
+    return not all(str(db_row[col]) == str(sheet_row[idx]) for idx, col in enumerate(db_row.keys()))
 
-pre_update_hash = generate_data_hash(cursor)
-
-
-# Insert or update values into the database
+# Update the database only if there are changes
+changes_made = False
 for row in data:
-    # Ensure that the row has 23 elements as expected
-    if len(row) == 23:
+    if len(row) == 23 and row_needs_update(cursor, row):
         cursor.execute('''
         INSERT OR REPLACE INTO full_database_backend (
             Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
@@ -75,20 +71,13 @@ for row in data:
             TimestampsUTC
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', tuple(row))
-    else:
-        print(f"Skipping row due to incorrect number of elements: {row}")
+        changes_made = True
 
-# Place this code before conn.commit()
-post_update_hash = generate_data_hash(cursor)
-
-if pre_update_hash != post_update_hash:
-    # If hashes are different, commit the changes
+if changes_made:
     conn.commit()
-    print("Database updated.")
+    print("Database updated because changes were detected.")
 else:
-    # If hashes are the same, no need to commit
     print("No changes detected. Database update skipped.")
-
 
 # Now query all data from the database for JSON conversion
 cursor.execute('SELECT * FROM full_database_backend')
