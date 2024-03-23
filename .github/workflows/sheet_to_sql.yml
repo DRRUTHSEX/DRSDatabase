@@ -2,7 +2,7 @@ name: Sheet to SQL Database
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs at midnight UTC
+    - cron: '0 * * * *'  # Runs at the start of every hour
   workflow_dispatch:
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
       run: |
         python update_sql.py
     
-    - name: Commit and Push Database File
+    - name: Commit and Push Database Files
       run: |
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
