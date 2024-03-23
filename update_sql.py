@@ -2,6 +2,8 @@ import gspread
 import sqlite3
 import os
 import json
+import hashlib
+
 
 # Load credentials from the environment variable
 creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])
@@ -51,6 +53,16 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 )
 ''')
 
+# Generate a pre-update hash of the database content
+def generate_data_hash(cursor):
+    cursor.execute('SELECT * FROM full_database_backend ORDER BY Ticker')
+    rows = cursor.fetchall()
+    data_str = ''.join(str(row) for row in rows)
+    return hashlib.sha256(data_str.encode()).hexdigest()
+
+pre_update_hash = generate_data_hash(cursor)
+
+
 # Insert or update values into the database
 for row in data:
     # Ensure that the row has 23 elements as expected
@@ -66,8 +78,17 @@ for row in data:
     else:
         print(f"Skipping row due to incorrect number of elements: {row}")
 
-# Commit the changes to the SQL database
-conn.commit()
+# Place this code before conn.commit()
+post_update_hash = generate_data_hash(cursor)
+
+if pre_update_hash != post_update_hash:
+    # If hashes are different, commit the changes
+    conn.commit()
+    print("Database updated.")
+else:
+    # If hashes are the same, no need to commit
+    print("No changes detected. Database update skipped.")
+
 
 # Now query all data from the database for JSON conversion
 cursor.execute('SELECT * FROM full_database_backend')
