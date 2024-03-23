@@ -9,42 +9,31 @@ jobs:
   update_database:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-        
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
+    - name: Checkout Repository
+      uses: actions/checkout@v2
       
-      - name: Install Python Dependencies
-        run: |
-          pip install gspread oauth2client
-      
-      - name: Check for Google Sheet Updates
-        id: check_updates
-        env:
-          SHEET_ID: ${{ secrets.SHEET_ID }}
-          GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
-        run: |
-          python check_for_updates.py
-        continue-on-error: true  # Proceed even if no update is needed
-      
-      - name: Read Google Sheet and Write to SQL Database
-        if: steps.check_updates.outcome == 'success'
-        env:
-          SHEET_ID: ${{ secrets.SHEET_ID }}
-          GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
-        run: |
-          python update_sql.py
-      
-      - name: Commit and Push Database Files
-        if: steps.check_updates.outcome == 'success'
-        run: |
-          git config --global user.name 'DRRUTHSEX'
-          git config --global user.email 'drsf500@gmail.com'
-          git add database.db data.json
-          git commit -m "Updated database and JSON files" -a || echo "No changes to commit."
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    
+    - name: Install Python Dependencies
+      run: |
+        pip install gspread oauth2client
+    
+    - name: Read Google Sheet and Write to SQL Database
+      env:
+        SHEET_ID: ${{ secrets.SHEET_ID }}
+        GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
+      run: |
+        python update_sql.py
+    
+    - name: Commit and Push Database Files
+      run: |
+        git config --global user.name 'DRRUTHSEX'
+        git config --global user.email 'drsf500@gmail.com'
+        git add database.db data.json  # Add both the database and the JSON file
+        git commit -m "Updated database and JSON files" -a || echo "No changes to commit."
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
