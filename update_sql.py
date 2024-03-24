@@ -2,9 +2,6 @@ import gspread
 import sqlite3
 import os
 import json
-import logging
-
-logging.basicConfig(level=logging.INFO)
 
 # Load credentials from the environment variable
 creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])
@@ -21,7 +18,8 @@ data = worksheet.get('A2:W' + str(worksheet.row_count))
 
 # Connect to a SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('database.db')
-conn.row_factory = sqlite3.Row  # Set the row factory right after connecting
+# Set the row factory right after connecting
+conn.row_factory = sqlite3.Row
 cursor = conn.cursor()
 
 # Create a table if it doesn't exist
@@ -53,29 +51,10 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 )
 ''')
 
-# Function to check if a row needs to be updated based on the Google Sheet data
-def row_needs_update(cursor, sheet_row):
-    cursor.execute("SELECT * FROM full_database_backend WHERE Ticker = ?", (sheet_row[0],))
-    db_row = cursor.fetchone()
-    if db_row is None:
-        logging.info(f"Inserting new row for Ticker: {sheet_row[0]}")
-        return True  # Row does not exist in the database, needs insert
-    for idx, col in enumerate(db_row.keys()):
-        if str(db_row[col]) != str(sheet_row[idx]):
-            logging.info(f"Difference detected for Ticker: {sheet_row[0]} in column: {col}. "
-                         f"Sheet value: {sheet_row[idx]}, DB value: {db_row[col]}")
-            return True  # Difference found, update needed
-    return False  # No differences, update not needed
-
-
-# Update the database only if there are changes
-changes_made = False
+# Insert or update values into the database
 for row in data:
-    if len(row) != 23:
-        logging.warning(f"Skipping row due to incorrect number of elements: {row}")
-        continue
-    if row_needs_update(cursor, row):
-        logging.info(f"Updating row for Ticker: {row[0]}")
+    # Ensure that the row has 23 elements as expected
+    if len(row) == 23:
         cursor.execute('''
         INSERT OR REPLACE INTO full_database_backend (
             Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
@@ -84,15 +63,11 @@ for row in data:
             TimestampsUTC
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', tuple(row))
-        changes_made = True
     else:
-        logging.info(f"No changes for Ticker: {row[0]}, skipping update.")
+        print(f"Skipping row due to incorrect number of elements: {row}")
 
-if changes_made:
-    conn.commit()
-    print("Database updated because changes were detected.")
-else:
-    print("No changes detected. Database update skipped.")
+# Commit the changes to the SQL database
+conn.commit()
 
 # Now query all data from the database for JSON conversion
 cursor.execute('SELECT * FROM full_database_backend')
