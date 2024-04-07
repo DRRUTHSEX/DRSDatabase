@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 
 # Insert or update values into the database
 for row in data:
-    # Ensure that the row has 23 elements as expected
-    if len(row) == 23:
+    # Ensure that the row has 25 elements as expected
+    if len(row) == 25:
         cursor.execute('''
         INSERT OR REPLACE INTO full_database_backend (
             Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
