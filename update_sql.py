@@ -54,14 +54,6 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 )
 ''')
 
-# Add the new columns to the existing table
-cursor.execute('''
-ALTER TABLE full_database_backend
-ADD COLUMN LearnMoreAboutDRS TEXT,
-ADD COLUMN CertificatesOffered TEXT,
-ADD COLUMN SandP500 TEXT,
-''')
-
 # Insert or update values into the database
 for row in data:
     # Ensure that the row has 26 elements as expected
