@@ -3,13 +3,6 @@ import sqlite3
 import os
 import json
 
-# Function to add columns if they don't exist
-def add_column_if_not_exists(cursor, column_name):
-    cursor.execute(f"PRAGMA table_info(full_database_backend)")
-    columns = [info[1] for info in cursor.fetchall()]
-    if column_name not in columns:
-        cursor.execute(f"ALTER TABLE full_database_backend ADD COLUMN {column_name} TEXT")
-
 # Load credentials from the environment variable
 creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])
 
@@ -25,6 +18,7 @@ data = worksheet.get('A2:Z' + str(worksheet.row_count))
 
 # Connect to a SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('database.db')
+# Set the row factory right after connecting
 conn.row_factory = sqlite3.Row
 cursor = conn.cursor()
 
@@ -53,17 +47,17 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
     DRS TEXT,
     PercentSharesDRSd TEXT,
     SubmissionReceived TEXT,
-    TimestampsUTC TEXT
+    TimestampsUTC TEXT,
+    LearnMoreAboutDRS TEXT,
+    CertificatesOffered TEXT,
+    SandP500 TEXT
 )
 ''')
 
-# Check and add new columns if needed
-add_column_if_not_exists(cursor, 'LearnMoreAboutDRS')
-add_column_if_not_exists(cursor, 'CertificatesOffered')
-add_column_if_not_exists(cursor, 'SandP500')
 
 # Insert or update values into the database
 for row in data:
+    # Ensure that the row has 26 elements as expected
     if len(row) == 26:
         cursor.execute('''
         INSERT OR REPLACE INTO full_database_backend (
