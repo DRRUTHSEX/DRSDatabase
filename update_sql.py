@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 cursor.execute('''
 ALTER TABLE full_database_backend
 ADD COLUMN LearnMoreAboutDRS TEXT,
-ADD COLUMN CertificatesOffered TEXT;
-ADD COLUMN SandP500 TEXT;
+ADD COLUMN CertificatesOffered TEXT,
+ADD COLUMN SandP500 TEXT,
 ''')
 
 # Insert or update values into the database
