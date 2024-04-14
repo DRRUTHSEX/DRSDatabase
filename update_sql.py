@@ -56,15 +56,15 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 
 # Insert or update values into the database
 for row in data:
-    # Ensure that the row has 25 elements as expected
-    if len(row) == 25:
+    # Ensure that the row has 26 elements as expected
+    if len(row) == 26:
         cursor.execute('''
         INSERT OR REPLACE INTO full_database_backend (
             Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
             TransferAgentPct, IREmails, IRPhoneNum, IRCompanyAddress, IRURL, IRContactInfo, SharesOutstanding,
             CUSIP, CompanyInfoURL, CompanyInfo, FullProgressPct, CIK, DRS, PercentSharesDRSd, SubmissionReceived,
             TimestampsUTC, LearnMoreAboutDRS, CertificatesOffered, SandP500
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', tuple(row))
     else:
         print(f"Skipping row due to incorrect number of elements: {row}")
