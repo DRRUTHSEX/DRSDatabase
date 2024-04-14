@@ -22,9 +22,10 @@ conn = sqlite3.connect('database.db')
 conn.row_factory = sqlite3.Row
 cursor = conn.cursor()
 
-# Create a table if it doesn't exist
+# Create a table if it doesn't exist, drop it if it does and recreate it
+cursor.execute('DROP TABLE IF EXISTS full_database_backend')
 cursor.execute('''
-CREATE TABLE IF NOT EXISTS full_database_backend (
+CREATE TABLE full_database_backend (
     Ticker TEXT PRIMARY KEY,
     Exchange TEXT,
     CompanyNameIssuer TEXT,
