@@ -13,8 +13,8 @@ gc = gspread.service_account_from_dict(creds_json)
 sheet = gc.open_by_key(os.environ['SHEET_ID'])
 worksheet = sheet.worksheet("Full_Database_Backend")
 
-# Get all values from columns A to Z (adjust the range if the sheet grows)
-data = worksheet.get('A2:Z' + str(worksheet.row_count))
+# Get all values from columns A to AA (adjust the range if the sheet grows)
+data = worksheet.get('A2:AA' + str(worksheet.row_count))
 
 # Connect to a SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('database.db')
@@ -50,7 +50,8 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
     TimestampsUTC TEXT,
     LearnMoreAboutDRS TEXT,
     CertificatesOffered TEXT,
-    SandP500 TEXT
+    SandP500 TEXT,
+    IncorporatedIn TEXT
 )
 ''')
 
@@ -58,14 +59,14 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 # Insert or update values into the database
 for row in data:
     # Ensure that the row has 26 elements as expected
-    if len(row) == 26:
+    if len(row) == 27:
         cursor.execute('''
         INSERT OR REPLACE INTO full_database_backend (
             Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
             TransferAgentPct, IREmails, IRPhoneNum, IRCompanyAddress, IRURL, IRContactInfo, SharesOutstanding,
             CUSIP, CompanyInfoURL, CompanyInfo, FullProgressPct, CIK, DRS, PercentSharesDRSd, SubmissionReceived,
             TimestampsUTC, LearnMoreAboutDRS, CertificatesOffered, SandP500
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', tuple(row))
     else:
         print(f"Skipping row due to incorrect number of elements: {row}")
