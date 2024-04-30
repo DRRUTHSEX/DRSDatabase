@@ -2,6 +2,9 @@ import gspread
 import requests
 import os
 import json
+import aiohttp
+import aiofiles
+import asyncio
 
 # Load credentials from the environment variable
 creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])
@@ -13,24 +16,32 @@ gc = gspread.service_account_from_dict(creds_json)
 sheet = gc.open_by_key(os.environ['SHEET_ID'])
 worksheet = sheet.worksheet("SEC_Company_Tickers_Exchange")
 
-# Fetch data from SEC
-response = requests.get('https://www.sec.gov/files/company_tickers_exchange.json')
-print(response.text)  # Print the raw response text for debugging
-if response.text:
-    data = response.json()
-else:
-    print("No data received from API")
-    data = {'data': []}  # Ensure the data variable is defined
+async def fetch_data(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                return await response.json()
+            else:
+                print(f"Error: Received status code {response.status}")
+                print("Response body:", await response.text())
+                return None
 
-# Prepare data for insertion
-values = []
-for item in data['data']:
-    # Each item is a dictionary with keys 'cik', 'ticker', 'name', 'exchange'
-    row = [item['cik'], item['name'], item['ticker'], item['exchange']]
-    values.append(row)
+async def write_to_csv(data, filename='data.csv'):
+    fields = data['fields']  # Assuming 'fields' contains column names
+    rows = data['data']
+    async with aiofiles.open(filename, mode='w') as file:
+        await file.write(','.join(fields) + '\n')  # Write CSV header
+        for row in rows:
+            await file.write(','.join(str(row[field]) for field in fields) + '\n')
 
-# Clear existing data starting from row 2
-worksheet.batch_clear(["A2:D" + str(worksheet.row_count)])
+async def main():
+    url = 'https://www.sec.gov/files/company_tickers_exchange.json'
+    data = await fetch_data(url)
+    if data:
+        await write_to_csv(data)
+        print("Data fetched and written to CSV successfully")
+    else:
+        print("Failed to fetch or write data")
 
-# Update the sheet starting from row 2
-worksheet.update('A2', values)
+if __name__ == "__main__":
+    asyncio.run(main())
