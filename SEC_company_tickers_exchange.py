@@ -15,7 +15,12 @@ worksheet = sheet.worksheet("SEC_Company_Tickers_Exchange")
 
 # Fetch data from SEC
 response = requests.get('https://www.sec.gov/files/company_tickers_exchange.json')
-data = response.json()
+print(response.text)  # Print the raw response text for debugging
+if response.text:
+    data = response.json()
+else:
+    print("No data received from API")
+    data = {'data': []}  # Ensure the data variable is defined
 
 # Prepare data for insertion
 values = []
