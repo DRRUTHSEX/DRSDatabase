@@ -1,5 +1,5 @@
-// Assuming your JSON file is named 'data.json' and is in the same directory
-fetch('data.json')
+// Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
+fetch('Full_Database_Backend.json')
     .then(response => response.json())
     .then(data => {
         const table = document.getElementById('data-table');
