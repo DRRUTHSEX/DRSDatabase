@@ -82,7 +82,7 @@ rows = cursor.fetchall()
 data_json = [dict(ix) for ix in rows]
 
 # Write the data to a JSON file
-with open('data.json', 'w', encoding='utf-8') as f:
+with open('Full_Database_Backend.json', 'w', encoding='utf-8') as f:
     json.dump(data_json, f, ensure_ascii=False, indent=4)
 
 # Close the database connection
