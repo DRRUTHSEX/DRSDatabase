@@ -17,7 +17,7 @@ worksheet = sheet.worksheet("Full_Database_Backend")
 data = worksheet.get('A2:AA' + str(worksheet.row_count))
 
 # Connect to a SQLite database (or create it if it doesn't exist)
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('Full_Database_Backend.db')
 # Set the row factory right after connecting
 conn.row_factory = sqlite3.Row
 cursor = conn.cursor()
