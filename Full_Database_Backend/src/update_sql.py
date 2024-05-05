@@ -70,6 +70,7 @@ for row in data:
         ''', tuple(row))
     else:
         print(f"Skipping row due to incorrect number of elements: {row}")
+        print(f"Row length: {len(row)}")  # Additional debugging information
 
 # Commit the changes to the SQL database
 conn.commit()
