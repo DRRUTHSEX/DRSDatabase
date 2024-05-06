@@ -28,15 +28,31 @@ jobs:
       run: |
         python Full_Database_Backend/src/update_sql.py
     
-    - name: List files in the directory
-      run: ls -l Full_Database_Backend/src/
+    - name: List files and check directory
+      run: |
+        echo "Checking the working directory and listing files..."
+        pwd
+        ls -l Full_Database_Backend/src/
 
     - name: Commit and Push Database Files
       run: |
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
-        git add Full_Database_Backend/src/Full_Database_Backend.db Full_Database_Backend/src/Full_Database_Backend.json
+        echo "Adding database and JSON files to staging..."
+        if [ -f "Full_Database_Backend/src/Full_Database_Backend.db" ]; then
+          git add Full_Database_Backend/src/Full_Database_Backend.db
+        else
+          echo "Database file not found!"
+        fi
+        if [ -f "Full_Database_Backend/src/Full_Database_Backend.json" ]; then
+          git add Full_Database_Backend/src/Full_Database_Backend.json
+        else
+          echo "JSON file not found!"
+        fi
+        echo "Files staged for commit:"
+        git status
         git commit -m "Updated database and JSON files"
+        echo "Pushing to remote repository..."
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
