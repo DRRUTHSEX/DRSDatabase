@@ -56,11 +56,11 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 
 # Insert or update values into the database
 for row in data:
-    # Log the number of elements in the current row
-    print(f"Processing row with {len(row)} elements: {row}")
+    # Ensure that the row has at least 27 elements by filling missing elements with an empty string
+    while len(row) < 27:
+        row.append('')  # Append an empty string for missing elements
 
-    # Check if the row has the correct number of elements (adjust 27 to match the expected number of columns)
-    if len(row) == 27:
+        # Now we can be sure every row has exactly 27 elements
         cursor.execute('''
         INSERT OR REPLACE INTO full_database_backend (
             Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
