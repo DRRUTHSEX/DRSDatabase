@@ -32,25 +32,17 @@ jobs:
       run: |
         echo "Current working directory:"
         pwd
-        echo "Setting working directory to GitHub workspace..."
-        cd $GITHUB_WORKSPACE
-        pwd
+        echo "Listing all files in the workspace:"
+        ls -alR
     
-    - name: Configure Git Identity
-      run: |
-        git config user.name 'DRRUTHSEX'
-        git config user.email 'drsf500@gmail.com'
-
     - name: Diagnose File Staging Issues
       run: |
         echo "Adding database and JSON files to staging..."
-        echo "Full path of the database file:"
-        readlink -f "Full_Database_Backend/src/Full_Database_Backend.db"
-        echo "Full path of the JSON file:"
-        readlink -f "Full_Database_Backend/src/Full_Database_Backend.json"
-        echo "Attempting to force add files with absolute paths:"
-        git add -f $(readlink -f "Full_Database_Backend/src/Full_Database_Backend.db")
-        git add -f $(readlink -f "Full_Database_Backend/src/Full_Database_Backend.json")
+        echo "Files in src directory:"
+        ls -al Full_Database_Backend/src/
+        echo "Attempting to force add files:"
+        git add -f Full_Database_Backend/src/Full_Database_Backend.db
+        git add -f Full_Database_Backend/src/Full_Database_Backend.json
         echo "Files staged for commit:"
         git status
         git commit -m "Updated database and JSON files"
