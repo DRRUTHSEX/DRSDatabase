@@ -56,7 +56,10 @@ CREATE TABLE IF NOT EXISTS full_database_backend (
 
 # Insert or update values into the database
 for row in data:
-    # Ensure that the row has 27 elements as expected
+    # Log the number of elements in the current row
+    print(f"Processing row with {len(row)} elements: {row}")
+
+    # Check if the row has the correct number of elements (adjust 27 to match the expected number of columns)
     if len(row) == 27:
         cursor.execute('''
         INSERT OR REPLACE INTO full_database_backend (
