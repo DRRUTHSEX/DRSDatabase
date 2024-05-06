@@ -36,6 +36,11 @@ jobs:
         cd $GITHUB_WORKSPACE
         pwd
     
+    - name: Configure Git Identity
+      run: |
+        git config user.name 'DRRUTHSEX'
+        git config user.email 'drsf500@gmail.com'
+
     - name: Diagnose File Staging Issues
       run: |
         echo "Adding database and JSON files to staging..."
