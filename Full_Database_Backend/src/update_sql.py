@@ -14,7 +14,8 @@ sheet = gc.open_by_key(os.environ['SHEET_ID'])  # Open the spreadsheet using the
 worksheet = sheet.worksheet("Full_Database_Backend")  # Access the specific worksheet
 
 # Get all values from columns A to AA (adjust the range if the sheet grows)
-data = worksheet.get('A2:AA' + str(worksheet.row_count))  # Fetch all rows starting from the second row to the end of the worksheet
+# Fetch all rows starting from the second row to the end of the worksheet and fill empty cells with a space
+data = [row + [' ']*(27 - len(row)) for row in worksheet.get('A2:AA' + str(worksheet.row_count))]
 
 # Connect to a SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('Full_Database_Backend.db')  # Establish a connection to a SQLite database
