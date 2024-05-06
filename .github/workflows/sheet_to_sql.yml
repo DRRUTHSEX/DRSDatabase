@@ -28,28 +28,24 @@ jobs:
       run: |
         python Full_Database_Backend/src/update_sql.py
     
-    - name: Check current working directory and list files
+    - name: Check and Set Working Directory
       run: |
-        echo "Checking the current working directory..."
+        echo "Current working directory:"
         pwd
-        echo "Listing files in the src directory..."
-        ls -l Full_Database_Backend/src/
-
-    - name: Configure Git
-      run: |
-        git config user.name 'DRRUTHSEX'
-        git config user.email 'drsf500@gmail.com'
-
-    - name: Diagnose Git Issues
+        echo "Setting working directory to GitHub workspace..."
+        cd $GITHUB_WORKSPACE
+        pwd
+    
+    - name: Diagnose File Staging Issues
       run: |
         echo "Adding database and JSON files to staging..."
         echo "Full path of the database file:"
         readlink -f "Full_Database_Backend/src/Full_Database_Backend.db"
         echo "Full path of the JSON file:"
         readlink -f "Full_Database_Backend/src/Full_Database_Backend.json"
-        echo "Attempting to force add files:"
-        git add -f "./Full_Database_Backend/src/Full_Database_Backend.db"
-        git add -f "./Full_Database_Backend/src/Full_Database_Backend.json"
+        echo "Attempting to force add files with absolute paths:"
+        git add -f $(readlink -f "Full_Database_Backend/src/Full_Database_Backend.db")
+        git add -f $(readlink -f "Full_Database_Backend/src/Full_Database_Backend.json")
         echo "Files staged for commit:"
         git status
         git commit -m "Updated database and JSON files"
