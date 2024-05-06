@@ -28,24 +28,25 @@ jobs:
       run: |
         python Full_Database_Backend/src/update_sql.py
     
-    - name: Check current working directory
+    - name: Check current working directory and list files
       run: |
         echo "Checking the current working directory..."
         pwd
+        echo "Listing files in the src directory..."
         ls -l Full_Database_Backend/src/
 
-    - name: Commit and Push Database Files
+    - name: Diagnose Git Issues
       run: |
-        git config --global user.name 'DRRUTHSEX'
-        git config --global user.email 'drsf500@gmail.com'
+        echo "Checking Git configuration..."
+        git config --list
         echo "Adding database and JSON files to staging..."
         echo "Full path of the database file:"
         readlink -f "Full_Database_Backend/src/Full_Database_Backend.db"
         echo "Full path of the JSON file:"
         readlink -f "Full_Database_Backend/src/Full_Database_Backend.json"
         echo "Check if files are ignored:"
-        git check-ignore -v Full_Database_Backend/src/Full_Database_Backend.db
-        git check-ignore -v Full_Database_Backend/src/Full_Database_Backend.json
+        git check-ignore -v "Full_Database_Backend/src/Full_Database_Backend.db" || echo "Failed to check ignore status for DB"
+        git check-ignore -v "Full_Database_Backend/src/Full_Database_Backend.json" || echo "Failed to check ignore status for JSON"
         echo "Attempting to force add files:"
         git add -f Full_Database_Backend/src/Full_Database_Backend.db
         git add -f Full_Database_Backend/src/Full_Database_Backend.json
