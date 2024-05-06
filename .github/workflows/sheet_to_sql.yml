@@ -34,27 +34,26 @@ jobs:
         pwd
         ls -l Full_Database_Backend/src/
 
-- name: Commit and Push Database Files
-  run: |
-    git config --global user.name 'DRRUTHSEX'
-    git config --global user.email 'drsf500@gmail.com'
-    echo "Adding database and JSON files to staging..."
-    echo "Full path of the database file:"
-    readlink -f "Full_Database_Backend/src/Full_Database_Backend.db"
-    echo "Full path of the JSON file:"
-    readlink -f "Full_Database_Backend/src/Full_Database_Backend.json"
-    echo "Check if files are ignored:"
-    git check-ignore -v Full_Database_Backend/src/Full_Database_Backend.db
-    git check-ignore -v Full_Database_Backend/src/Full_Database_Backend.json
-    echo "Attempting to force add files:"
-    git add -f Full_Database_Backend/src/Full_Database_Backend.db
-    git add -f Full_Database_Backend/src/Full_Database_Backend.json
-    echo "Files staged for commit:"
-    git status
-    git ls-files --stage
-    git commit -m "Updated database and JSON files"
-    echo "Pushing to remote repository..."
-    git push
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+    - name: Commit and Push Database Files
+      run: |
+        git config --global user.name 'DRRUTHSEX'
+        git config --global user.email 'drsf500@gmail.com'
+        echo "Adding database and JSON files to staging..."
+        echo "Full path of the database file:"
+        readlink -f "Full_Database_Backend/src/Full_Database_Backend.db"
+        echo "Full path of the JSON file:"
+        readlink -f "Full_Database_Backend/src/Full_Database_Backend.json"
+        echo "Check if files are ignored:"
+        git check-ignore -v Full_Database_Backend/src/Full_Database_Backend.db
+        git check-ignore -v Full_Database_Backend/src/Full_Database_Backend.json
+        echo "Attempting to force add files:"
+        git add -f Full_Database_Backend/src/Full_Database_Backend.db
+        git add -f Full_Database_Backend/src/Full_Database_Backend.json
+        echo "Files staged for commit:"
+        git status
+        git ls-files --stage
+        git commit -m "Updated database and JSON files"
+        echo "Pushing to remote repository..."
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
