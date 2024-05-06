@@ -36,7 +36,7 @@ jobs:
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
         git add Full_Database_Backend/src/Full_Database_Backend.db Full_Database_Backend/src/Full_Database_Backend.json
-        git diff --cached --exit-code || git commit -m "Updated database and JSON files"
+        git commit -m "Updated database and JSON files"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
