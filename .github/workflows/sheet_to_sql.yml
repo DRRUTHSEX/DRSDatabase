@@ -28,20 +28,19 @@ jobs:
       run: |
         python Full_Database_Backend/src/update_sql.py
     
-    - name: Diagnose File Staging Issues
+    - name: Confirm File Locations and Add Files
       run: |
-        echo "Adding database and JSON files to staging..."
-        echo "Files in src directory:"
+        echo "Listing files in the expected directory..."
         ls -al Full_Database_Backend/src/
         echo "Configuring Git identity..."
         git config user.name 'DRRUTHSEX'
         git config user.email 'drsf500@gmail.com'
-        echo "Attempting to force add files:"
-        git add -f Full_Database_Backend/src/Full_Database_Backend.db
-        git add -f Full_Database_Backend/src/Full_Database_Backend.json
+        echo "Adding database and JSON files directly..."
+        git add Full_Database_Backend/src/Full_Database_Backend.db
+        git add Full_Database_Backend/src/Full_Database_Backend.json
         echo "Files staged for commit:"
         git status
-        git commit -m "Updated database and JSON files"
+        git commit -m "Directly added database and JSON files"
         echo "Pushing to remote repository..."
         git push
       env:
