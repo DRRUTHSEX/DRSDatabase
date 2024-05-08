@@ -11,37 +11,29 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-
+      
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.9'
-
+    
     - name: Install Python Dependencies
       run: |
         pip install gspread oauth2client
-
+    
     - name: Read Google Sheet and Write to SQL Database
       env:
         SHEET_ID: ${{ secrets.SHEET_ID }}
         GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
       run: |
-        python Full_Database_Backend/src/update_sql.py
-
-    - name: Confirm File Creation and Add Files
+        python update_sql.py
+    
+    - name: Commit and Push Database Files
       run: |
-        echo "Listing files in the expected directory..."
-        ls -al Full_Database_Backend/src/
-        echo "Configuring Git identity..."
-        git config user.name 'DRRUTHSEX'
-        git config user.email 'drsf500@gmail.com'
-        echo "Adding database and JSON files directly..."
-        git add Full_Database_Backend/src/Full_Database_Backend.db
-        git add Full_Database_Backend/src/Full_Database_Backend.json
-        echo "Files staged for commit:"
-        git status
-        git commit -m "Updated database and JSON files"
-        echo "Pushing to remote repository..."
+        git config --global user.name 'DRRUTHSEX'
+        git config --global user.email 'drsf500@gmail.com'
+        git add Full_Database_Backend/Full_Database_Backend.db Full_Database_Backend/Full_Database_Backend.json  # Add both the database and the JSON file
+        git commit -m "Updated database and JSON files" -a || echo "No changes to commit."
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
