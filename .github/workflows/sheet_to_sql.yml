@@ -26,13 +26,13 @@ jobs:
         SHEET_ID: ${{ secrets.SHEET_ID }}
         GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
       run: |
-        python update_sql.py
+        python src/scripts/update_sql.py
     
     - name: Commit and Push Database Files
       run: |
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
-        git add Full_Database_Backend.db Full_Database_Backend.json  # Add both the database and the JSON file
+        git add data/Full_Database_Backend.db data/Full_Database_Backend.json  # Add both the database and the JSON file
         git commit -m "Updated database and JSON files" -a || echo "No changes to commit."
         git push
       env:
