@@ -1,5 +1,5 @@
 // Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
-fetch('../../data/Full_Database_Backend.json') // Asynchronously fetches the JSON file
+fetch('../data/Full_Database_Backend.json') // Asynchronously fetches the JSON file
     .then(response => response.json()) // Parses the JSON file
     .then(data => {
         const table = document.getElementById('data-table'); // Gets the table element by its ID
