@@ -18,7 +18,7 @@ worksheet = sheet.worksheet("Full_Database_Backend")  # Access the specific work
 data = [row + [' ']*(27 - len(row)) for row in worksheet.get('A2:AA' + str(worksheet.row_count))]
 
 # Connect to a SQLite database (or create it if it doesn't exist)
-conn = sqlite3.connect('../../data/Full_Database_Backend.db')  # Establish a connection to a SQLite database
+conn = sqlite3.connect('data/Full_Database_Backend.db')  # Establish a connection to a SQLite database
 conn.row_factory = sqlite3.Row  # Configure the connection to use row factory, allowing for dictionary-like column access
 cursor = conn.cursor()  # Create a cursor object to execute SQL commands
 
@@ -85,7 +85,7 @@ rows = cursor.fetchall()  # Fetch all the rows from the query
 data_json = [dict(ix) for ix in rows]  # Convert each row into a dictionary
 
 # Write the data to a JSON file
-with open('../../Full_Database_Backend.json', 'w', encoding='utf-8') as f:
+with open('data/Full_Database_Backend.json', 'w', encoding='utf-8') as f:
     json.dump(data_json, f, ensure_ascii=False, indent=4)  # Write JSON data to a file with UTF-8 encoding and formatted
 
 # Close the database connection
