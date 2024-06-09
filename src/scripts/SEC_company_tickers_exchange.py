@@ -34,6 +34,7 @@ async def write_to_csv(data, filename='data/SEC_company_tickers_exchange.csv'):
         await file.write(','.join(fields) + '\n')  # Write CSV header
         for row in rows:
             await file.write(','.join(str(row[field]) for field in fields) + '\n')
+    print(f"CSV file written to {filename}")
 
 async def main():
     url = 'https://www.sec.gov/files/company_tickers_exchange.json'
