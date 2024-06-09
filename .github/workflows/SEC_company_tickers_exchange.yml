@@ -20,7 +20,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install gspread requests aiohttp aiofiles
 
-      - name: Print working directory
+      - name: Print working directory before script
         run: pwd
 
       - name: List contents before running script
@@ -31,6 +31,9 @@ jobs:
           GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
           SHEET_ID: ${{ secrets.SHEET_ID }}
         run: python src/scripts/SEC_company_tickers_exchange.py
+
+      - name: Print working directory after script
+        run: pwd
 
       - name: List contents after running script
         run: ls -R
