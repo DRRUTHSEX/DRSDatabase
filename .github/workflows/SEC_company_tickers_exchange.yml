@@ -24,4 +24,4 @@ jobs:
         env:
           GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
           SHEET_ID: ${{ secrets.SHEET_ID }}
-        run: python -m SEC_company_tickers_exchange.py
+        run: python -m 'src/scripts/SEC_company_tickers_exchange.py'
