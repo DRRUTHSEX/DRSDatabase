@@ -26,7 +26,11 @@ jobs:
           SHEET_ID: ${{ secrets.SHEET_ID }}
         run: python src/scripts/SEC_company_tickers_exchange.py
 
+      - name: Verify CSV file creation
+        run: ls -l data/SEC_company_tickers_exchange.csv
+
       - name: Commit and push changes
+        if: success()
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
