@@ -1,4 +1,4 @@
-name: Sheet to SQL Database
+name: Sheet to SQL Database TEST
 
 on:
   workflow_dispatch:
