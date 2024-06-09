@@ -38,10 +38,12 @@ async def write_to_csv(data, filename='data/SEC_company_tickers_exchange.csv'):
 
 async def main():
     url = 'https://www.sec.gov/files/company_tickers_exchange.json'
+    print(f"Fetching data from {url}")
     data = await fetch_data(url)
     if data:
+        print("Data fetched successfully")
         await write_to_csv(data)
-        print("Data fetched and written to CSV successfully")
+        print("Data written to CSV successfully")
     else:
         print("Failed to fetch or write data")
 
