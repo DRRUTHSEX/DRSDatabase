@@ -27,13 +27,13 @@ jobs:
         run: python src/scripts/SEC_company_tickers_exchange.py
 
       - name: Verify CSV file creation
-        run: ls -l data/SEC_company_tickers_exchange.csv
+        run: ls -l data
 
       - name: Commit and push changes
         if: success()
         run: |
-         git config --global user.name 'DRRUTHSEX'
-         git config --global user.email 'drsf500@gmail.com'
+          git config --global user.name 'DRRUTHSEX'
+          git config --global user.email 'drsf500@gmail.com'
           git add data/SEC_company_tickers_exchange.csv
           git commit -m "Update SEC company tickers exchange data"
           git push
