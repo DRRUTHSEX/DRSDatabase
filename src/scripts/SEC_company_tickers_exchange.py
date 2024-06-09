@@ -27,8 +27,9 @@ async def fetch_data(url):
                 return None
 
 async def write_to_csv(data, filename='data/SEC_company_tickers_exchange.csv'):
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-    print(f"Directory {os.path.dirname(filename)} created or already exists.")
+    directory = os.path.dirname(filename)
+    os.makedirs(directory, exist_ok=True)
+    print(f"Directory {directory} created or already exists.")
     fields = data['fields']  # Assuming 'fields' contains column names
     rows = data['data']
     async with aiofiles.open(filename, mode='w') as file:
@@ -49,5 +50,6 @@ async def main():
         print("Failed to fetch or write data")
 
 if __name__ == "__main__":
+    print(f"Current working directory: {os.getcwd()}")
     asyncio.run(main())
     print("Script execution completed.")
