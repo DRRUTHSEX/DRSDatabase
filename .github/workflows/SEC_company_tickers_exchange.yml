@@ -1,47 +1,37 @@
-import gspread
-import requests
-import os
-import json
-import aiohttp
-import aiofiles
-import asyncio
+name: Update Google Sheet with SEC Data
 
-# Load credentials from the environment variable
-creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])
+on:
+  workflow_dispatch:  # Allows manual triggering
 
-# Authenticate with the Google Sheets API
-gc = gspread.service_account_from_dict(creds_json)
+jobs:
+  update_sheet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-# Open the Google Sheet using the provided SHEET_ID for "SEC_Company_Tickers_Exchange"
-sheet = gc.open_by_key(os.environ['SHEET_ID'])
-worksheet = sheet.worksheet("SEC_Company_Tickers_Exchange")
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
 
-async def fetch_data(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            if response.status == 200:
-                return await response.json()
-            else:
-                print(f"Error: Received status code {response.status}")
-                print("Response body:", await response.text())
-                return None
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install gspread requests aiohttp aiofiles
 
-async def write_to_csv(data, filename='data/SEC_company_tickers_exchange.csv'):
-    fields = data['fields']  # Assuming 'fields' contains column names
-    rows = data['data']
-    async with aiofiles.open(filename, mode='w') as file:
-        await file.write(','.join(fields) + '\n')  # Write CSV header
-        for row in rows:
-            await file.write(','.join(str(row[field]) for field in fields) + '\n')
+      - name: Run script to update data
+        env:
+          GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+        run: python src/scripts/SEC_company_tickers_exchange.py
 
-async def main():
-    url = 'https://www.sec.gov/files/company_tickers_exchange.json'
-    data = await fetch_data(url)
-    if data:
-        await write_to_csv(data)
-        print("Data fetched and written to CSV successfully")
-    else:
-        print("Failed to fetch or write data")
-
-if __name__ == "__main__":
-    asyncio.run(main())
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/SEC_company_tickers_exchange.csv
+          git commit -m "Update SEC company tickers exchange data"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
