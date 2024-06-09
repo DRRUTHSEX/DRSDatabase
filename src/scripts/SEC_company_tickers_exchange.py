@@ -26,7 +26,7 @@ async def fetch_data(url):
                 print("Response body:", await response.text())
                 return None
 
-async def write_to_csv(data, filename='data.csv'):
+async def write_to_csv(data, filename='data/SEC_company_tickers_exchange.csv'):
     fields = data['fields']  # Assuming 'fields' contains column names
     rows = data['data']
     async with aiofiles.open(filename, mode='w') as file:
