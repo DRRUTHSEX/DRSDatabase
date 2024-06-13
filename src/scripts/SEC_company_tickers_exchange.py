@@ -1,5 +1,6 @@
 import requests
 import os
+import time
 
 # URL of the JSON file
 url = "https://www.sec.gov/files/company_tickers_exchange.json"
@@ -11,21 +12,25 @@ os.makedirs(data_folder, exist_ok=True)
 # Path to the output file
 output_file = os.path.join(data_folder, "company_tickers_exchange.json")
 
-# Set headers to mimic a browser request
+# Set headers to mimic a browser request responsibly
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Connection": "keep-alive"
+    "User-Agent": "MyAppName/1.0 (drsf500@gmail.com)"
 }
 
+# Rate limit parameters
+max_requests_per_second = 10
+sleep_time = 1 / max_requests_per_second
+
+# Function to download the JSON file
+def download_file(url, headers, output_file):
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()  # Check that the request was successful
+    with open(output_file, "wb") as f:
+        f.write(response.content)
+    print(f"File saved to {output_file}")
+
 # Download the JSON file
-response = requests.get(url, headers=headers)
-response.raise_for_status()  # Check that the request was successful
+download_file(url, headers, output_file)
 
-# Save the JSON file
-with open(output_file, "wb") as f:
-    f.write(response.content)
-
-print(f"File saved to {output_file}")
+# Sleep to respect rate limit
+time.sleep(sleep_time)
