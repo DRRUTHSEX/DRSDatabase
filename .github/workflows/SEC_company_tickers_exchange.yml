@@ -17,16 +17,21 @@ jobs:
         python-version: '3.x'
 
     - name: Install dependencies
-      run: pip install requests
+      run: pip install requests pandas
 
     - name: Pull SEC data and update repository
       run: python src/scripts/SEC_company_tickers_exchange.py
+
+    - name: Convert JSON to CSV
+      run: python src/scripts/json_to_csv.py
+
     - name: Commit and push changes
       run: |
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
         git add data/company_tickers_exchange.json
-        git commit -m "Update SEC data"
+        git add data/company_tickers_exchange.csv
+        git commit -m "Update SEC data and CSV conversion"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
