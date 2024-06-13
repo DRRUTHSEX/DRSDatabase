@@ -17,13 +17,13 @@ jobs:
         python-version: '3.x'
 
     - name: Install dependencies
-      run: pip install requests pandas
+      run: pip install requests pandas gspread oauth2client
 
     - name: Pull SEC data and update repository
       run: python src/scripts/SEC_company_tickers_exchange.py
 
-    - name: Convert JSON to CSV
-      run: python src/scripts/json_to_csv.py
+    - name: Convert JSON to CSV and update Google Sheet
+      run: python src/scripts/json_to_csv_and_update_sheet.py
 
     - name: Commit and push changes
       run: |
@@ -35,3 +35,5 @@ jobs:
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
+        SHEET_ID: ${{ secrets.SHEET_ID }}
