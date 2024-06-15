@@ -31,13 +31,21 @@ jobs:
         GOOGLE_API_KEYS: ${{ secrets.GOOGLE_API_KEYS }}
       run: python src/scripts/update_google_sheet.py
 
+    - name: Verify changes
+      run: |
+        echo "Checking for changes in data files..."
+        git status
+
     - name: Commit and push changes
       run: |
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
-        git add data/company_tickers_exchange.json
-        git add data/company_tickers_exchange.csv
-        git commit -m "Update SEC data and CSV conversion"
-        git push
+        git add data/company_tickers_exchange.json data/company_tickers_exchange.csv
+        if git diff-index --quiet HEAD; then
+          echo "No changes to commit."
+        else
+          git commit -m "Update SEC data and CSV conversion"
+          git push
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
