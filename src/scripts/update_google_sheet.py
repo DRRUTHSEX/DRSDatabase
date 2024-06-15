@@ -16,6 +16,9 @@ sheet = gc.open_by_key(os.environ['SHEET_ID'])  # Open the spreadsheet using the
 csv_file_path = 'data/company_tickers_exchange.csv'
 df = pd.read_csv(csv_file_path)
 
+# Replace NaN values with empty strings
+df = df.fillna('')
+
 # Select the worksheet to update
 worksheet = sheet.worksheet("SEC_Company_Tickers_Exchange")
 
@@ -28,6 +31,6 @@ header = df.columns.tolist()
 data.insert(0, header)  # Add header to the data
 
 # Update the worksheet with new data
-worksheet.update('A1', data)
+worksheet.update(range_name='A1', values=data)
 
 print("Google Sheet updated successfully.")
