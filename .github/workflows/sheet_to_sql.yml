@@ -2,7 +2,7 @@ name: Sheet to SQL Database
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs at the start of every hour
+    - cron: '0 */2 * * *'  # Runs at the start of every hour
   workflow_dispatch:
 
 jobs:
