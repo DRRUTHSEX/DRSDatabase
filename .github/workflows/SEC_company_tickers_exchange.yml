@@ -2,7 +2,7 @@ name: Update SEC Data
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Runs every Sunday at midnight
+    - cron: '0 0 * * *'  # Runs every Sunday at midnight
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
@@ -43,11 +43,7 @@ jobs:
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
         git add data/company_tickers_exchange.json data/company_tickers_exchange.csv
-        if git diff-index --quiet HEAD; then
-          echo "No changes to commit."
-        else
-          git commit -m "Update SEC data and CSV conversion"
-          git push
-        fi
+        git commit -m "Update SEC data and CSV conversion"
+        git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
