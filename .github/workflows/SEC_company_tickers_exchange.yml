@@ -2,7 +2,7 @@ name: Update SEC Data
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs every Sunday at midnight
+    - cron: '0 0 * * *'  # Runs every day at midnight
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
