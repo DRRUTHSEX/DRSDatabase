@@ -1,4 +1,4 @@
-name: Run Change Primary Key Script
+name: Change Primary Key Script
 
 on:
 
