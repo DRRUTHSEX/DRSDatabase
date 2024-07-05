@@ -1,7 +1,6 @@
 name: Change Primary Key Script
 
 on:
-
   workflow_dispatch:
 
 jobs:
@@ -16,9 +15,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
-
-    - name: Install dependencies
-      run: pip install sqlite3
 
     - name: Run change_primary_key_to_cik.py script
       run: python src/scripts/change_primary_key_to_cik.py
