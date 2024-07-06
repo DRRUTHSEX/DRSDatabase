@@ -29,8 +29,15 @@ df_db = pd.read_sql_query(query, conn)
 existing_data = worksheet.get_all_records(head=1)
 df_sheet = pd.DataFrame(existing_data)
 
+# Debug: Print columns of df_db and df_sheet
+print("Columns in df_db:", df_db.columns)
+print("Columns in df_sheet:", df_sheet.columns)
+
 # Merge the data
 df_merged = pd.merge(df_sheet, df_db, on=['Ticker'], how='outer', suffixes=('_sheet', '_db'))
+
+# Debug: Print columns of the merged DataFrame
+print("Columns in merged DataFrame:", df_merged.columns)
 
 # Update the columns with new data from the database
 df_merged['Exchange'] = df_merged['Exchange_db'].combine_first(df_merged['Exchange_sheet'])
