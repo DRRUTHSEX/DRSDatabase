@@ -29,8 +29,11 @@ df_db = pd.read_sql_query(query, conn)
 existing_data = worksheet.get_all_records(head=1)
 df_sheet = pd.DataFrame(existing_data)
 
+# Select only the first 27 columns
+df_sheet = df_sheet.iloc[:, :27]
+
 # Set the column names of df_sheet to match those in df_db
-df_sheet.columns = ['Ticker', 'Exchange', 'CompanyNameIssuer', 'CUSIP']
+df_sheet.columns = ['Ticker', 'Exchange', 'CompanyNameIssuer', 'CUSIP'] + [f'Column{i}' for i in range(5, 28)]
 
 # Debug: Print columns of df_db and df_sheet
 print("Columns in df_db:", df_db.columns)
