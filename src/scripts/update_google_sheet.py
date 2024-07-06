@@ -53,6 +53,9 @@ df_merged['CUSIP'] = df_merged['CUSIP_db'].combine_first(df_merged['CUSIP_sheet'
 # Drop the suffix columns
 df_merged.drop(columns=[col for col in df_merged.columns if col.endswith('_sheet') or col.endswith('_db')], inplace=True)
 
+# Replace NaN values with empty strings
+df_merged.fillna('', inplace=True)
+
 # Convert DataFrame to a list of lists for uploading to Google Sheets
 update_data = df_merged[['Ticker', 'Exchange', 'CompanyNameIssuer', 'CUSIP']].values.tolist()
 
