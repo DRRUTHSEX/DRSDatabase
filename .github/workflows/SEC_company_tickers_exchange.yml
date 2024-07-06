@@ -24,6 +24,9 @@ jobs:
     - name: Pull SEC data and update repository
       run: python src/scripts/SEC_company_tickers_exchange.py
 
+    - name: Update Database from JSON
+      run: python src/scripts/update_db_from_json.py
+
     - name: Update Google Sheet
       env:
         SHEET_ID: ${{ secrets.SHEET_ID }}
@@ -39,8 +42,8 @@ jobs:
       run: |
         git config --global user.name 'DRRUTHSEX'
         git config --global user.email 'drsf500@gmail.com'
-        git add data/company_tickers_exchange.json data/company_tickers_exchange.csv
-        git commit -m "Update SEC data and CSV conversion"
+        git add data/company_tickers_exchange.json
+        git commit -m "Update SEC data and push to Google Sheets
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
