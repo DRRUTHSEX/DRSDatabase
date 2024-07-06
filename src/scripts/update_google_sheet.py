@@ -33,9 +33,12 @@ df_sheet = pd.DataFrame(existing_data)
 df_merged = pd.merge(df_sheet, df_db, on=['Ticker'], how='outer', suffixes=('_sheet', '_db'))
 
 # Update the columns with new data from the database
-df_merged['Exchange'] = df_merged['Exchange_db'].combine_first(df_merged['Exchange_sheet'])
-df_merged['CompanyNameIssuer'] = df_merged['CompanyNameIssuer_db'].combine_first(df_merged['CompanyNameIssuer_sheet'])
-df_merged['CUSIP'] = df_merged['CUSIP_db'].combine_first(df_merged['CUSIP_sheet'])
+if 'Exchange_db' in df_merged.columns and 'Exchange_sheet' in df_merged.columns:
+    df_merged['Exchange'] = df_merged['Exchange_db'].combine_first(df_merged['Exchange_sheet'])
+if 'CompanyNameIssuer_db' in df_merged.columns and 'CompanyNameIssuer_sheet' in df_merged.columns:
+    df_merged['CompanyNameIssuer'] = df_merged['CompanyNameIssuer_db'].combine_first(df_merged['CompanyNameIssuer_sheet'])
+if 'CUSIP_db' in df_merged.columns and 'CUSIP_sheet' in df_merged.columns:
+    df_merged['CUSIP'] = df_merged['CUSIP_db'].combine_first(df_merged['CUSIP_sheet'])
 
 # Drop the suffix columns
 df_merged.drop(columns=[col for col in df_merged.columns if col.endswith('_sheet') or col.endswith('_db')], inplace=True)
