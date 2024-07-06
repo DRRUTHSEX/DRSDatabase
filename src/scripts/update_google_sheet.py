@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import json
 import sqlite3
+import numpy as np
 
 # Load credentials from the environment variable
 creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])  # Parse JSON credentials from an environment variable
@@ -68,8 +69,8 @@ df_merged.sort_values(by='Ticker', inplace=True)
 columns_order = ['Ticker', 'Exchange', 'CompanyNameIssuer', 'CUSIP'] + [f'Column{i}' for i in range(5, 19)] + ['CIK'] + [f'Column{i}' for i in range(20, 28)]
 df_merged = df_merged[columns_order]
 
-# Replace NaN values with empty strings
-df_merged.fillna('', inplace=True)
+# Replace NaN and inf values with empty strings
+df_merged.replace([np.nan, np.inf, -np.inf], '', inplace=True)
 
 # Convert DataFrame to a list of lists for uploading to Google Sheets
 update_data = df_merged.values.tolist()
