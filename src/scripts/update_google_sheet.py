@@ -16,8 +16,15 @@ sheet = gc.open_by_key(os.environ['SHEET_ID'])  # Open the spreadsheet using the
 # Select the worksheet to update
 worksheet = sheet.worksheet("Test")
 
+# Debug: Print the current working directory
+print("Current working directory:", os.getcwd())
+
+# Debug: Check if the database file exists
+db_file_path = 'data/test/Full_Database_Backend.db'
+if not os.path.exists(db_file_path):
+    raise FileNotFoundError(f"Database file not found: {db_file_path}")
+
 # Connect to the SQLite database
-db_file_path = 'data/data/Full_Database_Backend.db'
 conn = sqlite3.connect(db_file_path)
 cursor = conn.cursor()
 
