@@ -17,7 +17,7 @@ sheet = gc.open_by_key(os.environ['SHEET_ID'])  # Open the spreadsheet using the
 worksheet = sheet.worksheet("Test")
 
 # Connect to the SQLite database
-db_file_path = 'data/Full_Database_Backend.db'
+db_file_path = 'data/test/Full_Database_Backend.db'
 conn = sqlite3.connect(db_file_path)
 cursor = conn.cursor()
 
