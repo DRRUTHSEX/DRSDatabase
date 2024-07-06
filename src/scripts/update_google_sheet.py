@@ -25,8 +25,8 @@ cursor = conn.cursor()
 query = "SELECT Ticker, Exchange, CompanyNameIssuer, CUSIP FROM full_database_backend"
 df_db = pd.read_sql_query(query, conn)
 
-# Read existing data from the Google Sheet
-existing_data = worksheet.get_all_records()
+# Read existing data from the Google Sheet, starting from the second row
+existing_data = worksheet.get_all_records(head=1)
 df_sheet = pd.DataFrame(existing_data)
 
 # Merge the data
