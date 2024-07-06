@@ -29,6 +29,9 @@ df_db = pd.read_sql_query(query, conn)
 existing_data = worksheet.get_all_records(head=1)
 df_sheet = pd.DataFrame(existing_data)
 
+# Set the column names of df_sheet to match those in df_db
+df_sheet.columns = ['Ticker', 'Exchange', 'CompanyNameIssuer', 'CUSIP']
+
 # Debug: Print columns of df_db and df_sheet
 print("Columns in df_db:", df_db.columns)
 print("Columns in df_sheet:", df_sheet.columns)
