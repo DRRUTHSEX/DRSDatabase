@@ -33,27 +33,36 @@ df_sheet = pd.DataFrame(existing_data)
 df_merged = pd.merge(df_sheet, df_db, on=['Ticker'], how='outer', suffixes=('_sheet', '_db'))
 
 # Update the columns with new data from the database
-if 'Exchange_db' in df_merged.columns and 'Exchange_sheet' in df_merged.columns:
-    df_merged['Exchange'] = df_merged['Exchange_db'].combine_first(df_merged['Exchange_sheet'])
-if 'CompanyNameIssuer_db' in df_merged.columns and 'CompanyNameIssuer_sheet' in df_merged.columns:
-    df_merged['CompanyNameIssuer'] = df_merged['CompanyNameIssuer_db'].combine_first(df_merged['CompanyNameIssuer_sheet'])
-if 'CUSIP_db' in df_merged.columns and 'CUSIP_sheet' in df_merged.columns:
-    df_merged['CUSIP'] = df_merged['CUSIP_db'].combine_first(df_merged['CUSIP_sheet'])
+df_merged['Exchange'] = df_merged['Exchange_db'].combine_first(df_merged['Exchange_sheet'])
+df_merged['CompanyNameIssuer'] = df_merged['CompanyNameIssuer_db'].combine_first(df_merged['CompanyNameIssuer_sheet'])
+df_merged['CUSIP'] = df_merged['CUSIP_db'].combine_first(df_merged['CUSIP_sheet'])
 
 # Drop the suffix columns
 df_merged.drop(columns=[col for col in df_merged.columns if col.endswith('_sheet') or col.endswith('_db')], inplace=True)
 
-# Prepare the data to update only the specific columns
+# Convert DataFrame to a list of lists for uploading to Google Sheets
 update_data = df_merged[['Ticker', 'Exchange', 'CompanyNameIssuer', 'CUSIP']].values.tolist()
 
-# Update the worksheet with new data for specific columns
-for row in update_data:
-    cell_list = worksheet.findall(row[0])  # Find all cells with the Ticker value
-    for cell in cell_list:
-        row_number = cell.row
-        worksheet.update_cell(row_number, 1, row[0])  # Update Ticker column (1st column)
-        worksheet.update_cell(row_number, 2, row[1])  # Update Exchange column (2nd column)
-        worksheet.update_cell(row_number, 3, row[2])  # Update Company Name/Issuer column (3rd column)
-        worksheet.update_cell(row_number, 19, row[3])  # Update CUSIP column (19th column)
+# Find current tickers in the sheet to determine which rows to update or append
+current_tickers = {row['Ticker']: idx+2 for idx, row in enumerate(existing_data)}  # +2 because Sheets are 1-indexed and there is a header row
+
+# Prepare batch update data
+cells_to_update = []
+rows_to_append = []
+for data_row in update_data:
+    ticker = data_row[0]
+    if ticker in current_tickers:
+        row_index = current_tickers[ticker]
+        # Create a list of gspread Cell objects with the correct row, column, and value to update
+        for col_index, value in enumerate(data_row, start=1):  # Sheet columns start at 1
+            cells_to_update.append(gspread.Cell(row_index, col_index, value))
+    else:
+        rows_to_append.append(data_row)
+
+# Perform batch update and append operations
+if cells_to_update:
+    worksheet.update_cells(cells_to_update, value_input_option='RAW')
+if rows_to_append:
+    worksheet.append_rows(rows_to_append, value_input_option='RAW')
 
 print("Google Sheet updated successfully.")
