@@ -24,9 +24,6 @@ jobs:
     - name: Pull SEC data and update repository
       run: python src/scripts/SEC_company_tickers_exchange.py
 
-    - name: Convert JSON to CSV
-      run: python src/scripts/json_to_csv.py
-
     - name: Update Google Sheet
       env:
         SHEET_ID: ${{ secrets.SHEET_ID }}
