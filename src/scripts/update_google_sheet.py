@@ -33,8 +33,9 @@ df_db = df_db.replace([pd.NA, pd.NaT, float('inf'), -float('inf'), None], '', in
 current_data = worksheet.get_all_values()
 current_tickers = {row[0]: idx for idx, row in enumerate(current_data) if row[0]}  # Create a dictionary of current tickers and their row indices
 
-# Prepare updates for specified columns
+# Prepare updates for specified columns and new rows to append
 updates = []
+new_rows = []
 for index, row in df_db.iterrows():
     if row['Ticker'] in current_tickers:
         # Prepare the cell updates
@@ -43,9 +44,17 @@ for index, row in df_db.iterrows():
         updates.append(gspread.Cell(row_idx + 1, 2, row['Exchange']))  # Column 2: Exchange
         updates.append(gspread.Cell(row_idx + 1, 3, row['CompanyNameIssuer']))  # Column 3: CompanyNameIssuer
         updates.append(gspread.Cell(row_idx + 1, 19, row['CIK']))  # Column 19: CIK
+    else:
+        # Append new row if ticker not found
+        new_row = [row['Ticker'], row['Exchange'], row['CompanyNameIssuer']] + [''] * 15 + [row['CIK']] + [''] * (worksheet.col_count - 20)
+        new_rows.append(new_row)
 
 # Batch update the cells in Google Sheet
 if updates:
     worksheet.update_cells(updates, value_input_option='USER_ENTERED')
 
-print("Selected columns in Google Sheet updated successfully.")
+# Append new rows to the Google Sheet
+if new_rows:
+    worksheet.append_rows(new_rows, value_input_option='USER_ENTERED')
+
+print("Selected columns in Google Sheet updated and new rows added successfully.")
