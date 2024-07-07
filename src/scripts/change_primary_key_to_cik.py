@@ -1,6 +1,6 @@
 import sqlite3
 
-db_file_path = 'data/test/Full_Database_Backend.db'
+db_file_path = 'data/Full_Database_Backend.db'
 
 # Connect to the SQLite database
 conn = sqlite3.connect(db_file_path)
