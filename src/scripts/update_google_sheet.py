@@ -43,8 +43,9 @@ df_merged.drop(columns=[col for col in df_merged.columns if '_db' in col], inpla
 # Convert DataFrame to a list of lists for uploading to Google Sheets
 update_data = [df_merged.columns.tolist()] + df_merged.values.tolist()  # Include headers for clarity
 
-# Ensure there are no NaN values before updating the sheet
-assert not df_merged.isnull().values.any(), "Data contains NaN values"
+# Check for NaN values in df_merged and log which columns contain NaN
+nan_columns = df_merged.columns[df_merged.isna().any()].tolist()
+assert not df_merged.isna().any().any(), f"Data contains NaN values in columns: {nan_columns}"
 
 # Update the Google Sheet with the merged data
 worksheet.update(update_data, value_input_option='USER_ENTERED')  # Update with 'USER_ENTERED' to ensure proper data formatting
