@@ -14,7 +14,7 @@ gc = gspread.service_account_from_dict(creds_json)  # Use credentials to authent
 sheet = gc.open_by_key(os.environ['SHEET_ID'])  # Open the spreadsheet using the SHEET_ID from environment variables
 
 # Select the worksheet to update
-worksheet = sheet.worksheet("Test")  # Specify the worksheet name within the spreadsheet to work with
+worksheet = sheet.worksheet("Full_Database_Backend")  # Specify the worksheet name within the spreadsheet to work with
 
 # Connect to the SQLite database
 db_file_path = 'data/Full_Database_Backend.db'  # Define the path to the database file
