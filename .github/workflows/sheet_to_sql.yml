@@ -5,6 +5,9 @@ on:
     - cron: '0 */2 * * *'  # Runs every other hour
   workflow_dispatch:
 
+concurrency: 
+  group: database-update
+
 jobs:
   update_database:
     runs-on: ubuntu-latest
