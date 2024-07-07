@@ -5,6 +5,9 @@ on:
     - cron: '0 0 * * *'  # Runs every day at midnight
   workflow_dispatch:  # Allows manual triggering
 
+concurrency: 
+  group: database-update
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
