@@ -30,9 +30,9 @@ df_db = pd.read_sql_query(query, conn)  # Execute the SQL query and store the re
 existing_data = worksheet.get_all_records()  # Fetch all records from the sheet
 df_sheet = pd.DataFrame(existing_data).iloc[:, :27]  # Convert the records into a pandas DataFrame and limit to the first 27 columns
 
-# Replace NaN and infinite values with empty strings throughout the entire DataFrame
-df_db = df_db.replace([pd.NA, pd.NaT, float('inf'), -float('inf'), None], '', inplace=False).fillna('')
-df_sheet = df_sheet.replace([pd.NA, pd.NaT, float('inf'), -float('inf'), None], '', inplace=False).fillna('')
+# Convert all columns to string and replace problematic values
+df_db = df_db.astype(str).replace(['nan', 'None', 'NaN', 'inf', '-inf'], '')
+df_sheet = df_sheet.astype(str).replace(['nan', 'None', 'NaN', 'inf', '-inf'], '')
 
 # Merge the data from the database into the sheet's DataFrame
 df_merged = pd.merge(df_sheet, df_db, on='Ticker', how='outer', suffixes=('', '_db'))  # Merge with a left join to append new entries
@@ -43,9 +43,8 @@ df_merged.drop(columns=[col for col in df_merged.columns if '_db' in col], inpla
 # Convert DataFrame to a list of lists for uploading to Google Sheets
 update_data = [df_merged.columns.tolist()] + df_merged.values.tolist()  # Include headers for clarity
 
-# Check for NaN values in df_merged and log which columns contain NaN
-nan_columns = df_merged.columns[df_merged.isna().any()].tolist()
-assert not df_merged.isna().any().any(), f"Data contains NaN values in columns: {nan_columns}"
+# Ensure there are no NaN values before updating the sheet
+assert not df_merged.isna().any().any(), "Data contains NaN values in columns: " + str(df_merged.columns[df_merged.isna().any()].tolist())
 
 # Update the Google Sheet with the merged data
 worksheet.update(update_data, value_input_option='USER_ENTERED')  # Update with 'USER_ENTERED' to ensure proper data formatting
