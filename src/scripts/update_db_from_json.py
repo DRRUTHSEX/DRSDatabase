@@ -5,7 +5,7 @@ import sqlite3
 
 # Path to the JSON file
 json_file_path = 'data/company_tickers_exchange.json'
-db_file_path = 'data/test/Full_Database_Backend.db'
+db_file_path = 'data/Full_Database_Backend.db'
 
 # Read the JSON file
 with open(json_file_path, 'r') as json_file:
