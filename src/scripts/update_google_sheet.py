@@ -23,33 +23,29 @@ if not os.path.exists(db_file_path):
 conn = sqlite3.connect(db_file_path)  # Open a connection to the SQLite database
 
 # Read data from the database
-query = "SELECT * FROM full_database_backend"  # Assuming 'full_database_backend' has all required columns
+query = "SELECT Ticker, Exchange, CompanyNameIssuer, CIK FROM full_database_backend"  # Adjusted to fetch only the required columns
 df_db = pd.read_sql_query(query, conn)  # Execute the SQL query and store the results in a pandas DataFrame
 
-# Read existing data from the Google Sheet, considering only the first 27 columns
-existing_data = worksheet.get_all_records()  # Fetch all records from the sheet
-df_sheet = pd.DataFrame(existing_data).iloc[:, :27]  # Convert the records into a pandas DataFrame and limit to the first 27 columns
+# Replace NaN and infinite values with empty strings
+df_db = df_db.replace([pd.NA, pd.NaT, float('inf'), -float('inf'), None], '', inplace=False).fillna('')
 
-# Convert all columns to string and replace problematic values
-df_db = df_db.astype(str).replace(['nan', 'None', 'NaN', 'inf', '-inf'], '')
-df_sheet = df_sheet.astype(str).replace(['nan', 'None', 'NaN', 'inf', '-inf'], '')
+# Fetch current data from Google Sheet to find out the range to update
+current_data = worksheet.get_all_values()
+current_tickers = {row[0]: idx for idx, row in enumerate(current_data) if row[0]}  # Create a dictionary of current tickers and their row indices
 
-# Merge the data from the database into the sheet's DataFrame
-df_merged = pd.merge(df_sheet, df_db, on='Ticker', how='outer', suffixes=('', '_db'))  # Merge with a left join to append new entries
+# Prepare updates for specified columns
+updates = []
+for index, row in df_db.iterrows():
+    if row['Ticker'] in current_tickers:
+        # Prepare the cell updates
+        row_idx = current_tickers[row['Ticker']]
+        updates.append(gspread.Cell(row_idx + 1, 1, row['Ticker']))  # Column 1: Ticker
+        updates.append(gspread.Cell(row_idx + 1, 2, row['Exchange']))  # Column 2: Exchange
+        updates.append(gspread.Cell(row_idx + 1, 3, row['CompanyNameIssuer']))  # Column 3: CompanyNameIssuer
+        updates.append(gspread.Cell(row_idx + 1, 19, row['CIK']))  # Column 19: CIK
 
-# Drop the duplicate columns from the merge (those with '_db' suffix)
-df_merged.drop(columns=[col for col in df_merged.columns if '_db' in col], inplace=True)
+# Batch update the cells in Google Sheet
+if updates:
+    worksheet.update_cells(updates, value_input_option='USER_ENTERED')
 
-# Convert DataFrame to a list of lists for uploading to Google Sheets
-update_data = [df_merged.columns.tolist()] + df_merged.values.tolist()  # Include headers for clarity
-
-# Ensure there are no NaN values before updating the sheet
-assert not df_merged.isna().any().any(), "Data contains NaN values in columns: " + str(df_merged.columns[df_merged.isna().any()].tolist())
-
-# Update the Google Sheet with the merged data
-worksheet.update(update_data, value_input_option='USER_ENTERED')  # Update with 'USER_ENTERED' to ensure proper data formatting
-
-# Sort the Google Sheet by 'Ticker' column (A) in alphabetical order
-worksheet.sort((1, 'asc'))  # Sort the worksheet by the 'Ticker' column
-
-print("Google Sheet updated and sorted successfully.")  # Output success message
+print("Selected columns in Google Sheet updated successfully.")
