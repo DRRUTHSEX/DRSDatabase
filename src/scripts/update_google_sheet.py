@@ -3,7 +3,6 @@ import pandas as pd
 import os
 import json
 import sqlite3
-import numpy as np
 
 # Load credentials from the environment variable
 creds_json = json.loads(os.environ['GOOGLE_API_KEYS'])  # Parse JSON credentials from an environment variable
@@ -30,7 +29,7 @@ conn = sqlite3.connect(db_file_path)
 cursor = conn.cursor()
 
 # Read data from the database
-query = "SELECT Ticker, Exchange, CompanyNameIssuer, CUSIP, CIK FROM full_database_backend"
+query = "SELECT Ticker, Exchange, CompanyNameIssuer, CIK FROM full_database_backend"
 df_db = pd.read_sql_query(query, conn)
 
 # Read existing data from the Google Sheet, starting from the second row
@@ -41,7 +40,7 @@ df_sheet = pd.DataFrame(existing_data)
 df_sheet = df_sheet.iloc[:, :27]
 
 # Set the column names of df_sheet to match those in df_db
-df_sheet.columns = ['Ticker', 'Exchange', 'CompanyNameIssuer', 'CUSIP'] + [f'Column{i}' for i in range(5, 19)] + ['CIK'] + [f'Column{i}' for i in range(20, 28)]
+df_sheet.columns = ['Ticker', 'Exchange', 'CompanyNameIssuer', 'CIK'] + [f'Column{i}' for i in range(5, 19)] + ['CIK'] + [f'Column{i}' for i in range(20, 28)]
 
 # Debug: Print columns of df_db and df_sheet
 print("Columns in df_db:", df_db.columns)
@@ -54,9 +53,9 @@ df_merged = pd.merge(df_sheet, df_db, on=['Ticker'], how='outer', suffixes=('_sh
 print("Columns in merged DataFrame:", df_merged.columns)
 
 # Update the columns with new data from the database
+df_merged['Ticker'] = df_merged['Ticker_db'].combine_first(df_merged['Ticker_sheet'])
 df_merged['Exchange'] = df_merged['Exchange_db'].combine_first(df_merged['Exchange_sheet'])
 df_merged['CompanyNameIssuer'] = df_merged['CompanyNameIssuer_db'].combine_first(df_merged['CompanyNameIssuer_sheet'])
-df_merged['CUSIP'] = df_merged['CUSIP_db'].combine_first(df_merged['CUSIP_sheet'])
 df_merged['CIK'] = df_merged['CIK_db'].combine_first(df_merged['CIK_sheet'])
 
 # Drop the suffix columns
@@ -69,8 +68,8 @@ df_merged.sort_values(by='Ticker', inplace=True)
 columns_order = ['Ticker', 'Exchange', 'CompanyNameIssuer', 'CUSIP'] + [f'Column{i}' for i in range(5, 19)] + ['CIK'] + [f'Column{i}' for i in range(20, 28)]
 df_merged = df_merged[columns_order]
 
-# Replace NaN and inf values with empty strings
-df_merged.replace([np.nan, np.inf, -np.inf], '', inplace=True)
+# Replace NaN values with empty strings
+df_merged.fillna('', inplace=True)
 
 # Convert DataFrame to a list of lists for uploading to Google Sheets
 update_data = df_merged.values.tolist()
@@ -97,4 +96,7 @@ if cells_to_update:
 if rows_to_append:
     worksheet.append_rows(rows_to_append, value_input_option='RAW')
 
-print("Google Sheet updated successfully.")
+# Sort the Google Sheet by 'Ticker' column (A) in alphabetical order
+worksheet.sort((1, 'asc'))
+
+print("Google Sheet updated and sorted successfully.")
