@@ -55,6 +55,13 @@ if updates:
 
 # Append new rows to the Google Sheet
 if new_rows:
+    start_row = len(current_data) + 1  # Calculate starting row for new data
     worksheet.append_rows(new_rows, value_input_option='USER_ENTERED')
+    # Clear the background color for new rows
+    end_row = start_row + len(new_rows) - 1
+    range_format = f'A{start_row}:Z{end_row}'  # Adjust the column range as per your sheet's width
+    worksheet.format(range_format, {
+        "backgroundColor": {}  # Setting to an empty object clears the format
+    })
 
 print("Selected columns in Google Sheet updated and new rows added successfully.")
