@@ -30,9 +30,9 @@ df_db = pd.read_sql_query(query, conn)  # Execute the SQL query and store the re
 existing_data = worksheet.get_all_records()  # Fetch all records from the sheet
 df_sheet = pd.DataFrame(existing_data).iloc[:, :27]  # Convert the records into a pandas DataFrame and limit to the first 27 columns
 
-# Fill NaN values with empty strings to avoid JSON errors
-df_db.fillna('', inplace=True)
-df_sheet.fillna('', inplace=True)
+# Replace NaN and infinite values with empty strings
+df_db.replace([float('inf'), -float('inf'), pd.NA, pd.NaT], '', inplace=True)
+df_sheet.replace([float('inf'), -float('inf'), pd.NA, pd.NaT], '', inplace=True)
 
 # Merge the data from the database into the sheet's DataFrame
 df_merged = pd.merge(df_sheet, df_db, on='Ticker', how='outer', suffixes=('', '_db'))  # Merge with a left join to append new entries
@@ -41,7 +41,7 @@ df_merged = pd.merge(df_sheet, df_db, on='Ticker', how='outer', suffixes=('', '_
 df_merged.drop(columns=[col for col in df_merged.columns if '_db' in col], inplace=True)
 
 # Convert DataFrame to a list of lists for uploading to Google Sheets
-update_data = [df_merged.columns.tolist()] + df_merged.fillna('').values.tolist()  # Replace NaN with empty strings for JSON compatibility
+update_data = [df_merged.columns.tolist()] + df_merged.values.tolist()  # Include headers for clarity
 
 # Update the Google Sheet with the merged data
 worksheet.update(update_data, value_input_option='USER_ENTERED')  # Update with 'USER_ENTERED' to ensure proper data formatting
