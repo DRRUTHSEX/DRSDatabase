@@ -23,28 +23,28 @@ if not os.path.exists(db_file_path):
 conn = sqlite3.connect(db_file_path)  # Open a connection to the SQLite database
 
 # Read data from the database
-query = "SELECT Ticker, Exchange, CompanyNameIssuer, CIK FROM full_database_backend"
+query = "SELECT * FROM full_database_backend"  # Assuming 'full_database_backend' has all required columns
 df_db = pd.read_sql_query(query, conn)  # Execute the SQL query and store the results in a pandas DataFrame
 
-# Read existing data from the Google Sheet, starting from the second row
-existing_data = worksheet.get_all_records(head=1)  # Fetch all records from the sheet, skipping the header
-df_sheet = pd.DataFrame(existing_data, columns=['Ticker', 'Exchange', 'CompanyNameIssuer', 'CIK'])  # Convert the records into a pandas DataFrame with specific columns
+# Read existing data from the Google Sheet, considering only the first 27 columns
+existing_data = worksheet.get_all_records()  # Fetch all records from the sheet
+df_sheet = pd.DataFrame(existing_data).iloc[:, :27]  # Convert the records into a pandas DataFrame and limit to the first 27 columns
+
+# Fill NaN values with empty strings to avoid JSON errors
+df_db.fillna('', inplace=True)
+df_sheet.fillna('', inplace=True)
 
 # Merge the data from the database into the sheet's DataFrame
-df_merged = pd.merge(df_sheet, df_db, on='Ticker', how='left', suffixes=('_sheet', '_db'))
+df_merged = pd.merge(df_sheet, df_db, on='Ticker', how='outer', suffixes=('', '_db'))  # Merge with a left join to append new entries
 
-# Update the merged DataFrame with prioritized database values for specified columns
-for col in ['Exchange', 'CompanyNameIssuer', 'CIK']:
-    df_merged[col] = df_merged[col + '_db'].combine_first(df_merged[col + '_sheet'])
-
-# Clean up the DataFrame by removing any extra columns
-df_merged = df_merged[['Ticker', 'Exchange', 'CompanyNameIssuer', 'CIK']]
+# Drop the duplicate columns from the merge (those with '_db' suffix)
+df_merged.drop(columns=[col for col in df_merged.columns if '_db' in col], inplace=True)
 
 # Convert DataFrame to a list of lists for uploading to Google Sheets
-update_data = df_merged.values.tolist()
+update_data = [df_merged.columns.tolist()] + df_merged.fillna('').values.tolist()  # Replace NaN with empty strings for JSON compatibility
 
-# Update the entire sheet with new data (considering only the relevant columns)
-worksheet.update([df_merged.columns.values.tolist()] + update_data, value_input_option='USER_ENTERED')
+# Update the Google Sheet with the merged data
+worksheet.update(update_data, value_input_option='USER_ENTERED')  # Update with 'USER_ENTERED' to ensure proper data formatting
 
 # Sort the Google Sheet by 'Ticker' column (A) in alphabetical order
 worksheet.sort((1, 'asc'))  # Sort the worksheet by the 'Ticker' column
