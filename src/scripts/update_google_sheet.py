@@ -30,9 +30,11 @@ df_db = pd.read_sql_query(query, conn)  # Execute the SQL query and store the re
 existing_data = worksheet.get_all_records()  # Fetch all records from the sheet
 df_sheet = pd.DataFrame(existing_data).iloc[:, :27]  # Convert the records into a pandas DataFrame and limit to the first 27 columns
 
-# Replace NaN and infinite values with empty strings
+# Ensure all float infinity and NaN are replaced with a neutral value like None or an empty string
 df_db.replace([float('inf'), -float('inf'), pd.NA, pd.NaT], '', inplace=True)
+df_db.fillna('', inplace=True)
 df_sheet.replace([float('inf'), -float('inf'), pd.NA, pd.NaT], '', inplace=True)
+df_sheet.fillna('', inplace=True)
 
 # Merge the data from the database into the sheet's DataFrame
 df_merged = pd.merge(df_sheet, df_db, on='Ticker', how='outer', suffixes=('', '_db'))  # Merge with a left join to append new entries
