@@ -1,8 +1,8 @@
 name: Sheet to SQL Database
 
 on:
-  schedule:
-    - cron: '0 0 * * *'  # Runs every day at midnight
+#  schedule:
+#    - cron: '0 0 * * *'  # Runs every day at midnight
   workflow_dispatch:
 
 concurrency: 
