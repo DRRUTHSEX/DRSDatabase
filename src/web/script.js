@@ -6,12 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Show the loading bar
     loadingBar.style.display = 'block';
 
-    // Function to update the loading bar
-    function updateLoadingBar(percentage) {
-        loadingBar.style.width = percentage + '%';
-        loadingBar.textContent = 'Loading... ' + percentage + '%';
-    }
-
     // Function to fetch and load data
     function loadData() {
         fetch('/data/Full_Database_Backend.json') // Asynchronously fetches the JSON file
@@ -34,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 table.tHead.appendChild(headerRow); // Appends the new header row to the table header
 
                 // Create the table body rows
-                data.forEach((rowData, index) => {
+                data.forEach(rowData => {
                     const row = document.createElement('tr'); // Creates a table row
                     Object.values(rowData).forEach(cellData => {
                         const cell = document.createElement('td'); // Creates a table cell
@@ -42,10 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         row.appendChild(cell); // Appends the cell to the row
                     });
                     table.tBodies[0].appendChild(row); // Appends the row to the table body
-
-                    // Update the loading bar
-                    const percentage = Math.round(((index + 1) / data.length) * 100);
-                    updateLoadingBar(percentage);
                 });
 
                 // Initialize DataTables
