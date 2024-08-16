@@ -40,11 +40,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Initialize DataTables
                 $(document).ready( function () {
-                    $('#data-table').DataTable(); // Initializes the DataTables plugin on the table
+                    $('#data-table').DataTable({
+                        "initComplete": function(settings, json) {
+                            // Hide the loading bar after DataTables initialization is complete
+                            loadingBar.style.display = 'none';
+                        }
+                    });
                 });
-
-                // Hide the loading bar
-                loadingBar.style.display = 'none';
             })
             .catch(error => {
                 console.error('Error loading the data:', error); // Logs any errors to the console
