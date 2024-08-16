@@ -1,12 +1,16 @@
 // Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
 document.addEventListener("DOMContentLoaded", function() {
     const loadingBar = document.getElementById('loading-bar');
-    const loadingPercentage = document.getElementById('loading-percentage');
-    const progressBar = document.getElementById('progress-bar');
     const dataTable = document.getElementById('data-table');
 
     // Show the loading bar
     loadingBar.style.display = 'block';
+
+    // Function to update the loading bar
+    function updateLoadingBar(percentage) {
+        loadingBar.style.width = percentage + '%';
+        loadingBar.textContent = 'Loading... ' + percentage + '%';
+    }
 
     // Function to fetch and load data
     function loadData() {
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 table.tHead.appendChild(headerRow); // Appends the new header row to the table header
 
                 // Create the table body rows
-                data.forEach(rowData => {
+                data.forEach((rowData, index) => {
                     const row = document.createElement('tr'); // Creates a table row
                     Object.values(rowData).forEach(cellData => {
                         const cell = document.createElement('td'); // Creates a table cell
@@ -38,6 +42,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         row.appendChild(cell); // Appends the cell to the row
                     });
                     table.tBodies[0].appendChild(row); // Appends the row to the table body
+
+                    // Update the loading bar
+                    const percentage = Math.round(((index + 1) / data.length) * 100);
+                    updateLoadingBar(percentage);
                 });
 
                 // Initialize DataTables
@@ -62,29 +70,3 @@ document.addEventListener("DOMContentLoaded", function() {
     // Load the data
     loadData();
 });
-
-function updateProgress(percentage) {
-    loadingPercentage.textContent = `${percentage}%`;
-    progressBar.style.width = `${percentage}%`;
-}
-
-function fetchData() {
-    loadingBar.style.display = 'block';
-    dataTable.style.display = 'none';
-
-    // Simulate data fetching and processing
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 10;
-        updateProgress(progress);
-
-        if (progress >= 100) {
-            clearInterval(interval);
-            loadingBar.style.display = 'none';
-            dataTable.style.display = 'table';
-            // Initialize DataTable or insert data here
-        }
-    }, 500); // Simulate data fetching every 500ms
-}
-
-fetchData();
