@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
 
                 // Initialize DataTables
-                $(document).ready( function () {
+                $(document).ready(function() {
                     $('#data-table').DataTable({
                         "initComplete": function(settings, json) {
                             // Hide the loading bar after DataTables initialization is complete
