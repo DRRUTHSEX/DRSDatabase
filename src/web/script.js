@@ -1,6 +1,8 @@
 // Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
 document.addEventListener("DOMContentLoaded", function() {
     const loadingBar = document.getElementById('loading-bar');
+    const loadingPercentage = document.getElementById('loading-percentage');
+    const progressBar = document.getElementById('progress-bar');
     const dataTable = document.getElementById('data-table');
 
     // Show the loading bar
@@ -60,3 +62,29 @@ document.addEventListener("DOMContentLoaded", function() {
     // Load the data
     loadData();
 });
+
+function updateProgress(percentage) {
+    loadingPercentage.textContent = `${percentage}%`;
+    progressBar.style.width = `${percentage}%`;
+}
+
+function fetchData() {
+    loadingBar.style.display = 'block';
+    dataTable.style.display = 'none';
+
+    // Simulate data fetching and processing
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 10;
+        updateProgress(progress);
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            loadingBar.style.display = 'none';
+            dataTable.style.display = 'table';
+            // Initialize DataTable or insert data here
+        }
+    }, 500); // Simulate data fetching every 500ms
+}
+
+fetchData();
