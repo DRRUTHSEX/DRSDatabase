@@ -28,12 +28,26 @@
             font-size: 18px;
             font-weight: bold;
         }
+        #progress-container {
+            width: 100%;
+            background-color: #f2f2f2;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 30px;
+            background-color: #4caf50;
+        }
     </style>
 </head>
 
 <body>
     <h1>WhyDRS Database</h1> <!-- Main heading of the webpage -->
-    <div id="loading-bar" style="display: none;">Loading...</div> <!-- Loading bar element -->
+    <div id="loading-bar" style="display: none;">
+        Loading... <span id="loading-percentage">0%</span>
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+    </div>
     <table id="data-table" style="display: none;"> <!-- Table element with an ID for reference in JavaScript -->
         <thead>
             <tr>
