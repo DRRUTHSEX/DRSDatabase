@@ -1,6 +1,6 @@
-import { loadData } from './loadData.js';
-import { createTableHeaders, createTableBody } from './tableManipulation.js';
-import { initializeDataTables } from './dataTablesInit.js';
+import { loadData } from 'src/web/js/loadData.js';
+import { createTableHeaders, createTableBody } from 'src/web/js/tableManipulation.js';
+import { initializeDataTables } from 'src/web/js/dataTablesInit.js';
 
 document.addEventListener("DOMContentLoaded", function() {
     const loadingBar = document.getElementById('loading-bar');
