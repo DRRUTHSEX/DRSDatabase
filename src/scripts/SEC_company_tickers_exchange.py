@@ -14,7 +14,7 @@ output_file = os.path.join(data_folder, "company_tickers_exchange.json")
 
 # Set headers to mimic a browser request responsibly
 headers = {
-    "User-Agent": "MyAppName/1.0 (drsf500@gmail.com)"
+    "User-Agent": "MyAppName/1.0 (hi@WhyDRS.org)"
 }
 
 # Rate limit parameters
