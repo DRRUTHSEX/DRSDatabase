@@ -1,5 +1,4 @@
 import { loadData } from 'src/web/js/loadData.js';
-import { createTableHeaders, createTableBody } from 'src/web/js/tableManipulation.js';
 import { initializeDataTables } from 'src/web/js/dataTablesInit.js';
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -11,11 +10,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Call the loadData function
     loadData();
-
-    // Call the table manipulation functions
-    createTableHeaders();
-    createTableBody();
-
-    // Call the DataTables initialization function
-    initializeDataTables();
 });

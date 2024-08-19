@@ -28,6 +28,13 @@ export function loadData() {
                 });
                 table.tBodies[0].appendChild(row); // Appends the row to the table body
             });
+
+            // Call the table manipulation functions after data is loaded
+            createTableHeaders();
+            createTableBody();
+
+            // Initialize DataTables after the table is populated
+            initializeDataTables();
         })
         .catch(error => {
             console.error('Error loading the data:', error); // Logs any errors to the console
