@@ -1,4 +1,5 @@
 const DataTable = ({ data }) => {
+    console.log('DataTable received data:', data); // Log received data
     const headers = data.length > 0 ? Object.keys(data[0]) : [];
     return (
         <table id="data-table">
