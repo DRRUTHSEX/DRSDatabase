@@ -4,13 +4,11 @@ import { useTable } from 'react-table';
 const DataTable = ({ data }) => {
     const columns = React.useMemo(
         () => data.length > 0 ? Object.keys(data[0]).map(key => ({
-            Header: key.replace(/([A-Z])/g, ' $1').trim(),  // Formatting headers
+            Header: key.replace(/([A-Z])/g, ' $1').trim(),
             accessor: key
         })) : [],
         [data]
     );
-
-    const tableInstance = useTable({ columns, data });
 
     const {
         getTableProps,
@@ -18,7 +16,7 @@ const DataTable = ({ data }) => {
         headerGroups,
         rows,
         prepareRow,
-    } = tableInstance;
+    } = useTable({ columns, data });
 
     return (
         <table {...getTableProps()} id="data-table">

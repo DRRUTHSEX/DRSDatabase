@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import DataTable from './DataTable';
-import LoadingBar from './LoadingBar';
+import DataTable from 'src/web/react/DataTable';
+import LoadingBar from 'src/web/react/LoadingBar';
 
 const App = () => {
     const [data, setData] = useState([]);
