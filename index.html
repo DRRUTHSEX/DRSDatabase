@@ -3,25 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>WhyDRS Database</title>
-    <link rel="stylesheet" href="src/web/css/styles.css"> <!-- Ensure this path is correct for your CSS file -->
+    <link rel="stylesheet" href="src/web/css/styles.css">
 </head>
 <body>
-    <div id="root"></div> <!-- Root element for React -->
+    <div id="root"></div>
 
-    <!-- Load React and ReactDOM -->
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script type="module">
+        import React from 'https://unpkg.com/react@17/umd/react.production.min.js';
+        import ReactDOM from 'https://unpkg.com/react-dom@17/umd/react-dom.production.min.js';
+        import { App } from 'src/web/react/App.js';
 
-    <!-- Load Babel for in-browser JSX transformation -->
-    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
-
-    <!-- Load React Table -->
-    <script src="https://unpkg.com/react-table@7.7.0/dist/react-table.production.min.js"></script>
-
-    <!-- React application scripts -->
-    <!-- Ensure the path to your scripts is correct -->
-    <script type="text/babel" src="src/web/react/LoadingBar.js"></script>
-    <script type="text/babel" src="src/web/react/DataTable.js"></script>
-    <script type="text/babel" src="src/web/react/App.js"></script>
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
 </body>
 </html>
