@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>WhyDRS Database</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="src/web/css/styles.css">
+    <link rel="stylesheet" href="src/web/css/styles.css"> <!-- Ensure this path is correct for your CSS file -->
 </head>
-
 <body>
-    <h1>WhyDRS Database</h1> <!-- Main heading of the webpage -->
     <div id="root"></div> <!-- Root element for React -->
 
-    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+    <!-- Load React and ReactDOM -->
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+    <!-- Load Babel for in-browser JSX transformation -->
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <!-- Load React Table -->
     <script src="https://unpkg.com/react-table@7.7.0/dist/react-table.production.min.js"></script>
-    <script type="text/babel">
-        // Ensure React and ReactDOM are available globally
-        const { useState, useEffect } = React;
-    </script>
-    <script type="text/babel" src="src/web/react/App.js"></script> <!-- Link to the React App -->
+
+    <!-- React application scripts -->
+    <!-- Ensure the path to your scripts is correct -->
+    <script type="text/babel" src="src/web/react/LoadingBar.js"></script>
+    <script type="text/babel" src="src/web/react/DataTable.js"></script>
+    <script type="text/babel" src="src/web/react/App.js"></script>
 </body>
 </html>
