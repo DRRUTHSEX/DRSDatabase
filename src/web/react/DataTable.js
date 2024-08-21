@@ -1,23 +1,41 @@
+import { useTable } from 'react-table';
+
 const DataTable = ({ data }) => {
-    console.log('DataTable received data:', data); // Log received data
-    const headers = data.length > 0 ? Object.keys(data[0]) : [];
+    const columns = React.useMemo(
+        () => data.length > 0 ? Object.keys(data[0]).map(key => ({ Header: key, accessor: key })) : [],
+        [data]
+    );
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+    } = useTable({ columns, data });
+
     return (
-        <table id="data-table">
+        <table {...getTableProps()} id="data-table">
             <thead>
-                <tr>
-                    {headers.map(header => (
-                        <th key={header}>{header.replace(/([A-Z])/g, ' $1').trim()}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {data.map((item, index) => (
-                    <tr key={index}>
-                        {Object.values(item).map((val, idx) => (
-                            <td key={idx}>{val}</td>
+                {headerGroups.map(headerGroup => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => (
+                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                         ))}
                     </tr>
                 ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+                {rows.map(row => {
+                    prepareRow(row);
+                    return (
+                        <tr {...row.getRowProps()}>
+                            {row.cells.map(cell => (
+                                <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                            ))}
+                        </tr>
+                    );
+                })}
             </tbody>
         </table>
     );

@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 const App = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -7,7 +9,6 @@ const App = () => {
         fetch('/data/Full_Database_Backend.json')
             .then(response => response.json())
             .then(jsonData => {
-                console.log('Fetched data:', jsonData); // Log fetched data
                 setData(jsonData);
                 setLoading(false);
             })
