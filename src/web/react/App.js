@@ -1,8 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import DataTable from 'src/web/react/DataTable';
-import LoadingBar from 'src/web/react/LoadingBar';
-
 const App = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -27,14 +22,12 @@ const App = () => {
             });
     }, []);
 
-    return (
-        <div>
-            <h1>WhyDRS Database</h1>
-            <LoadingBar loading={loading} />
-            {error && <div>Error: {error}</div>}
-            {!loading && !error && <DataTable data={data} />}
-        </div>
+    return React.createElement('div', null,
+        React.createElement('h1', null, 'WhyDRS Database'),
+        React.createElement(LoadingBar, { loading: loading }),
+        error && React.createElement('div', null, 'Error: ', error),
+        !loading && !error && React.createElement(DataTable, { data: data })
     );
 };
 
-export default App;
+window.App = App;
