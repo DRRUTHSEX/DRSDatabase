@@ -1,5 +1,5 @@
-/* Apply styles to DataTables table */
-table.dataTable {
+/* Simple table styling */
+table {
     width: 100%; /* Sets the table width to 100% of its container */
     border-collapse: collapse; /* Collapses table borders into a single border */
     border-radius: 8px; /* Adds rounded corners to the table */
@@ -7,18 +7,17 @@ table.dataTable {
     border: 1px solid #ddd; /* Adds a light gray border around the table */
 }
 
-table.dataTable thead th,
-table.dataTable tbody td {
+th, td {
     padding: 8px; /* Adds space around text in table headers and cells */
     text-align: left; /* Aligns the text to the left */
 }
 
-table.dataTable thead th {
+th {
     background: linear-gradient(to bottom, #2D64AC, #134F9B); /* Sets a blue gradient background for table headers */
     color: #FFFFFF; /* Sets the text color to white */
 }
 
-table.dataTable tbody tr {
+tbody tr {
     border-bottom: 1px solid #ddd; /* Adds a light gray border below each table row */
 }
 

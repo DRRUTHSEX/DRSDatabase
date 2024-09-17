@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8"> <!-- Specifies the character encoding for the HTML document -->
     <title>WhyDRS Database</title> <!-- Title of the HTML document shown in the browser's title bar or tab -->
-    <!-- Links DataTables CSS first -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <!-- Links your custom CSS after, so it can override DataTables styles -->
-    <link rel="stylesheet" type="text/css" href="src/web/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> <!-- Links a CSS file for styling the DataTables -->
+    <link rel="stylesheet" type="text/css" href="src/web/css/styles.css"> <!-- Links the new CSS file -->
 </head>
 
 <body>
@@ -15,18 +13,17 @@
     <div id="loading-bar" style="display: none;">Loading...</div> <!-- Loading bar element -->
     <table id="data-table" style="display: none;"> <!-- Table element with an ID for reference in JavaScript -->
         <thead>
-            <!-- Table headers will be inserted here by DataTables -->
+            <tr>
+                <!-- Table headers will be inserted here by the script.js -->
+            </tr>
         </thead>
         <tbody>
-            <!-- Data rows will be inserted here by DataTables -->
+            <!-- Data rows will be inserted here by the script.js -->
         </tbody>
     </table>
 
-    <!-- Includes jQuery library -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <!-- Includes DataTables JavaScript library -->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <!-- Links to the JavaScript file that handles the table logic -->
-    <script src="src/web/script.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> <!-- Includes jQuery library -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> <!-- Includes DataTables JavaScript library -->
+    <script src="src/web/script.js"></script> <!-- Links to the JavaScript file that handles the table logic -->
 </body>
 </html>
