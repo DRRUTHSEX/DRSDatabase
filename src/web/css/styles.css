@@ -1,30 +1,17 @@
-/* Simple table styling */
-table {
-    width: 100%; /* Sets the table width to 100% of its container */
-    border-collapse: collapse; /* Collapses table borders into a single border */
-    border-radius: 8px; /* Adds rounded corners to the table */
-    overflow: hidden; /* Ensures inner content respects the table's rounded corners */
-    border: 1px solid #ddd; /* Adds a light gray border around the table */
+/* General page styling */
+body {
+    font-family: Arial, sans-serif; /* Sets a clean, modern font */
+    background-color: #F9F9F9; /* Light background color for better contrast */
+    margin: 20px; /* Adds space around the content */
 }
 
-th, td {
-    padding: 8px; /* Adds space around text in table headers and cells */
-    text-align: left; /* Aligns the text to the left */
+h1 {
+    text-align: center; /* Centers the main heading */
+    color: #134F9B; /* Uses the branded blue color for the heading */
+    margin-bottom: 30px; /* Adds space below the heading */
 }
 
-th {
-    background-color: #134F9B; /* Sets the background color to the branded blue */
-    color: #FFFFFF; /* Sets the text color to white */
-    padding: 12px; /* Slightly larger padding for better appearance */
-    text-align: center; /* Centers the text in header cells */
-    /* Adds a 3D effect */
-    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3); /* Inner shadow at the bottom */
-}
-
-tbody tr {
-    border-bottom: 1px solid #ddd; /* Adds a light gray border below each table row */
-}
-
+/* Loading bar styling */
 #loading-bar {
     width: 100%;
     text-align: center;
@@ -32,4 +19,67 @@ tbody tr {
     background-color: #f2f2f2;
     font-size: 18px;
     font-weight: bold;
+    border-radius: 8px; /* Matches the table's rounded corners */
+    margin-bottom: 20px; /* Adds space below the loading bar */
 }
+
+/* Table styling */
+table {
+    width: 100%; /* Sets the table width to 100% of its container */
+    border-collapse: collapse; /* Collapses table borders into a single border */
+    border-radius: 8px; /* Adds rounded corners to the table */
+    overflow: hidden; /* Ensures inner content respects the table's rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+}
+
+th, td {
+    padding: 12px; /* Adds space around text in table headers and cells */
+    text-align: left; /* Aligns the text to the left */
+    font-size: 14px; /* Sets a consistent font size */
+}
+
+th {
+    background-color: #134F9B; /* Sets the background color to the branded blue */
+    color: #FFFFFF; /* Sets the text color to white */
+    text-align: center; /* Centers the text in header cells */
+    /* Adds a 3D effect */
+    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3); /* Inner shadow at the bottom */
+}
+
+td {
+    background-color: #FFFFFF; /* Sets the background color of table cells */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #F2F2F2; /* Alternating row color for better readability */
+}
+
+tbody tr:hover {
+    background-color: #E6F7FF; /* Highlight row on hover */
+}
+
+tfoot {
+    background-color: #f2f2f2; /* Footer background color */
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    background-color: #134F9B !important; /* Pagination button background color */
+    color: #FFFFFF !important; /* Pagination button text color */
+    border: none !important;
+    border-radius: 4px !important;
+    margin: 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #0B3C75 !important; /* Active pagination button color */
+}
+
+.dataTables_wrapper .dataTables_length label,
+.dataTables_wrapper .dataTables_filter label {
+    color: #3E3E3E; /* Labels color */
+}
+
+.dataTables_wrapper .dataTables_info {
+    color: #3E3E3E; /* Info text color */
+}
+

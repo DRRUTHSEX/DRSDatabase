@@ -45,6 +45,11 @@ document.addEventListener("DOMContentLoaded", function() {
                             // Hide the loading bar and show the table after DataTables initialization is complete
                             loadingBar.style.display = 'none';
                             dataTable.style.display = 'table';
+                        },
+                        "pagingType": "simple", // Simplifies pagination controls
+                        "language": {
+                            "search": "", // Removes "Search:" label
+                            "searchPlaceholder": "Search records" // Adds placeholder text
                         }
                     });
                 });
