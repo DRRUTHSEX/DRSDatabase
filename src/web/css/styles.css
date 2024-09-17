@@ -16,7 +16,7 @@ th {
     background-color: #134F9B; /* Sets the background color to the branded blue */
     color: #FFFFFF; /* Sets the text color to white */
     padding: 12px; /* Slightly larger padding for better appearance */
-    text-align: left; /* Align text to the left */
+    text-align: center; /* Centers the text in header cells */
     /* Adds a 3D effect */
     box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3); /* Inner shadow at the bottom */
 }
