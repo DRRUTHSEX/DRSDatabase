@@ -18,10 +18,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Columns 1,2,3,4,9,10 are visible (indices 0,1,2,3,8,9)
                 const visibleColumns = [0,1,2,3,8,9];
 
-                // Create columns array with 'data' and 'title'
+                // Create columns array with 'data', 'title', and 'visible'
                 const columns = headers.map((header, index) => ({
                     data: header,
-                    title: header.replace(/([A-Z])/g, ' $1').trim()
+                    title: header.replace(/([A-Z])/g, ' $1').trim(),
+                    visible: visibleColumns.includes(index) // Set visibility directly
                 }));
 
                 // Initialize DataTables
@@ -29,16 +30,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        "columnDefs": [
-                            {
-                                "targets": "_all",
-                                "visible": false
-                            },
-                            {
-                                "targets": visibleColumns,
-                                "visible": true
-                            }
-                        ],
                         dom: 'Bfrtip',
                         buttons: [
                             {
@@ -57,7 +48,10 @@ document.addEventListener("DOMContentLoaded", function() {
                             "searchPlaceholder": "Search records"
                         },
                         "pageLength": 100,
-                        "lengthMenu": [[100, 1000], [100, 1000]]
+                        "lengthMenu": [
+                            [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+                            [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+                        ]
                     });
                 });
             })
