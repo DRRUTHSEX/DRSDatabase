@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
-                        "order": [], // Disable initial sorting
+                        "order": [[0, 'asc']], // Sort by the first column (index 0) ascending
                         "responsive": true // Enable responsive table
                     });
                 });
