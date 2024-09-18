@@ -1,34 +1,36 @@
-<!DOCTYPE html> <!-- Declares the document type and version of HTML -->
-<html lang="en"> <!-- Start of the HTML document, with English language specified -->
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8"> <!-- Specifies the character encoding for the HTML document -->
-    <title>WhyDRS Database</title> <!-- Title of the HTML document shown in the browser's title bar or tab -->
+    <meta charset="UTF-8">
+    <title>WhyDRS Database</title>
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <!-- DataTables Buttons CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="src/web/css/styles.css"> <!-- Links the new CSS file -->
+    <link rel="stylesheet" type="text/css" href="src/web/css/styles.css">
 </head>
 
 <body>
-    <h1>WhyDRS Database</h1> <!-- Main heading of the webpage -->
+    <h1>WhyDRS Database</h1>
     <div id="loading-bar" style="display: none;">
         <div class="spinner"></div>
         <span>Loading data, please wait...</span>
-    </div> <!-- Loading bar element -->
-    <table id="data-table" style="display: none;"> <!-- Table element with an ID for reference in JavaScript -->
-        <thead>
-            <tr>
-                <!-- Table headers will be inserted here by the script.js -->
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Data rows will be inserted here by the script.js -->
-        </tbody>
-    </table>
+    </div>
+    <div class="table-container">
+        <table id="data-table" style="display: none;">
+            <thead>
+                <tr>
+                    <!-- Table headers will be inserted here by the script.js -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data rows will be inserted here by the script.js -->
+            </tbody>
+        </table>
+    </div>
 
     <!-- jQuery library -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -39,6 +41,7 @@
     <!-- Buttons ColVis JS -->
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
     <!-- Your custom script -->
-    <script src="src/web/script.js"></script> <!-- Links to the JavaScript file that handles the table logic -->
+    <script src="src/web/script.js"></script>
 </body>
+
 </html>

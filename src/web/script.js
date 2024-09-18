@@ -1,4 +1,3 @@
-// Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
 document.addEventListener("DOMContentLoaded", function() {
     const loadingBar = document.getElementById('loading-bar');
     const dataTableElement = document.getElementById('data-table');
@@ -15,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 const headers = Object.keys(data[0]);
 
                 // Determine which columns should be visible by default
-                // Columns 1,2,3,4,9,10 are visible (indices 0,1,2,3,8,9)
                 const visibleColumns = [0,1,2,3,8,9];
 
                 // Create columns array with 'data', 'title', and 'visible'
@@ -30,12 +28,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: '<"top"Blf>rt<"bottom"ip><"clear">', // Custom layout
+                        dom: '<"top"lBf>rt<"bottom"ip><"clear">',
                         buttons: [
                             {
                                 extend: 'colvis',
                                 text: 'Select Columns',
-                                columns: ':not(:first-child)'
+                                columns: ':not(:first-child)',
+                                collectionLayout: 'three-column'
                             }
                         ],
                         "initComplete": function(settings, json) {
@@ -43,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             loadingBar.style.display = 'none';
                             dataTableElement.style.display = 'table';
                         },
-                        "pagingType": "full_numbers", // Displays page numbers
+                        "pagingType": "full_numbers",
                         "language": {
                             "search": "",
                             "searchPlaceholder": "Search records"
@@ -54,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
                         "order": [[0, 'asc']], // Sort by the first column (index 0) ascending
-                        "responsive": true // Enable responsive table
+                        "responsive": true
                     });
                 });
             })
