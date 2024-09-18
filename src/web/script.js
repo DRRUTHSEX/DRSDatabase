@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const headers = Object.keys(data[0]);
 
                 // Determine which columns should be visible by default
-                // Columns 1,2,3,4,9,10 are visible (indices 0,1,2,3,8,9)
+                // Columns 1,2,3,4,9,10 are visible (indices 0, 1, 2, 3, 8, 9)
                 const visibleColumns = [0, 1, 2, 3, 8, 9];
 
                 // Create columns array with 'data', 'title', and 'visible'
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: '<"top"Bf>rt<"bottom"lip><"clear">', // Moved 'l' to the bottom
+                        dom: '<"top"<"dataTables_length_wrapper"l><"dataTables_button_wrapper"B><"dataTables_filter_wrapper"f>>rt<"bottom"ip><"clear">',
                         buttons: [
                             {
                                 extend: 'colvis',
