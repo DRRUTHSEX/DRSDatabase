@@ -17,11 +17,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Columns 1,2,3,4,9,10 are visible (indices 0, 1, 2, 3, 8, 9)
                 const visibleColumns = [0, 1, 2, 3, 8, 9];
 
-                // Create columns array with 'data', 'title', and 'visible'
+                // Optionally, define column widths
+                const columnWidths = [
+                    { width: '150px' }, // Column 1
+                    { width: '200px' }, // Column 2
+                    { width: '200px' }, // Column 3
+                    { width: '200px' }, // Column 4
+                    // ... Add widths for other columns as needed
+                ];
+
+                // Create columns array with 'data', 'title', 'visible', and 'width'
                 const columns = headers.map((header, index) => ({
                     data: header,
                     title: header.replace(/([A-Z])/g, ' $1').trim(),
-                    visible: visibleColumns.includes(index) // Set visibility directly
+                    visible: visibleColumns.includes(index),
+                    width: columnWidths[index] ? columnWidths[index].width : null,
                 }));
 
                 // Initialize DataTables
@@ -42,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             loadingBar.style.display = 'none';
                             dataTableElement.style.display = 'table';
                         },
-                        "pagingType": "full_numbers", // Displays page numbers
+                        "pagingType": "full_numbers",
                         "language": {
                             "search": "",
                             "searchPlaceholder": "Search records"
@@ -52,14 +62,15 @@ document.addEventListener("DOMContentLoaded", function () {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
-                        "order": [[0, 'asc']], // Sort by the first column (index 0) ascending
-                        "responsive": true, // Enable responsive table
-                        "autoWidth": true // Ensure auto width is enabled
+                        "order": [[0, 'asc']],
+                        "responsive": false, // Disable responsive to prevent interference with column widths
+                        "autoWidth": false,
+                        "scrollX": true,
                     });
 
                     // Adjust columns when visibility changes
                     table.on('column-visibility.dt', function (e, settings, column, state) {
-                        table.columns.adjust().draw(false);
+                        table.columns.adjust();
                     });
                 });
             })

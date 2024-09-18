@@ -49,12 +49,17 @@ h1 {
     100% { transform: rotate(360deg); }
 }
 
+/* Table container to allow horizontal scrolling */
+.table-container {
+    overflow-x: auto;
+}
+
 /* Table styling */
 table {
-    width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
     overflow: hidden;
+    min-width: 100%; /* Ensures the table fills the container when columns are visible */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -63,6 +68,7 @@ th, td {
     text-align: left;
     font-size: 14px;
     line-height: 1.5;
+    white-space: nowrap; /* Prevent text from wrapping */
 }
 
 th {
@@ -84,84 +90,13 @@ tbody tr:hover {
     background-color: #DCEEFF;
 }
 
-/* DataTables custom layout styling */
-.dataTables_wrapper .top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-
-.dataTables_wrapper .top_left,
-.dataTables_wrapper .top_center,
-.dataTables_wrapper .top_right {
-    flex: 1;
-}
-
-.dataTables_wrapper .top_center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dataTables_wrapper .top_left {
-    text-align: left;
-}
-
-.dataTables_wrapper .top_right {
-    text-align: right;
-}
-
-.dataTables_wrapper .dt-buttons {
-    margin-bottom: 0;
-    display: flex;
-    justify-content: center;
-    float: none;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_filter {
-    float: none;
-    margin-bottom: 0;
-}
-
-/* Bottom controls styling */
-.dataTables_wrapper .bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.dataTables_wrapper .bottom_left {
-    float: left;
-    text-align: left;
-    flex: 1;
-}
-
-.dataTables_wrapper .bottom_right {
-    float: right;
-    text-align: right;
-    flex: 1;
-}
-
-/* Adjust margins and padding */
-.dataTables_wrapper .dataTables_length label,
-.dataTables_wrapper .dataTables_filter label {
-    margin: 0;
-}
-
 /* DataTables button styling */
 .dt-button {
     background-color: #134F9B !important;
     color: #FFFFFF !important;
     border: none !important;
     border-radius: 4px !important;
-    margin: 0;
+    margin: 5px;
     padding: 6px 12px !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
