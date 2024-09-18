@@ -8,26 +8,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to fetch and load data
     function loadData() {
-        fetch('/data/Full_Database_Backend.json') // Asynchronously fetches the JSON file
-            .then(response => response.json()) // Parses the JSON file
+        fetch('/data/Full_Database_Backend.json')
+            .then(response => response.json())
             .then(data => {
                 // Extract headers from the data
                 const headers = Object.keys(data[0]);
-
-                // Create columns array with 'data' and 'title'
-                const columns = headers.map(header => ({
-                    data: header,
-                    title: header.replace(/([A-Z])/g, ' $1').trim()
-                }));
 
                 // Determine which columns should be visible by default
                 // Columns 1,2,3,4,9,10 are visible (indices 0,1,2,3,8,9)
                 const visibleColumns = [0,1,2,3,8,9];
 
+                // Create columns array with 'data' and 'title'
+                const columns = headers.map((header, index) => ({
+                    data: header,
+                    title: header.replace(/([A-Z])/g, ' $1').trim()
+                }));
+
                 // Initialize DataTables
                 $(document).ready(function() {
                     $('#data-table').DataTable({
-                        data: data, // Provide the data directly to DataTables
+                        data: data,
                         columns: columns,
                         "columnDefs": [
                             {
@@ -51,17 +51,18 @@ document.addEventListener("DOMContentLoaded", function() {
                             loadingBar.style.display = 'none';
                             dataTableElement.style.display = 'table';
                         },
-                        "pagingType": "simple", // Simplifies pagination controls
+                        "pagingType": "simple",
                         "language": {
-                            "search": "", // Removes "Search:" label
-                            "searchPlaceholder": "Search records" // Adds placeholder text
-                        }
+                            "search": "",
+                            "searchPlaceholder": "Search records"
+                        },
+                        "pageLength": 100,
+                        "lengthMenu": [[100, 1000], [100, 1000]]
                     });
                 });
             })
             .catch(error => {
-                console.error('Error loading the data:', error); // Logs any errors to the console
-
+                console.error('Error loading the data:', error);
                 // Hide the loading bar even if there's an error
                 loadingBar.style.display = 'none';
             });
