@@ -1,5 +1,5 @@
 // Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const loadingBar = document.getElementById('loading-bar');
     const dataTableElement = document.getElementById('data-table');
 
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Determine which columns should be visible by default
                 // Columns 1,2,3,4,9,10 are visible (indices 0,1,2,3,8,9)
-                const visibleColumns = [0,1,2,3,8,9];
+                const visibleColumns = [0, 1, 2, 3, 8, 9];
 
                 // Create columns array with 'data', 'title', and 'visible'
                 const columns = headers.map((header, index) => ({
@@ -26,11 +26,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 }));
 
                 // Initialize DataTables
-                $(document).ready(function() {
+                $(document).ready(function () {
                     $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: '<"top"Blf>rt<"bottom"ip><"clear">', // Custom layout
+                        dom: '<"top"Bf>rt<"bottom"lip><"clear">', // Moved 'l' to the bottom
                         buttons: [
                             {
                                 extend: 'colvis',
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 columns: ':not(:first-child)'
                             }
                         ],
-                        "initComplete": function(settings, json) {
+                        "initComplete": function (settings, json) {
                             // Hide the loading bar and show the table after DataTables initialization is complete
                             loadingBar.style.display = 'none';
                             dataTableElement.style.display = 'table';
