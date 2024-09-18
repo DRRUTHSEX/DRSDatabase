@@ -49,17 +49,12 @@ h1 {
     100% { transform: rotate(360deg); }
 }
 
-/* Table container to allow horizontal scrolling */
-.table-container {
-    overflow-x: auto;
-}
-
 /* Table styling */
 table {
+    width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
     overflow: hidden;
-    min-width: 100%; /* Ensures the table fills the container when columns are visible */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -68,7 +63,6 @@ th, td {
     text-align: left;
     font-size: 14px;
     line-height: 1.5;
-    white-space: nowrap; /* Prevent text from wrapping */
 }
 
 th {
@@ -91,12 +85,16 @@ tbody tr:hover {
 }
 
 /* DataTables button styling */
+.dt-buttons {
+    margin-bottom: 20px;
+}
+
 .dt-button {
     background-color: #134F9B !important;
     color: #FFFFFF !important;
     border: none !important;
     border-radius: 4px !important;
-    margin: 5px;
+    margin-right: 5px;
     padding: 6px 12px !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -145,19 +143,50 @@ tbody tr:hover {
 
 /* Responsive adjustments */
 @media screen and (max-width: 768px) {
-    .dataTables_wrapper .top,
-    .dataTables_wrapper .bottom {
-        flex-direction: column;
-        align-items: center;
+    table, th, td {
+        font-size: 12px;
     }
 
-    .dataTables_wrapper .top_left,
-    .dataTables_wrapper .top_center,
-    .dataTables_wrapper .top_right,
-    .dataTables_wrapper .bottom_left,
-    .dataTables_wrapper .bottom_right {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 10px;
+    .dt-button {
+        padding: 4px 8px !important;
+        font-size: 12px;
     }
+
+    #loading-bar {
+        flex-direction: column;
+    }
+
+    #loading-bar .spinner {
+        margin-bottom: 15px;
+    }
+}
+
+/* Additional visual enhancements */
+/* Highlight the table headers on hover */
+th:hover {
+    background-color: #0B3C75;
+    cursor: pointer;
+}
+
+/* Style the pagination buttons */
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 10px;
+}
+
+/* Center the bottom controls */
+.dataTables_wrapper .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Style for "Show entries" label */
+.dataTables_length label {
+    margin: 0;
+}
+
+/* Adjust the information text */
+.dataTables_info {
+    margin: 10px 0;
 }

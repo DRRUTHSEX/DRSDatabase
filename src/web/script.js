@@ -1,3 +1,4 @@
+// Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
 document.addEventListener("DOMContentLoaded", function () {
     const loadingBar = document.getElementById('loading-bar');
     const dataTableElement = document.getElementById('data-table');
@@ -14,32 +15,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 const headers = Object.keys(data[0]);
 
                 // Determine which columns should be visible by default
-                // Columns 1,2,3,4,9,10 are visible (indices 0, 1, 2, 3, 8, 9)
+                // Columns 1,2,3,4,9,10 are visible (indices 0,1,2,3,8,9)
                 const visibleColumns = [0, 1, 2, 3, 8, 9];
 
-                // Optionally, define column widths
-                const columnWidths = [
-                    { width: '150px' }, // Column 1
-                    { width: '200px' }, // Column 2
-                    { width: '200px' }, // Column 3
-                    { width: '200px' }, // Column 4
-                    // ... Add widths for other columns as needed
-                ];
-
-                // Create columns array with 'data', 'title', 'visible', and 'width'
+                // Create columns array with 'data', 'title', and 'visible'
                 const columns = headers.map((header, index) => ({
                     data: header,
                     title: header.replace(/([A-Z])/g, ' $1').trim(),
-                    visible: visibleColumns.includes(index),
-                    width: columnWidths[index] ? columnWidths[index].width : null,
+                    visible: visibleColumns.includes(index) // Set visibility directly
                 }));
 
                 // Initialize DataTables
                 $(document).ready(function () {
-                    var table = $('#data-table').DataTable({
+                    $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: '<"top"<"top_left"l><"top_center"B><"top_right"f>>rt<"bottom"<"bottom_left"i><"bottom_right"p>><"clear">',
+                        dom: '<"top"Bf>rt<"bottom"lip><"clear">', // Moved 'l' to the bottom
                         buttons: [
                             {
                                 extend: 'colvis',
@@ -52,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             loadingBar.style.display = 'none';
                             dataTableElement.style.display = 'table';
                         },
-                        "pagingType": "full_numbers",
+                        "pagingType": "full_numbers", // Displays page numbers
                         "language": {
                             "search": "",
                             "searchPlaceholder": "Search records"
@@ -62,15 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
-                        "order": [[0, 'asc']],
-                        "responsive": false, // Disable responsive to prevent interference with column widths
-                        "autoWidth": false,
-                        "scrollX": true,
-                    });
-
-                    // Adjust columns when visibility changes
-                    table.on('column-visibility.dt', function (e, settings, column, state) {
-                        table.columns.adjust();
+                        "order": [[0, 'asc']], // Sort by the first column (index 0) ascending
+                        "responsive": true // Enable responsive table
                     });
                 });
             })
