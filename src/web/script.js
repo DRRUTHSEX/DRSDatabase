@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const dataTableElement = document.getElementById('data-table');
 
     // Show the loading bar
-    loadingBar.style.display = 'block';
+    loadingBar.style.display = 'flex';
 
     // Function to fetch and load data
     function loadData() {
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             loadingBar.style.display = 'none';
                             dataTableElement.style.display = 'table';
                         },
-                        "pagingType": "simple",
+                        "pagingType": "full_numbers", // Displays page numbers
                         "language": {
                             "search": "",
                             "searchPlaceholder": "Search records"

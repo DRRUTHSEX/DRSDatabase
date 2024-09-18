@@ -15,12 +15,36 @@ h1 {
 #loading-bar {
     width: 100%;
     text-align: center;
-    padding: 10px;
-    background-color: #f2f2f2;
+    padding: 20px;
+    background-color: #FFFFFF;
     font-size: 18px;
     font-weight: bold;
     border-radius: 8px; /* Matches the table's rounded corners */
     margin-bottom: 20px; /* Adds space below the loading bar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loading-bar .spinner {
+    border: 6px solid #f3f3f3; /* Light gray background */
+    border-top: 6px solid #134F9B; /* Branded blue on top */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-right: 15px;
+}
+
+#loading-bar span {
+    color: #3E3E3E;
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Table styling */
@@ -97,3 +121,11 @@ tbody tr:hover {
 .dataTables_wrapper .dataTables_info {
     color: #3E3E3E; /* Info text color */
 }
+
+/* Adjust the select box in the length menu */
+.dataTables_length select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+}
+
