@@ -30,11 +30,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: 'Blfrtip', // Include 'l' for length menu
+                        dom: '<"top"Blf>rt<"bottom"ip><"clear">', // Custom layout
                         buttons: [
                             {
                                 extend: 'colvis',
-                                text: 'Select Columns'
+                                text: 'Select Columns',
+                                columns: ':not(:first-child)'
                             }
                         ],
                         "initComplete": function(settings, json) {
@@ -51,7 +52,9 @@ document.addEventListener("DOMContentLoaded", function() {
                         "lengthMenu": [
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-                        ]
+                        ],
+                        "order": [], // Disable initial sorting
+                        "responsive": true // Enable responsive table
                     });
                 });
             })
