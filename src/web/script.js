@@ -1,4 +1,3 @@
-// Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
 document.addEventListener("DOMContentLoaded", function () {
     const loadingBar = document.getElementById('loading-bar');
     const dataTableElement = document.getElementById('data-table');
@@ -27,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Initialize DataTables
                 $(document).ready(function () {
-                    $('#data-table').DataTable({
+                    var table = $('#data-table').DataTable({
                         data: data,
                         columns: columns,
                         dom: '<"top"<"top_left"l><"top_center"B><"top_right"f>>rt<"bottom"<"bottom_left"i><"bottom_right"p>><"clear">',
@@ -54,7 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
                         "order": [[0, 'asc']], // Sort by the first column (index 0) ascending
-                        "responsive": true // Enable responsive table
+                        "responsive": true, // Enable responsive table
+                        "autoWidth": true // Ensure auto width is enabled
+                    });
+
+                    // Adjust columns when visibility changes
+                    table.on('column-visibility.dt', function (e, settings, column, state) {
+                        table.columns.adjust().draw(false);
                     });
                 });
             })

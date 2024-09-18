@@ -100,7 +100,9 @@ tbody tr:hover {
 }
 
 .dataTables_wrapper .top_center {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dataTables_wrapper .top_left {
@@ -113,6 +115,11 @@ tbody tr:hover {
 
 .dataTables_wrapper .dt-buttons {
     margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .dataTables_wrapper .dataTables_length,
@@ -154,7 +161,7 @@ tbody tr:hover {
     color: #FFFFFF !important;
     border: none !important;
     border-radius: 4px !important;
-    margin: 5px;
+    margin: 0;
     padding: 6px 12px !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
