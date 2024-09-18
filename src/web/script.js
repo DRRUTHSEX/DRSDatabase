@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             {
                                 extend: 'colvis',
                                 text: 'Select Columns',
-                                columns: ':not(:first-child)',
-                                collectionLayout: 'fixed three-column',
+                                columns: ':gt(-1)', // Include all columns
+                                collectionLayout: 'fixed two-column',
                                 collectionTitle: 'Select Columns',
                                 postfixButtons: ['colvisRestore']
                             }
