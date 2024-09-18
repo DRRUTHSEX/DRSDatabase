@@ -1,18 +1,16 @@
-/* styles.css */
-
 /* General page styling */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #F5F5F5;
-    margin: 20px;
-    color: #333;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Updated to a more modern font stack */
+    background-color: #F5F5F5; /* Slightly lighter background for better contrast */
+    margin: 20px; /* Adds space around the content */
+    color: #333; /* Standard text color for better readability */
 }
 
 h1 {
-    text-align: center;
-    color: #134F9B;
-    margin-bottom: 30px;
-    font-size: 2em;
+    text-align: center; /* Centers the main heading */
+    color: #134F9B; /* Uses the branded blue color for the heading */
+    margin-bottom: 30px; /* Adds space below the heading */
+    font-size: 2em; /* Increased font size for better prominence */
 }
 
 /* Loading bar styling */
@@ -23,17 +21,17 @@ h1 {
     background-color: #FFFFFF;
     font-size: 18px;
     font-weight: bold;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; /* Matches the table's rounded corners */
+    margin-bottom: 20px; /* Adds space below the loading bar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 #loading-bar .spinner {
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #134F9B;
+    border: 6px solid #f3f3f3; /* Light gray background */
+    border-top: 6px solid #134F9B; /* Branded blue on top */
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -53,78 +51,78 @@ h1 {
 
 /* Table styling */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Sets the table width to 100% of its container */
+    border-collapse: collapse; /* Collapses table borders into a single border */
+    border-radius: 8px; /* Adds rounded corners to the table */
+    overflow: hidden; /* Ensures inner content respects the table's rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
 }
 
 th, td {
-    padding: 14px;
-    text-align: left;
-    font-size: 14px;
-    line-height: 1.5;
+    padding: 14px; /* Increased padding for better readability */
+    text-align: left; /* Aligns the text to the left */
+    font-size: 14px; /* Sets a consistent font size */
+    line-height: 1.5; /* Improved line height */
 }
 
 th {
-    background-color: #134F9B;
-    color: #FFFFFF;
-    text-align: center;
-    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3);
+    background-color: #134F9B; /* Sets the background color to the branded blue */
+    color: #FFFFFF; /* Sets the text color to white */
+    text-align: center; /* Centers the text in header cells */
+    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3); /* Inner shadow at the bottom */
 }
 
 td {
-    background-color: #FFFFFF;
+    background-color: #FFFFFF; /* Sets the background color of table cells */
 }
 
 tbody tr:nth-child(even) {
-    background-color: #F7F7F7;
+    background-color: #F7F7F7; /* Slightly lighter alternating row color */
 }
 
 tbody tr:hover {
-    background-color: #DCEEFF;
+    background-color: #DCEEFF; /* Brighter hover color for better visibility */
 }
 
 /* DataTables button styling */
 .dt-buttons {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Adds space below the buttons */
 }
 
 .dt-button {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
+    background-color: #134F9B !important; /* Button background color */
+    color: #FFFFFF !important; /* Button text color */
     border: none !important;
     border-radius: 4px !important;
     margin-right: 5px;
     padding: 6px 12px !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
 }
 
 .dt-button:hover {
-    background-color: #0B3C75 !important;
+    background-color: #0B3C75 !important; /* Darker blue on hover */
 }
 
 /* DataTables pagination and info styling */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
+    background-color: #134F9B !important; /* Pagination button background color */
+    color: #FFFFFF !important; /* Pagination button text color */
     border: none !important;
     border-radius: 4px !important;
     margin: 2px;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background-color: #0B3C75 !important;
+    background-color: #0B3C75 !important; /* Active pagination button color */
 }
 
 .dataTables_wrapper .dataTables_length label,
 .dataTables_wrapper .dataTables_filter label {
-    color: #3E3E3E;
+    color: #3E3E3E; /* Labels color */
 }
 
 .dataTables_wrapper .dataTables_info {
-    color: #3E3E3E;
+    color: #3E3E3E; /* Info text color */
 }
 
 /* Adjust the select box in the length menu */
@@ -161,60 +159,4 @@ tbody tr:hover {
     #loading-bar .spinner {
         margin-bottom: 15px;
     }
-}
-
-/* Style for the ColVis collection */
-.dt-button-collection {
-    max-height: 500px; /* Increased max-height to show all options */
-    overflow-y: auto;
-    width: 250px !important; /* Adjusted width */
-}
-
-.dt-button-collection .dt-button {
-    display: flex;
-    align-items: center;
-    padding: 5px 10px !important;
-}
-
-.dt-button-collection .dt-button label {
-    flex: 1;
-}
-
-/* Center the bottom controls */
-.dataTables_wrapper .bottom {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.dataTables_wrapper .dataTables_length {
-    order: 1;
-    margin: 5px 20px;
-}
-
-.dataTables_wrapper .dataTables_info {
-    order: 2;
-    margin: 5px 20px;
-}
-
-.dataTables_wrapper .dataTables_paginate {
-    order: 3;
-    margin: 5px 0;
-}
-
-/* Adjust the length menu label and select to be centered */
-.dataTables_length {
-    text-align: center;
-}
-
-.dataTables_length label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dataTables_length select {
-    margin-left: 5px;
 }
