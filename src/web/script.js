@@ -1,3 +1,5 @@
+// script.js
+
 document.addEventListener("DOMContentLoaded", function() {
     const loadingBar = document.getElementById('loading-bar');
     const dataTableElement = document.getElementById('data-table');
@@ -33,8 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             {
                                 extend: 'colvis',
                                 text: 'Select Columns',
-                                columns: ':gt(-1)', // Include all columns
-                                collectionLayout: 'fixed two-column',
+                                columns: ':eq()', // Include all columns
                                 collectionTitle: 'Select Columns',
                                 postfixButtons: ['colvisRestore']
                             }

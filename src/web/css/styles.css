@@ -1,3 +1,5 @@
+/* styles.css */
+
 /* General page styling */
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -163,35 +165,19 @@ tbody tr:hover {
 
 /* Style for the ColVis collection */
 .dt-button-collection {
-    max-height: 500px; /* Increased max-height to accommodate all options */
+    max-height: 500px; /* Increased max-height to show all options */
     overflow-y: auto;
-    width: 300px !important; /* Adjusted width */
-    column-count: 2; /* Arrange options in two columns */
-    column-gap: 20px;
+    width: 250px !important; /* Adjusted width */
 }
 
 .dt-button-collection .dt-button {
-    display: block;
-    width: 100%;
+    display: flex;
+    align-items: center;
     padding: 5px 10px !important;
-    background-color: #134F9B !important; /* Default background color */
-    color: #FFFFFF !important; /* Default text color */
-    border: none !important;
-    border-radius: 4px !important;
-    margin-bottom: 5px;
 }
 
-.dt-button-collection .dt-button:hover {
-    background-color: #0B3C75 !important; /* Hover background color */
-}
-
-.dt-button-collection .dt-button.active {
-    background-color: #FFFFFF !important; /* Active (disabled) background color */
-    color: #134F9B !important; /* Active (disabled) text color */
-}
-
-.dt-button-collection .dt-button.active:hover {
-    background-color: #E6E6E6 !important; /* Hover color for active */
+.dt-button-collection .dt-button label {
+    flex: 1;
 }
 
 /* Center the bottom controls */
