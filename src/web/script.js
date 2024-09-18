@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: 'Bfrtip',
+                        dom: 'Blfrtip', // Include 'l' for length menu
                         buttons: [
                             {
                                 extend: 'colvis',
