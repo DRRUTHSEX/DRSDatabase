@@ -11,35 +11,14 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch('/data/Full_Database_Backend.json') // Asynchronously fetches the JSON file
             .then(response => response.json()) // Parses the JSON file
             .then(data => {
-                const table = document.getElementById('data-table'); // Gets the table element by its ID
-                
-                // Clear previous table body
-                table.tBodies[0].innerHTML = ''; // Clears the existing table body content
+                // Extract headers from the data
+                const headers = Object.keys(data[0]);
 
-                // Create table headers from the keys of the first JSON object
-                const headers = Object.keys(data[0]); // Extracts keys to use as table headers
-                const headerRow = document.createElement('tr'); // Creates a table row for headers
-                headers.forEach(headerText => {
-                    const header = document.createElement('th'); // Creates a table header cell
-                    header.textContent = headerText.replace(/([A-Z])/g, ' $1').trim(); // Formats header text to include spaces before capital letters
-                    headerRow.appendChild(header); // Appends the header cell to the header row
-                });
-                table.tHead.innerHTML = '';  // Clears any existing headers
-                table.tHead.appendChild(headerRow); // Appends the new header row to the table header
-
-                // Create the table body rows
-                data.forEach(rowData => {
-                    const row = document.createElement('tr'); // Creates a table row
-                    Object.values(rowData).forEach(cellData => {
-                        const cell = document.createElement('td'); // Creates a table cell
-                        cell.textContent = cellData; // Sets the text content of the cell
-                        row.appendChild(cell); // Appends the cell to the row
-                    });
-                    table.tBodies[0].appendChild(row); // Appends the row to the table body
-                });
-
-                // Create columns array for DataTables
-                const columns = headers.map(header => ({ title: header }));
+                // Create columns array with 'data' and 'title'
+                const columns = headers.map(header => ({
+                    data: header,
+                    title: header.replace(/([A-Z])/g, ' $1').trim()
+                }));
 
                 // Determine which columns should be visible by default
                 // Columns 1,2,3,4,9,10 are visible (indices 0,1,2,3,8,9)
@@ -48,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Initialize DataTables
                 $(document).ready(function() {
                     $('#data-table').DataTable({
+                        data: data, // Provide the data directly to DataTables
                         columns: columns,
                         "columnDefs": [
                             {
@@ -63,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         buttons: [
                             {
                                 extend: 'colvis',
-                                columns: ':gt(0)',
                                 text: 'Select Columns'
                             }
                         ],
