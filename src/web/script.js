@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: '<"top"<"dataTables_length_wrapper"l><"dataTables_button_wrapper"B><"dataTables_filter_wrapper"f>>rt<"bottom"ip><"clear">',
+                        dom: '<"top"<"top_left"l><"top_center"B><"top_right"f>>rt<"bottom"<"bottom_left"i><"bottom_right"p>><"clear">',
                         buttons: [
                             {
                                 extend: 'colvis',

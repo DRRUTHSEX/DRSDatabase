@@ -85,38 +85,67 @@ tbody tr:hover {
 }
 
 /* DataTables custom layout styling */
-.dataTables_wrapper .dataTables_length {
-    float: left;
+.dataTables_wrapper .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     margin-bottom: 10px;
+}
+
+.dataTables_wrapper .top_left,
+.dataTables_wrapper .top_center,
+.dataTables_wrapper .top_right {
+    flex: 1;
+}
+
+.dataTables_wrapper .top_center {
+    text-align: center;
+}
+
+.dataTables_wrapper .top_left {
+    text-align: left;
+}
+
+.dataTables_wrapper .top_right {
+    text-align: right;
 }
 
 .dataTables_wrapper .dt-buttons {
-    float: none;
-    text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 0;
 }
 
+.dataTables_wrapper .dataTables_length,
 .dataTables_wrapper .dataTables_filter {
-    float: right;
-    text-align: right;
-    margin-bottom: 10px;
+    float: none;
+    margin-bottom: 0;
 }
 
-.dataTables_wrapper .dataTables_info {
-    float: left;
-    margin-top: 10px;
-}
-
-.dataTables_wrapper .dataTables_paginate {
-    float: right;
-    margin-top: 10px;
-}
-
+/* Bottom controls styling */
 .dataTables_wrapper .bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.dataTables_wrapper .bottom_left {
+    float: left;
+    text-align: left;
+    flex: 1;
+}
+
+.dataTables_wrapper .bottom_right {
+    float: right;
+    text-align: right;
+    flex: 1;
+}
+
+/* Adjust margins and padding */
+.dataTables_wrapper .dataTables_length label,
+.dataTables_wrapper .dataTables_filter label {
+    margin: 0;
 }
 
 /* DataTables button styling */
@@ -174,33 +203,19 @@ tbody tr:hover {
 
 /* Responsive adjustments */
 @media screen and (max-width: 768px) {
-    table, th, td {
-        font-size: 12px;
-    }
-
-    .dt-button {
-        padding: 4px 8px !important;
-        font-size: 12px;
-    }
-
-    #loading-bar {
-        flex-direction: column;
-    }
-
-    #loading-bar .spinner {
-        margin-bottom: 15px;
-    }
-
-    .dataTables_wrapper .dataTables_length,
-    .dataTables_wrapper .dataTables_filter,
-    .dataTables_wrapper .dataTables_info,
-    .dataTables_wrapper .dataTables_paginate {
-        float: none;
-        text-align: center;
-    }
-
+    .dataTables_wrapper .top,
     .dataTables_wrapper .bottom {
         flex-direction: column;
         align-items: center;
+    }
+
+    .dataTables_wrapper .top_left,
+    .dataTables_wrapper .top_center,
+    .dataTables_wrapper .top_right,
+    .dataTables_wrapper .bottom_left,
+    .dataTables_wrapper .bottom_right {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
     }
 }
