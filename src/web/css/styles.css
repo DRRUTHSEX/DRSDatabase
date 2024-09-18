@@ -58,10 +58,25 @@ tbody tr:hover {
     background-color: #E6F7FF; /* Highlight row on hover */
 }
 
-tfoot {
-    background-color: #f2f2f2; /* Footer background color */
+/* DataTables button styling */
+.dt-buttons {
+    margin-bottom: 20px; /* Adds space below the buttons */
 }
 
+.dt-button {
+    background-color: #134F9B !important; /* Button background color */
+    color: #FFFFFF !important; /* Button text color */
+    border: none !important;
+    border-radius: 4px !important;
+    margin-right: 5px;
+    padding: 6px 12px !important;
+}
+
+.dt-button:hover {
+    background-color: #0B3C75 !important; /* Darker blue on hover */
+}
+
+/* DataTables pagination and info styling */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     background-color: #134F9B !important; /* Pagination button background color */
     color: #FFFFFF !important; /* Pagination button text color */
@@ -82,4 +97,3 @@ tfoot {
 .dataTables_wrapper .dataTables_info {
     color: #3E3E3E; /* Info text color */
 }
-
