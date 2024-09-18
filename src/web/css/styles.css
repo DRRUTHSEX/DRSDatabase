@@ -49,6 +49,29 @@ h1 {
     100% { transform: rotate(360deg); }
 }
 
+/* DataTables top elements styling */
+.dataTables_wrapper .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.dataTables_wrapper .dataTables_length {
+    order: 1;
+}
+
+.dataTables_wrapper .dt-buttons {
+    order: 2;
+    margin-bottom: 10px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    order: 3;
+    flex-basis: 100%;
+    margin-top: 10px;
+}
+
 /* Table styling */
 table {
     width: 100%;
@@ -85,10 +108,6 @@ tbody tr:hover {
 }
 
 /* DataTables button styling */
-.dt-buttons {
-    margin-bottom: 20px;
-}
-
 .dt-button {
     background-color: #134F9B !important;
     color: #FFFFFF !important;
@@ -101,6 +120,40 @@ tbody tr:hover {
 
 .dt-button:hover {
     background-color: #0B3C75 !important;
+}
+
+/* ColVis button styling */
+.dt-button-collection {
+    max-height: 400px; /* Ensures all options are visible */
+    overflow-y: auto; /* Adds scroll if content exceeds max-height */
+    width: auto !important; /* Allows the width to adjust automatically */
+    column-count: 3; /* Arranges options in three columns */
+    column-gap: 20px;
+    padding: 10px;
+}
+
+.dt-button-collection .dt-button {
+    background-color: #FFFFFF !important;
+    color: #134F9B !important;
+    border: none !important;
+    margin: 5px 0;
+    width: 100%;
+    text-align: left;
+    padding: 5px !important;
+}
+
+.dt-button-collection .dt-button:hover {
+    background-color: #F0F0F0 !important;
+}
+
+.dt-button-collection .dt-button.active {
+    background-color: #0B3C75 !important;
+    color: #FFFFFF !important;
+}
+
+.dt-button-collection .dt-button.active:hover {
+    background-color: #0B3C75 !important;
+    color: #FFFFFF !important;
 }
 
 /* DataTables pagination and info styling */
@@ -141,43 +194,6 @@ tbody tr:hover {
     background-color: #FFFFFF;
 }
 
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-    table, th, td {
-        font-size: 12px;
-    }
-
-    .dt-button {
-        padding: 4px 8px !important;
-        font-size: 12px;
-    }
-
-    #loading-bar {
-        flex-direction: column;
-    }
-
-    #loading-bar .spinner {
-        margin-bottom: 15px;
-    }
-}
-
-/* Style for the ColVis collection */
-.dt-button-collection {
-    max-height: 400px; /* Increased max-height to show more options */
-    overflow-y: auto;
-    width: 220px !important; /* Adjusted width */
-}
-
-.dt-button-collection .dt-button {
-    display: flex;
-    align-items: center;
-    padding: 5px 10px !important;
-}
-
-.dt-button-collection .dt-button label {
-    flex: 1;
-}
-
 /* Center the bottom controls */
 .dataTables_wrapper .bottom {
     display: flex;
@@ -215,4 +231,50 @@ tbody tr:hover {
 
 .dataTables_length select {
     margin-left: 5px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .dataTables_wrapper .top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dt-buttons,
+    .dataTables_wrapper .dataTables_filter {
+        order: initial;
+        flex-basis: 100%;
+    }
+
+    .dataTables_wrapper .dataTables_filter {
+        margin-top: 10px;
+    }
+
+    .dataTables_wrapper .bottom {
+        flex-direction: column;
+    }
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        margin: 5px 0;
+    }
+
+    table, th, td {
+        font-size: 12px;
+    }
+
+    .dt-button {
+        padding: 4px 8px !important;
+        font-size: 12px;
+    }
+
+    #loading-bar {
+        flex-direction: column;
+    }
+
+    #loading-bar .spinner {
+        margin-bottom: 15px;
+    }
 }
