@@ -114,6 +114,17 @@ tbody tr:hover {
     color: #FFFFFF !important;
 }
 
+/* Additional specificity for Select Columns buttons */
+.dt-button-collection button.dt-button:not(.active) {
+    background-color: #134F9B !important;
+    color: #FFFFFF !important;
+}
+
+.dt-button-collection button.dt-button.active {
+    background-color: #808080 !important;
+    color: #FFFFFF !important;
+}
+
 /* DataTables pagination and info styling */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     background-color: #134F9B !important;
