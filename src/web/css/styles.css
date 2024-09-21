@@ -103,6 +103,17 @@ tbody tr:hover {
     background-color: #0B3C75 !important;
 }
 
+/* Updated styles for Select Columns buttons */
+.dt-button-collection .dt-button {
+    background-color: #134F9B !important; /* Blue background for enabled buttons */
+    color: #FFFFFF !important;
+}
+
+.dt-button-collection .dt-button.active {
+    background-color: #808080 !important; /* Gray background for disabled buttons */
+    color: #FFFFFF !important;
+}
+
 /* DataTables pagination and info styling */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     background-color: #134F9B !important;
