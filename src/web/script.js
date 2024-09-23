@@ -1,12 +1,12 @@
 // Assuming your JSON file is named 'Full_Database_Backend.json' and is in the '/data' directory
 document.addEventListener("DOMContentLoaded", function () {
-    const loadingOverlay = document.getElementById('loading-overlay');
+    const loadingBar = document.getElementById('loading-bar');
     const dataTableElement = document.getElementById('data-table');
 
-    // Show the loading overlay
-    loadingOverlay.style.display = 'flex';
+    // Show the loading bar
+    loadingBar.style.display = 'flex';
 
-    // Define the default visible columns
+    // Define the default visible columns (indices start from 0)
     const defaultVisibleColumns = [0, 1, 2, 3, 8, 9];
 
     // Function to fetch and load data
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const columns = headers.map((header, index) => ({
                     data: header,
                     title: header.replace(/([A-Z])/g, ' $1').trim(),
-                    visible: defaultVisibleColumns.includes(index)
+                    visible: defaultVisibleColumns.includes(index) // Set visibility based on default
                 }));
 
                 // Initialize DataTables
@@ -29,15 +29,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     var table = $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: '<"top"Bf>rt<"bottom"lip><"clear">',
+                        dom: '<"top"lfB>rt<"bottom"ip><"clear">',
                         buttons: [
                             {
                                 extend: 'colvis',
-                                text: '<i class="fas fa-columns"></i> Select Columns',
+                                text: 'Select Columns',
                                 columns: ':not(:first-child)'
                             },
                             {
-                                text: '<i class="fas fa-sync-alt"></i> Reset Columns',
+                                text: 'Reset Columns',
                                 action: function (e, dt, node, config) {
                                     // Clear the saved state in localStorage
                                     dt.state.clear();
@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         "stateSave": true,
                         "stateDuration": -1, // Set to -1 to save the state indefinitely
                         "initComplete": function (settings, json) {
-                            // Hide the loading overlay and show the table after DataTables initialization is complete
-                            loadingOverlay.style.display = 'none';
+                            // Hide the loading bar and show the table after DataTables initialization is complete
+                            loadingBar.style.display = 'none';
                             dataTableElement.style.display = 'table';
                         },
                         "pagingType": "full_numbers", // Displays page numbers
@@ -76,14 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
                         "order": [[0, 'asc']], // Sort by the first column (index 0) ascending
-                        "responsive": true
+                        "responsive": true // Enable responsive table
                     });
                 });
             })
             .catch(error => {
                 console.error('Error loading the data:', error);
-                // Hide the loading overlay even if there's an error
-                loadingOverlay.style.display = 'none';
+                // Hide the loading bar even if there's an error
+                loadingBar.style.display = 'none';
             });
     }
 

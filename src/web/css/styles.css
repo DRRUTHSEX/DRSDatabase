@@ -1,12 +1,12 @@
-/* Set the default font family, background color, margin, and text color for the entire page */
+/* Base styling */
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: #F5F5F5;
     margin: 20px;
-    color: #222; /* Darker text color for better contrast */
+    color: #333;
+    font-size: 16px;
 }
 
-/* Style the main heading of the page */
 h1 {
     text-align: center;
     color: #134F9B;
@@ -14,237 +14,140 @@ h1 {
     font-size: 2em;
 }
 
-/* Loading overlay styles */
-#loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* Loading bar styling */
+#loading-bar {
     width: 100%;
-    height: 100%;
-    background: rgba(245, 245, 245, 0.95);
+    text-align: center;
+    padding: 20px;
+    background-color: #FFFFFF;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
 }
 
-#loading-overlay .loader {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #134F9B;
+#loading-bar .spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #134F9B;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     animation: spin 1s linear infinite;
-    margin-bottom: 20px;
+    margin-right: 15px;
 }
 
-#loading-overlay p {
-    font-size: 18px;
+#loading-bar span {
     color: #3E3E3E;
 }
 
-/* Define the spinning animation for the loading spinner */
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-/* Style the main table */
+/* Center table headers within DataTables */
+table.dataTable thead th {
+    text-align: center !important;
+}
+
+/* Table styling */
 table {
-    width: 100%; /* Changed from 95% to 100% */
-    margin: 0 auto;
+    width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    table-layout: auto; /* Added */
 }
 
-/* Make table headers sticky */
-table thead th {
-    position: sticky;
-    top: 0;
-    background-color: #0F4C81; /* Slightly darker header for contrast */
-    z-index: 2;
-}
-
-/* Style table headers and cells */
 th, td {
-    padding: 12px 10px;
-    text-align: left;
-    font-size: 15px;
+    padding: 12px;
+    font-size: 14px;
     line-height: 1.5;
 }
 
-/* Style table headers specifically */
 th {
+    background-color: #0B3C75;
     color: #FFFFFF;
-    text-align: center;
     box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
 }
 
-/* Style table cells */
 td {
     background-color: #FFFFFF;
-    white-space: normal; /* Changed from nowrap to normal */
-    word-wrap: break-word; /* Added */
-    overflow-wrap: break-word; /* Added */
 }
 
-/* Add borders between rows */
-tbody tr {
-    border-bottom: 1px solid #ddd;
-}
-
-/* Style alternating rows in the table body */
+/* Alternating row colors */
 tbody tr:nth-child(even) {
-    background-color: #F7F7F7;
+    background-color: #F0F8FF;
 }
 
-/* Style table rows on hover */
+/* Row hover effect */
 tbody tr:hover {
-    background-color: #CCE5FF;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    background-color: #E6F2FF;
 }
 
-/* Style the DataTables buttons container */
-.dt-buttons {
+/* Top controls styling */
+.dataTables_wrapper .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
-/* Style individual DataTables buttons */
-.dt-buttons .dt-button {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
-    border: none !important;
-    border-radius: 20px !important;
-    margin-right: 5px;
-    padding: 8px 16px !important;
-    font-size: 14px;
-    transition: background-color 0.3s;
-}
-
-.dt-buttons .dt-button:hover {
-    background-color: #0B3C75 !important;
-}
-
-/* Adjust button icons */
-.dt-buttons .dt-button .fa {
-    margin-right: 5px;
-}
-
-/* Style DataTables pagination buttons */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    background-color: #FFFFFF !important;
-    color: #134F9B !important;
-    border: 1px solid #134F9B !important;
-    border-radius: 4px !important;
-    margin: 2px;
-    padding: 6px 12px;
-    transition: background-color 0.3s;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
-}
-
-/* Style labels for length menu and search input */
-.dataTables_wrapper .dataTables_length label,
-.dataTables_wrapper .dataTables_filter label {
-    color: #3E3E3E;
-}
-
-/* Style the information text */
-.dataTables_wrapper .dataTables_info {
-    color: #3E3E3E;
-    margin: 10px 0; /* Add vertical margin to info text */
-}
-
-/* Style the select box in the length menu */
-.dataTables_length select {
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 6px 12px;
-    background-color: #FFFFFF;
-    transition: all 0.3s;
-}
-
-.dataTables_length select:focus {
-    border-color: #134F9B;
-    outline: none;
-}
-
-/* Style the search input */
-.dataTables_filter input {
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 6px 12px;
-    background-color: #FFFFFF;
-    width: 200px;
-    transition: all 0.3s;
-}
-
-.dataTables_filter input:focus {
-    border-color: #134F9B;
-    outline: none;
-}
-
-/* Responsive adjustments for smaller screens */
-@media screen and (max-width: 768px) {
-    body {
-        margin: 10px;
-    }
-
-    h1 {
-        font-size: 1.5em;
-        margin-bottom: 20px;
-    }
-
-    table, th, td {
-        font-size: 13px;
-    }
-
-    .dt-buttons .dt-button {
-        padding: 5px 10px !important;
-        font-size: 13px !important;
-    }
-
-    #loading-overlay .loader {
-        width: 50px;
-        height: 50px;
-    }
-
-    #loading-overlay p {
-        font-size: 16px;
-    }
-
-    /* Adjust table width */
-    table {
-        width: 100%;
-    }
-}
-
-/* Highlight table headers on hover */
-th:hover {
-    background-color: #0B3C75;
-    cursor: pointer;
-}
-
-/* Add margin above pagination */
-.dataTables_wrapper .dataTables_paginate {
+.dataTables_wrapper .dataTables_length {
+    order: 1;
     margin-top: 10px;
 }
 
-/* Center and space out bottom controls */
+.dataTables_wrapper .dataTables_filter {
+    order: 2;
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+.dataTables_wrapper .dt-buttons {
+    order: 3;
+    margin-top: 10px;
+}
+
+/* Buttons styling */
+.dt-button {
+    background-color: #134F9B !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 6px 12px !important;
+    margin-right: 5px;
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dt-button:hover {
+    background-color: #0B3C75 !important;
+}
+
+/* Pagination buttons */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    background-color: #134F9B !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 4px !important;
+    margin: 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #0B3C75 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #0B3C75 !important;
+}
+
+/* Bottom controls */
 .dataTables_wrapper .bottom {
     display: flex;
     align-items: center;
@@ -252,36 +155,83 @@ th:hover {
     flex-wrap: wrap;
 }
 
-/* Remove margin from "Show entries" label */
-.dataTables_length label {
-    margin: 0;
+.dataTables_length label,
+.dataTables_filter label {
+    color: #3E3E3E;
+}
+
+.dataTables_info {
+    color: #3E3E3E;
+    margin: 10px 0;
+}
+
+.dataTables_length select,
+.dataTables_filter input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    background-color: #FFFFFF;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    table, th, td {
+        font-size: 12px;
+    }
+
+    .dt-button {
+        padding: 4px 8px !important;
+        font-size: 12px;
+    }
+
+    .dataTables_wrapper .top {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter,
+    .dataTables_wrapper .dt-buttons {
+        order: initial;
+        margin-top: 10px;
+    }
+
+    .dataTables_wrapper .dataTables_filter {
+        margin-left: 0;
+    }
 }
 
 /* Style the buttons within the "Select Columns" dropdown */
 .dt-button-collection button {
     background-color: #134F9B;
     color: #FFFFFF;
-    border: 1px solid #134F9B;
+    border: none;
     padding: 6px 12px;
     margin: 2px;
     border-radius: 4px;
-    transition: background-color 0.3s;
 }
 
-/* Style for active (selected) buttons */
-.dt-button-collection button.active {
-    background-color: #FFFFFF;
-    color: #134F9B;
-}
-
-/* Hover styles for all buttons in the dropdown */
 .dt-button-collection button:hover {
     background-color: #0B3C75;
     color: #FFFFFF;
 }
 
-/* Hover styles for active buttons */
-.dt-button-collection button.active:hover {
-    background-color: #DCEEFF;
+.dt-button-collection button.active {
+    background-color: #FFFFFF;
     color: #134F9B;
+}
+
+.dt-button-collection button.active:hover {
+    background-color: #E6F2FF;
+    color: #134F9B;
+}
+
+/* Adjust the search input placeholder */
+.dataTables_wrapper .dataTables_filter input::placeholder {
+    color: #999;
+}
+
+/* Adjust margin above pagination */
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 10px;
 }
