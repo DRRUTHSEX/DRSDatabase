@@ -1,206 +1,259 @@
 /* Set the default font family, background color, margin, and text color for the entire page */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif; /* Use Helvetica Neue as primary font, fallback to Arial and sans-serif */
-    background-color: #F5F5F5; /* Set a light gray background color */
-    margin: 20px; /* Add 20px margin around the body */
-    color: #333; /* Set the default text color to dark gray */
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #F5F5F5;
+    margin: 20px;
+    color: #222; /* Darker text color for better contrast */
 }
 
 /* Style the main heading of the page */
 h1 {
-    text-align: center; /* Center-align the heading text */
-    color: #134F9B; /* Set the heading color to a deep blue */
-    margin-bottom: 30px; /* Add 30px margin below the heading */
-    font-size: 2em; /* Set the font size to 2 times the default size */
+    text-align: center;
+    color: #134F9B;
+    margin-bottom: 30px;
+    font-size: 2em;
 }
 
-/* Style the loading bar container */
-#loading-bar {
-    width: 100%; /* Make the loading bar full width */
-    text-align: center; /* Center-align the content inside the loading bar */
-    padding: 20px; /* Add 20px padding inside the loading bar */
-    background-color: #FFFFFF; /* Set the background to white */
-    font-size: 18px; /* Set the font size to 18 pixels */
-    font-weight: bold; /* Make the text bold */
-    border-radius: 8px; /* Add rounded corners */
-    margin-bottom: 20px; /* Add 20px margin below the loading bar */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
-    display: flex; /* Use flexbox for layout */
-    align-items: center; /* Vertically center the content */
-    justify-content: center; /* Horizontally center the content */
+/* Loading overlay styles */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(245, 245, 245, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
 }
 
-/* Style the spinner inside the loading bar */
-#loading-bar .spinner {
-    border: 6px solid #f3f3f3; /* Create a light gray border */
-    border-top: 6px solid #134F9B; /* Set the top border to blue for the spinning effect */
-    border-radius: 50%; /* Make the spinner circular */
-    width: 40px; /* Set the width of the spinner */
-    height: 40px; /* Set the height of the spinner */
-    animation: spin 1s linear infinite; /* Apply the spinning animation */
-    margin-right: 15px; /* Add margin to the right of the spinner */
+#loading-overlay .loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #134F9B;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
 }
 
-/* Style the text inside the loading bar */
-#loading-bar span {
-    color: #3E3E3E; /* Set the text color to dark gray */
+#loading-overlay p {
+    font-size: 18px;
+    color: #3E3E3E;
 }
 
 /* Define the spinning animation for the loading spinner */
 @keyframes spin {
-    0% { transform: rotate(0deg); } /* Start position: no rotation */
-    100% { transform: rotate(360deg); } /* End position: full rotation */
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Style the main table */
 table {
-    width: 100%; /* Make the table full width */
-    border-collapse: collapse; /* Collapse table borders */
-    border-radius: 8px; /* Add rounded corners to the table */
-    overflow: hidden; /* Hide overflow for rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+    width: 95%;
+    margin: 0 auto; /* Center the table */
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Make table headers sticky */
+table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #0F4C81; /* Slightly darker header for contrast */
+    z-index: 2;
 }
 
 /* Style table headers and cells */
 th, td {
-    padding: 14px; /* Add padding inside cells */
-    text-align: left; /* Left-align text in cells */
-    font-size: 14px; /* Set font size for cell content */
-    line-height: 1.5; /* Set line height for better readability */
+    padding: 12px 10px;
+    text-align: left;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 /* Style table headers specifically */
 th {
-    background-color: #134F9B; /* Set background color for headers */
-    color: #FFFFFF; /* Set text color to white for headers */
-    text-align: center; /* Center-align text in headers */
-    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3); /* Add an inner shadow effect */
+    color: #FFFFFF;
+    text-align: center;
+    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 /* Style table cells */
 td {
-    background-color: #FFFFFF; /* Set background color for cells to white */
+    background-color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Add borders between rows */
+tbody tr {
+    border-bottom: 1px solid #ddd;
 }
 
 /* Style alternating rows in the table body */
 tbody tr:nth-child(even) {
-    background-color: #F7F7F7; /* Set a light gray background for even rows */
+    background-color: #F7F7F7;
 }
 
 /* Style table rows on hover */
 tbody tr:hover {
-    background-color: #DCEEFF; /* Change background color on hover */
+    background-color: #CCE5FF;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
 }
 
 /* Style the DataTables buttons container */
 .dt-buttons {
-    margin-bottom: 20px; /* Add margin below the buttons container */
+    margin-bottom: 20px;
 }
 
 /* Style individual DataTables buttons */
-.dt-button {
-    background-color: #134F9B !important; /* Set button background color */
-    color: #FFFFFF !important; /* Set button text color */
-    border: none !important; /* Remove button border */
-    border-radius: 4px !important; /* Add rounded corners to buttons */
-    margin-right: 5px; /* Add margin to the right of each button */
-    padding: 6px 12px !important; /* Add padding inside buttons */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+.dt-buttons .dt-button {
+    background-color: #134F9B !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 20px !important;
+    margin-right: 5px;
+    padding: 8px 16px !important;
+    font-size: 14px;
+    transition: background-color 0.3s;
 }
 
-/* Style DataTables buttons on hover */
-.dt-button:hover {
-    background-color: #0B3C75 !important; /* Change background color on hover */
+.dt-buttons .dt-button:hover {
+    background-color: #0B3C75 !important;
+}
+
+/* Adjust button icons */
+.dt-buttons .dt-button .fa {
+    margin-right: 5px;
 }
 
 /* Style DataTables pagination buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-    background-color: #134F9B !important; /* Set pagination button background color */
-    color: #FFFFFF !important; /* Set pagination button text color */
-    border: none !important; /* Remove pagination button border */
-    border-radius: 4px !important; /* Add rounded corners to pagination buttons */
-    margin: 2px; /* Add margin around pagination buttons */
+    background-color: #FFFFFF !important;
+    color: #134F9B !important;
+    border: 1px solid #134F9B !important;
+    border-radius: 4px !important;
+    margin: 2px;
+    padding: 6px 12px;
+    transition: background-color 0.3s;
 }
 
-/* Style the current (active) pagination button */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #134F9B !important;
+    color: #FFFFFF !important;
+}
+
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background-color: #0B3C75 !important; /* Set background color for current page button */
+    background-color: #134F9B !important;
+    color: #FFFFFF !important;
 }
 
 /* Style labels for length menu and search input */
 .dataTables_wrapper .dataTables_length label,
 .dataTables_wrapper .dataTables_filter label {
-    color: #3E3E3E; /* Set label text color */
+    color: #3E3E3E;
 }
 
 /* Style the information text */
 .dataTables_wrapper .dataTables_info {
-    color: #3E3E3E; /* Set info text color */
+    color: #3E3E3E;
+    margin: 10px 0; /* Add vertical margin to info text */
 }
 
 /* Style the select box in the length menu */
 .dataTables_length select {
-    border: 1px solid #ccc; /* Add a light gray border */
-    border-radius: 4px; /* Add rounded corners */
-    padding: 4px; /* Add padding inside the select box */
-    background-color: #FFFFFF; /* Set background color to white */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 6px 12px;
+    background-color: #FFFFFF;
+    transition: all 0.3s;
+}
+
+.dataTables_length select:focus {
+    border-color: #134F9B;
+    outline: none;
 }
 
 /* Style the search input */
 .dataTables_filter input {
-    border: 1px solid #ccc; /* Add a light gray border */
-    border-radius: 4px; /* Add rounded corners */
-    padding: 4px; /* Add padding inside the input */
-    background-color: #FFFFFF; /* Set background color to white */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 6px 12px;
+    background-color: #FFFFFF;
+    width: 200px;
+    transition: all 0.3s;
+}
+
+.dataTables_filter input:focus {
+    border-color: #134F9B;
+    outline: none;
 }
 
 /* Responsive adjustments for smaller screens */
 @media screen and (max-width: 768px) {
+    body {
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
     table, th, td {
-        font-size: 12px; /* Reduce font size for table content */
+        font-size: 13px;
     }
 
-    .dt-button {
-        padding: 4px 8px !important; /* Reduce padding for buttons */
-        font-size: 12px; /* Reduce font size for buttons */
+    .dt-buttons .dt-button {
+        padding: 5px 10px !important;
+        font-size: 13px !important;
     }
 
-    #loading-bar {
-        flex-direction: column; /* Stack loading bar content vertically */
+    #loading-overlay .loader {
+        width: 50px;
+        height: 50px;
     }
 
-    #loading-bar .spinner {
-        margin-bottom: 15px; /* Add margin below the spinner */
+    #loading-overlay p {
+        font-size: 16px;
+    }
+
+    /* Adjust table width */
+    table {
+        width: 100%;
     }
 }
 
 /* Highlight table headers on hover */
 th:hover {
-    background-color: #0B3C75; /* Change background color on hover */
-    cursor: pointer; /* Change cursor to pointer on hover */
+    background-color: #0B3C75;
+    cursor: pointer;
 }
 
 /* Add margin above pagination */
 .dataTables_wrapper .dataTables_paginate {
-    margin-top: 10px; /* Add margin above pagination */
+    margin-top: 10px;
 }
 
 /* Center and space out bottom controls */
 .dataTables_wrapper .bottom {
-    display: flex; /* Use flexbox for layout */
-    align-items: center; /* Vertically center items */
-    justify-content: space-between; /* Space items evenly */
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 /* Remove margin from "Show entries" label */
 .dataTables_length label {
-    margin: 0; /* Remove default margin */
-}
-
-/* Add margin to information text */
-.dataTables_info {
-    margin: 10px 0; /* Add vertical margin to info text */
+    margin: 0;
 }
 
 /* Style the buttons within the "Select Columns" dropdown */
@@ -211,6 +264,7 @@ th:hover {
     padding: 6px 12px;
     margin: 2px;
     border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 /* Style for active (selected) buttons */
@@ -229,4 +283,18 @@ th:hover {
 .dt-button-collection button.active:hover {
     background-color: #DCEEFF;
     color: #134F9B;
+}
+
+/* Tooltip styles */
+td:hover::after {
+    content: attr(data-full-text);
+    position: absolute;
+    background-color: #fff;
+    color: #333;
+    padding: 5px;
+    border: 1px solid #ccc;
+    white-space: normal;
+    max-width: 300px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
