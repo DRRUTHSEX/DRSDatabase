@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                 columns: ':not(:first-child)'
                             }
                         ],
+                        "stateSave": true,
+                        "stateDuration": -1, // Set to -1 to save the state indefinitely
                         "initComplete": function (settings, json) {
                             // Hide the loading bar and show the table after DataTables initialization is complete
                             loadingBar.style.display = 'none';
