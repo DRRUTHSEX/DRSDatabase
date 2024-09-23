@@ -1,10 +1,10 @@
 // Assuming your JSON file is named 'Full_Database_Backend.json' and is in the '/data' directory
 document.addEventListener("DOMContentLoaded", function () {
-    const loadingBar = document.getElementById('loading-bar');
+    const loadingOverlay = document.getElementById('loading-overlay');
     const dataTableElement = document.getElementById('data-table');
 
-    // Show the loading bar
-    loadingBar.style.display = 'flex';
+    // Show the loading overlay
+    loadingOverlay.style.display = 'flex';
 
     // Define the default visible columns (indices start from 0)
     const defaultVisibleColumns = [0, 1, 2, 3, 8, 9];
@@ -60,11 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         ],
                         "stateSave": true,
                         "stateDuration": -1, // Set to -1 to save the state indefinitely
+                         // In initComplete function:
                         "initComplete": function (settings, json) {
-                            // Hide the loading bar and show the table after DataTables initialization is complete
-                            loadingBar.style.display = 'none';
-                            dataTableElement.style.display = 'table';
+                        // Hide the loading overlay and show the table after DataTables initialization is complete
+                        loadingOverlay.style.display = 'none';
+                        dataTableElement.style.display = 'table';
                         },
+
                         "pagingType": "full_numbers", // Displays page numbers
                         "language": {
                             "search": "",
@@ -82,8 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => {
                 console.error('Error loading the data:', error);
-                // Hide the loading bar even if there's an error
-                loadingBar.style.display = 'none';
+                // Hide the loading overlay even if there's an error
+                loadingOverlay.style.display = 'none';
             });
     }
 
