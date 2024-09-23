@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Show the loading bar
     loadingBar.style.display = 'flex';
 
+    // Define the default visible columns
+    const defaultVisibleColumns = [0, 1, 2, 3, 8, 9];
+
     // Function to fetch and load data
     function loadData() {
         fetch('/data/Full_Database_Backend.json')
@@ -14,28 +17,45 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Extract headers from the data
                 const headers = Object.keys(data[0]);
 
-                // Determine which columns should be visible by default
-                // Columns 1,2,3,4,9,10 are visible (indices 0,1,2,3,8,9)
-                const visibleColumns = [0, 1, 2, 3, 8, 9];
-
                 // Create columns array with 'data', 'title', and 'visible'
                 const columns = headers.map((header, index) => ({
                     data: header,
                     title: header.replace(/([A-Z])/g, ' $1').trim(),
-                    visible: visibleColumns.includes(index) // Set visibility directly
+                    visible: defaultVisibleColumns.includes(index) // Set visibility based on default
                 }));
 
                 // Initialize DataTables
                 $(document).ready(function () {
-                    $('#data-table').DataTable({
+                    var table = $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: '<"top"Bf>rt<"bottom"lip><"clear">', // Moved 'l' to the bottom
+                        dom: '<"top"Bf>rt<"bottom"lip><"clear">',
                         buttons: [
                             {
                                 extend: 'colvis',
                                 text: 'Select Columns',
                                 columns: ':not(:first-child)'
+                            },
+                            {
+                                text: 'Reset Columns',
+                                action: function (e, dt, node, config) {
+                                    // Clear the saved state in localStorage
+                                    dt.state.clear();
+
+                                    // Reset all columns to invisible
+                                    dt.columns().visible(false);
+
+                                    // Set default columns to visible
+                                    defaultVisibleColumns.forEach(function (colIndex) {
+                                        dt.column(colIndex).visible(true);
+                                    });
+
+                                    // Save the new state
+                                    dt.state.save();
+
+                                    // Redraw the table without resetting the paging
+                                    dt.draw(false);
+                                }
                             }
                         ],
                         "stateSave": true,
