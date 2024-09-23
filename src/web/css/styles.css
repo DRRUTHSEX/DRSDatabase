@@ -52,12 +52,13 @@ h1 {
 
 /* Style the main table */
 table {
-    width: 95%;
-    margin: 0 auto; /* Center the table */
+    width: 100%; /* Changed from 95% to 100% */
+    margin: 0 auto;
     border-collapse: collapse;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    table-layout: auto; /* Added */
 }
 
 /* Make table headers sticky */
@@ -88,9 +89,9 @@ th {
 /* Style table cells */
 td {
     background-color: #FFFFFF;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal; /* Changed from nowrap to normal */
+    word-wrap: break-word; /* Added */
+    overflow-wrap: break-word; /* Added */
 }
 
 /* Add borders between rows */
@@ -283,18 +284,4 @@ th:hover {
 .dt-button-collection button.active:hover {
     background-color: #DCEEFF;
     color: #134F9B;
-}
-
-/* Tooltip styles */
-td:hover::after {
-    content: attr(data-full-text);
-    position: absolute;
-    background-color: #fff;
-    color: #333;
-    padding: 5px;
-    border: 1px solid #ccc;
-    white-space: normal;
-    max-width: 300px;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }

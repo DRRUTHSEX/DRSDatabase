@@ -21,11 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const columns = headers.map((header, index) => ({
                     data: header,
                     title: header.replace(/([A-Z])/g, ' $1').trim(),
-                    visible: defaultVisibleColumns.includes(index),
-                    createdCell: function (td, cellData, rowData, row, col) {
-                        $(td).attr('data-full-text', cellData);
-                        $(td).attr('aria-label', cellData);
-                    }
+                    visible: defaultVisibleColumns.includes(index)
                 }));
 
                 // Initialize DataTables
@@ -80,13 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
                         "order": [[0, 'asc']], // Sort by the first column (index 0) ascending
-                        "responsive": true,
-                        "createdRow": function (row, data, dataIndex) {
-                            $('td', row).each(function (index) {
-                                var cellData = data[headers[index]];
-                                $(this).attr('data-full-text', cellData);
-                            });
-                        },
+                        "responsive": true
                     });
                 });
             })
