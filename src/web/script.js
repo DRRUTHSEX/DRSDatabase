@@ -1,4 +1,4 @@
-// Assuming your JSON file is named 'Full_Database_Backend.json' and is in the '/data' directory
+// Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
 document.addEventListener("DOMContentLoaded", function () {
     const loadingOverlay = document.getElementById('loading-overlay');
     const dataTableElement = document.getElementById('data-table');
@@ -21,11 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const columns = headers.map((header, index) => ({
                     data: header,
                     title: header.replace(/([A-Z])/g, ' $1').trim(),
-                    visible: defaultVisibleColumns.includes(index),
-                    createdCell: function (td, cellData, rowData, row, col) {
-                        $(td).attr('data-full-text', cellData);
-                        $(td).attr('aria-label', cellData);
-                    }
+                    visible: defaultVisibleColumns.includes(index) // Set visibility based on default
                 }));
 
                 // Initialize DataTables
@@ -37,11 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         buttons: [
                             {
                                 extend: 'colvis',
-                                text: '<i class="fas fa-columns"></i> Select Columns',
+                                text: 'Select Columns',
                                 columns: ':not(:first-child)'
                             },
                             {
-                                text: '<i class="fas fa-sync-alt"></i> Reset Columns',
+                                text: 'Reset Columns',
                                 action: function (e, dt, node, config) {
                                     // Clear the saved state in localStorage
                                     dt.state.clear();
@@ -64,11 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         ],
                         "stateSave": true,
                         "stateDuration": -1, // Set to -1 to save the state indefinitely
+                        // In initComplete function:
                         "initComplete": function (settings, json) {
-                            // Hide the loading overlay and show the table after DataTables initialization is complete
+                        // Hide the loading overlay and show the table after DataTables initialization is complete
                             loadingOverlay.style.display = 'none';
                             dataTableElement.style.display = 'table';
                         },
+
                         "pagingType": "full_numbers", // Displays page numbers
                         "language": {
                             "search": "",
@@ -80,13 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
                         "order": [[0, 'asc']], // Sort by the first column (index 0) ascending
-                        "responsive": true,
-                        "createdRow": function (row, data, dataIndex) {
-                            $('td', row).each(function (index) {
-                                var cellData = data[headers[index]];
-                                $(this).attr('data-full-text', cellData);
-                            });
-                        },
+                        "responsive": true // Enable responsive table
                     });
                 });
             })
