@@ -1,4 +1,4 @@
-// Assuming your JSON file is named 'Full_Database_Backend.json' and is in the '/data' directory
+// Assuming your JSON file is named 'Full_Database_Backend.json' and is in the same directory
 document.addEventListener("DOMContentLoaded", function () {
     const loadingOverlay = document.getElementById('loading-overlay');
     const dataTableElement = document.getElementById('data-table');
@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Show the loading overlay
     loadingOverlay.style.display = 'flex';
 
-    // Define the default visible columns (indices start from 0)
+    // Define the default visible columns
     const defaultVisibleColumns = [0, 1, 2, 3, 8, 9];
 
     // Function to fetch and load data
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     var table = $('#data-table').DataTable({
                         data: data,
                         columns: columns,
-                        dom: '<"top"lfB>rt<"bottom"ip><"clear">',
+                        dom: '<"top"Bf>rt<"bottom"lip><"clear">',
                         buttons: [
                             {
                                 extend: 'colvis',
@@ -60,11 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         ],
                         "stateSave": true,
                         "stateDuration": -1, // Set to -1 to save the state indefinitely
-                         // In initComplete function:
+                        // In initComplete function:
                         "initComplete": function (settings, json) {
                         // Hide the loading overlay and show the table after DataTables initialization is complete
-                        loadingOverlay.style.display = 'none';
-                        dataTableElement.style.display = 'table';
+                            loadingOverlay.style.display = 'none';
+                            dataTableElement.style.display = 'table';
                         },
 
                         "pagingType": "full_numbers", // Displays page numbers
