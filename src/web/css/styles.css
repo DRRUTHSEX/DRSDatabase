@@ -50,6 +50,11 @@ h1 {
     100% { transform: rotate(360deg); }
 }
 
+/* Center table headers within DataTables */
+table.dataTable thead th {
+    text-align: center !important;
+}
+
 /* Style the main table */
 table {
     width: 100%; /* Make the table full width */
