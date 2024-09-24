@@ -56,6 +56,11 @@ table.dataTable thead th {
 }
 
 /* Style the main table */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
 table {
     width: 100%; /* Make the table full width */
     border-collapse: collapse; /* Collapse table borders */
@@ -189,7 +194,7 @@ tbody tr:hover {
     }
 
     /* Adjust table width */
-    table {
+    .table-container {
         width: 100%;
     }
 }
