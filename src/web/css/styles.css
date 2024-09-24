@@ -56,11 +56,6 @@ table.dataTable thead th {
 }
 
 /* Style the main table */
-.table-container {
-    width: 100%;
-    overflow-x: auto; /* Enable horizontal scrolling */
-}
-
 table {
     width: 100%; /* Make the table full width */
     border-collapse: collapse; /* Collapse table borders */
@@ -162,41 +157,6 @@ tbody tr:hover {
     border-radius: 4px; /* Add rounded corners */
     padding: 4px; /* Add padding inside the input */
     background-color: #FFFFFF; /* Set background color to white */
-}
-
-/* Responsive adjustments for smaller screens */
-@media screen and (max-width: 768px) {
-    body {
-        margin: 10px;
-    }
-
-    h1 {
-        font-size: 1.5em;
-        margin-bottom: 20px;
-    }
-
-    table, th, td {
-        font-size: 13px;
-    }
-
-    .dt-button {
-        padding: 5px 10px !important;
-        font-size: 13px !important;
-    }
-
-    #loading-overlay .loader {
-        width: 50px;
-        height: 50px;
-    }
-
-    #loading-overlay p {
-        font-size: 16px;
-    }
-
-    /* Adjust table width */
-    .table-container {
-        width: 100%;
-    }
 }
 
 /* Highlight table headers on hover */
