@@ -50,6 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
                                         dt.column(colIndex).visible(true);
                                     });
 
+                                    // Adjust column widths
+                                    dt.columns.adjust();
+
                                     // Save the new state
                                     dt.state.save();
 
@@ -77,6 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
                         "order": [[0, 'asc']] // Sort by the first column (index 0) ascending
+                    });
+
+                    // Event listener to adjust columns when visibility changes
+                    table.on('column-visibility.dt', function (e, settings, column, state) {
+                        table.columns.adjust();
                     });
                 });
             })
