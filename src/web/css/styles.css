@@ -57,7 +57,7 @@ table.dataTable thead th {
 
 /* Style the main table */
 table {
-    width: 100%; /* Make the table full width */
+    /* width: 100%; */ /* Removed to allow table to adjust width based on content */
     border-collapse: collapse; /* Collapse table borders */
     border-radius: 8px; /* Add rounded corners to the table */
     overflow: hidden; /* Hide overflow for rounded corners */
@@ -193,7 +193,6 @@ tbody tr:hover {
         width: 100%;
     }
 }
-
 
 /* Highlight table headers on hover */
 th:hover {
