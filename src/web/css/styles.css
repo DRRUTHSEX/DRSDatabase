@@ -62,6 +62,7 @@ table {
     border-radius: 8px; /* Add rounded corners to the table */
     overflow: hidden; /* Hide overflow for rounded corners */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+    table-layout: auto; /* Allow the table to adjust its layout automatically */
 }
 
 /* Style table headers and cells */
