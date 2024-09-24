@@ -17,12 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Extract headers from the data
                 const headers = Object.keys(data[0]);
 
-                // Create columns array with 'data', 'title', 'visible', and 'width'
+                // Create columns array with 'data', 'title', and 'visible'
                 const columns = headers.map((header, index) => ({
                     data: header,
                     title: header.replace(/([A-Z])/g, ' $1').trim(),
-                    visible: defaultVisibleColumns.includes(index),
-                    width: '150px', // Set a default width (adjust as needed)
+                    visible: defaultVisibleColumns.includes(index) // Set visibility based on default
                 }));
 
                 // Initialize DataTables
@@ -51,42 +50,42 @@ document.addEventListener("DOMContentLoaded", function () {
                                         dt.column(colIndex).visible(true);
                                     });
 
+                                    // Save the new state
+                                    dt.state.save();
+
                                     // Redraw the table without resetting the paging
                                     dt.draw(false);
-
-                                    // Adjust columns
-                                    dt.columns.adjust();
                                 }
                             }
                         ],
-                        // Disable stateSave to prevent issues with column visibility
-                        stateSave: false,
-                        initComplete: function (settings, json) {
+                        "stateSave": true,
+                        "stateDuration": -1, // Set to -1 to save the state indefinitely
+                        // In initComplete function:
+                        "initComplete": function (settings, json) {
                             // Hide the loading overlay and show the table after DataTables initialization is complete
                             loadingOverlay.style.display = 'none';
                             dataTableElement.style.display = 'table';
                         },
-                        pagingType: "full_numbers",
-                        language: {
-                            search: "",
-                            searchPlaceholder: "Search records"
+
+                        "pagingType": "full_numbers", // Displays page numbers
+                        "language": {
+                            "search": "",
+                            "searchPlaceholder": "Search records"
                         },
-                        pageLength: 100,
-                        lengthMenu: [
+                        "pageLength": 100,
+                        "lengthMenu": [
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
-                        order: [[0, 'asc']],
-                        responsive: false, // Disable Responsive extension
-                        autoWidth: false,
-                        scrollX: true, // Enable horizontal scrolling
-                        scrollCollapse: true,
+                        "order": [[0, 'asc']], // Sort by the first column (index 0) ascending
+                        "responsive": true // Enable responsive table
                     });
 
-                    // Add event listener for column visibility change
+                    // Add event listener for column visibility changes
                     table.on('column-visibility.dt', function (e, settings, column, state) {
-                        table.columns.adjust();
+                        table.columns.adjust().responsive.recalc();
                     });
+
                 });
             })
             .catch(error => {
