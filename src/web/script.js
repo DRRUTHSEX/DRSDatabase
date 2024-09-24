@@ -17,11 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Extract headers from the data
                 const headers = Object.keys(data[0]);
 
-                // Create columns array with 'data', 'title', and 'visible'
+                // Create columns array with 'data', 'title', 'visible', and 'width'
                 const columns = headers.map((header, index) => ({
                     data: header,
                     title: header.replace(/([A-Z])/g, ' $1').trim(),
-                    visible: defaultVisibleColumns.includes(index) // Set visibility based on default
+                    visible: defaultVisibleColumns.includes(index),
+                    width: '150px', // Set a default width (adjust as needed)
                 }));
 
                 // Initialize DataTables
@@ -50,9 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                         dt.column(colIndex).visible(true);
                                     });
 
-                                    // Save the new state
-                                    dt.state.save();
-
                                     // Redraw the table without resetting the paging
                                     dt.draw(false);
 
@@ -61,14 +59,14 @@ document.addEventListener("DOMContentLoaded", function () {
                                 }
                             }
                         ],
-                        stateSave: true,
-                        stateDuration: -1, // Set to -1 to save the state indefinitely
+                        // Disable stateSave to prevent issues with column visibility
+                        stateSave: false,
                         initComplete: function (settings, json) {
                             // Hide the loading overlay and show the table after DataTables initialization is complete
                             loadingOverlay.style.display = 'none';
                             dataTableElement.style.display = 'table';
                         },
-                        pagingType: "full_numbers", // Displays page numbers
+                        pagingType: "full_numbers",
                         language: {
                             search: "",
                             searchPlaceholder: "Search records"
@@ -78,14 +76,16 @@ document.addEventListener("DOMContentLoaded", function () {
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
                             [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
-                        order: [[0, 'asc']], // Sort by the first column (index 0) ascending
-                        responsive: { details: false }, // Adjusted to prevent plus sign
-                        autoWidth: false // Prevent DataTables from setting widths
+                        order: [[0, 'asc']],
+                        responsive: false, // Disable Responsive extension
+                        autoWidth: false,
+                        scrollX: true, // Enable horizontal scrolling
+                        scrollCollapse: true,
                     });
 
                     // Add event listener for column visibility change
                     table.on('column-visibility.dt', function (e, settings, column, state) {
-                        table.columns.adjust(); // Adjust columns when visibility changes
+                        table.columns.adjust();
                     });
                 });
             })
