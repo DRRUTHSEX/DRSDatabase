@@ -64,6 +64,7 @@ table {
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     table-layout: auto;
+    border: 1px solid #ccc; /* Added border to table */
 }
 
 /* Styles for table headers and cells */
@@ -72,6 +73,7 @@ th, td {
     text-align: left;
     font-size: 14px;
     line-height: 1.5;
+    border-bottom: 1px solid #ddd; /* Added border to table cells */
 }
 
 /* Styles for table headers */
@@ -104,9 +106,9 @@ tbody tr:hover {
 
 /* Styles for DataTables buttons */
 .dt-button {
-    background-color: #FFFFFF !important; /* Changed to white background */
-    color: #134F9B !important; /* Changed to blue text */
-    border: 1px solid #134F9B !important;
+    background-color: #134F9B !important; /* Blue background */
+    color: #FFFFFF !important; /* White text */
+    border: none !important;
     border-radius: 4px !important;
     margin-right: 5px;
     padding: 6px 12px !important;
@@ -115,8 +117,8 @@ tbody tr:hover {
 
 /* Hover effect for DataTables buttons */
 .dt-button:hover {
-    background-color: #DCEEFF !important;
-    color: #134F9B !important;
+    background-color: #0B3C75 !important;
+    color: #FFFFFF !important;
 }
 
 /* Styles for pagination buttons */
@@ -205,8 +207,8 @@ th:hover {
 
 /* Styles for buttons in the column visibility collection */
 .dt-button-collection button {
-    background-color: #FFFFFF; /* Changed to white background */
-    color: #134F9B; /* Changed to blue text */
+    background-color: #FFFFFF; /* White background */
+    color: #134F9B; /* Blue text */
     border: 1px solid #134F9B;
     padding: 6px 12px;
     margin: 2px;
@@ -221,8 +223,8 @@ th:hover {
 
 /* Styles for active buttons in the column visibility collection */
 .dt-button-collection button.active {
-    background-color: #134F9B; /* Changed to blue background */
-    color: #FFFFFF; /* Changed to white text */
+    background-color: #134F9B; /* Blue background */
+    color: #FFFFFF; /* White text */
 }
 
 /* Hover effect for active buttons in the column visibility collection */
