@@ -1,52 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Metadata and external resource links -->
     <meta charset="UTF-8">
     <title>WhyDRS Database</title>
 
-    <!-- External CSS links -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="src/web/css/styles.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        integrity="sha384-6R4xFVxVwVr5yDK2gML1qeKZB7RTTzLJ4ql25nPEvP2hR+ga7Z1/jlVSWdwEly5N"
-        crossorigin="anonymous">
-</head>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="src/web/css/styles.css">
 
+    <!-- Font Awesome (Optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha384-6R4xFVxVwVr5yDK2gML1qeKZB7RTTzLJ4ql25nPEvP2hR+ga7Z1/jlVSWdwEly5N"
+          crossorigin="anonymous">
+</head>
 <body>
     <h1>WhyDRS Database</h1>
 
     <div id="loading-overlay">
-        <!-- Loading overlay is visible by default -->
         <div class="loader"></div>
         <p>Loading data, please wait...</p>
     </div>
 
     <table id="data-table" class="hidden">
-        <!-- Table is hidden initially using the 'hidden' class -->
         <thead>
-            <tr>
-                <!-- Table headers will be populated dynamically -->
-            </tr>
+            <tr></tr>
         </thead>
-        <tbody>
-            <!-- Table data will be populated dynamically -->
-        </tbody>
+        <tbody></tbody>
     </table>
 
-    <!-- External JavaScript libraries -->
-    <script type="text/javascript"
-        src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript"
-        src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <!-- External JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
 
-    <!-- Custom JavaScript file -->
+    <!-- Custom JavaScript -->
     <script src="src/web/script.js"></script>
 </body>
 </html>

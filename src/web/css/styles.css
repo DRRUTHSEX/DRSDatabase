@@ -1,12 +1,11 @@
-/* Base styles for the body element */
+/* General Styles */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #F5F5F5;
     margin: 20px;
     color: #333;
 }
 
-/* Styles for the main heading */
 h1 {
     text-align: center;
     color: #134F9B;
@@ -14,7 +13,7 @@ h1 {
     font-size: 2em;
 }
 
-/* Styles for the loading overlay */
+/* Loading Overlay Styles */
 #loading-overlay {
     position: fixed;
     top: 0;
@@ -22,15 +21,14 @@ h1 {
     width: 100%;
     height: 100%;
     background: rgba(245, 245, 245, 0.95);
-    display: flex; /* Loading overlay is visible by default */
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 9999;
 }
 
-/* Styles for the loading spinner */
-#loading-overlay .loader {
+.loader {
     border: 8px solid #f3f3f3;
     border-top: 8px solid #134F9B;
     border-radius: 50%;
@@ -40,195 +38,122 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Styles for the loading message */
 #loading-overlay p {
     font-size: 18px;
     color: #3E3E3E;
 }
 
-/* Keyframes for spinner animation */
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-/* Center table headers in DataTables */
-table.dataTable thead th {
-    text-align: center !important;
-}
-
-/* Styles for the table */
+/* Table Styles */
 table {
     border-collapse: collapse;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    table-layout: auto;
-    border: 1px solid #ccc; /* Added border to table */
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #ccc;
 }
 
-/* Styles for table headers and cells */
 th, td {
-    padding: 14px;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
     text-align: left;
-    font-size: 14px;
-    line-height: 1.5;
-    border-bottom: 1px solid #ddd; /* Added border to table cells */
 }
 
-/* Styles for table headers */
 th {
     background-color: #134F9B;
-    color: #FFFFFF;
+    color: #fff;
     text-align: center;
-    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Styles for table cells */
-td {
-    background-color: #FFFFFF;
-}
-
-/* Alternate row colors for better readability */
 tbody tr:nth-child(even) {
     background-color: #F7F7F7;
 }
 
-/* Hover effect for table rows */
 tbody tr:hover {
     background-color: #DCEEFF;
 }
 
-/* Add margin below DataTables buttons */
-.dt-buttons {
-    margin-bottom: 20px;
-}
-
-/* Styles for DataTables buttons */
-.dt-button {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
-    border: none !important;
-    border-radius: 4px !important;
-    margin-right: 5px;
-    padding: 6px 12px !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Hover effect for DataTables buttons */
-.dt-button:hover {
-    background-color: #0B3C75 !important;
-    color: #FFFFFF !important;
-}
-
-/* Styles for pagination buttons */
+/* DataTables Integration */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-    background-color: #FFFFFF !important;
+    background-color: #fff !important;
     color: #134F9B !important;
     border: 1px solid #134F9B !important;
     border-radius: 4px !important;
     margin: 2px;
     padding: 6px 12px;
-    transition: background-color 0.3s;
 }
 
-/* Hover effect for pagination buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background-color: #134F9B !important;
-    color: #FFFFFF !important;
+    color: #fff !important;
 }
 
-/* Styles for the current pagination button */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
     background-color: #134F9B !important;
-    color: #FFFFFF !important;
+    color: #fff !important;
 }
 
-/* Styles for labels in DataTables length and filter controls */
-.dataTables_wrapper .dataTables_length label,
-.dataTables_wrapper .dataTables_filter label {
-    color: #3E3E3E;
-}
-
-/* Styles for the information text in DataTables */
-.dataTables_wrapper .dataTables_info {
-    color: #3E3E3E;
-}
-
-/* Styles for the entries per page dropdown */
-.dataTables_length select {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px;
-    background-color: #FFFFFF;
-}
-
-/* Styles for the search input field */
+.dataTables_length select,
 .dataTables_filter input {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 4px;
-    background-color: #FFFFFF;
+    background-color: #fff;
 }
 
-/* Hover effect for table headers */
-th:hover {
-    background-color: #0B3C75;
-    cursor: pointer;
-}
-
-/* Add margin above pagination controls */
-.dataTables_wrapper .dataTables_paginate {
+.dataTables_wrapper .dataTables_info {
+    color: #3E3E3E;
     margin-top: 10px;
 }
 
-/* Layout adjustments for DataTables footer */
-.dataTables_wrapper .bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+/* Button Styles */
+.dt-buttons {
+    margin-bottom: 20px;
 }
 
-/* Remove margin from length label */
-.dataTables_length label {
-    margin: 0;
+.dt-button {
+    background-color: #134F9B !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 6px 12px !important;
+    margin-right: 5px;
 }
 
-/* Add margin to information text */
-.dataTables_info {
-    margin: 10px 0;
+.dt-button:hover {
+    background-color: #0B3C75 !important;
+    color: #fff !important;
 }
 
-/* Hide elements with the 'hidden' class */
-.hidden {
-    display: none !important;
-}
-
-/* Styles for buttons in the column visibility collection */
-div.dt-button-collection .dt-button {
-    background-color: #FFFFFF !important; /* Inactive buttons have white background */
-    color: #134F9B !important;          /* Inactive buttons have blue text */
+/* Column Visibility Button Styles */
+.column-visibility-btn {
+    background-color: #fff !important;
+    color: #134F9B !important;
     border: 1px solid #134F9B !important;
+    border-radius: 4px !important;
     padding: 6px 12px;
     margin: 2px;
-    border-radius: 4px;
 }
 
-/* Hover effect for inactive buttons */
-div.dt-button-collection .dt-button:hover {
+.column-visibility-btn:hover {
     background-color: #DCEEFF !important;
     color: #134F9B !important;
 }
 
-/* Styles for active buttons using dt-button-active class */
-div.dt-button-collection .dt-button.dt-button-active {
-    background-color: #134F9B !important; /* Active buttons have blue background */
-    color: #FFFFFF !important;            /* Active buttons have white text */
+.column-visibility-btn.active {
+    background-color: #134F9B !important;
+    color: #fff !important;
 }
 
-/* Hover effect for active buttons */
-div.dt-button-collection .dt-button.dt-button-active:hover {
-    background-color: #0B3C75 !important; /* Darker blue on hover */
-    color: #FFFFFF !important;
+.column-visibility-btn.active:hover {
+    background-color: #0B3C75 !important;
+    color: #fff !important;
+}
+
+/* Hidden Class */
+.hidden {
+    display: none !important;
 }
