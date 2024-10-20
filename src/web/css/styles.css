@@ -205,8 +205,8 @@ th:hover {
     display: none !important;
 }
 
-/* Styles for buttons in the column visibility collection */
-.dt-button-collection .dt-button {
+/* Styles for the custom column visibility buttons */
+.custom-colvis-btns .dt-button {
     background-color: #FFFFFF !important; /* Inactive buttons have white background */
     color: #134F9B !important;          /* Inactive buttons have blue text */
     border: 1px solid #134F9B !important;
@@ -216,19 +216,19 @@ th:hover {
 }
 
 /* Hover effect for inactive buttons */
-.dt-button-collection .dt-button:hover {
+.custom-colvis-btns .dt-button:hover {
     background-color: #DCEEFF !important;
     color: #134F9B !important;
 }
 
-/* Styles for active buttons using custom class */
-.dt-button-collection .dt-button.column-visible {
+/* Styles for active buttons */
+.custom-colvis-btns .dt-button.active {
     background-color: #134F9B !important; /* Active buttons have blue background */
     color: #FFFFFF !important;            /* Active buttons have white text */
 }
 
 /* Hover effect for active buttons */
-.dt-button-collection .dt-button.column-visible:hover {
+.custom-colvis-btns .dt-button.active:hover {
     background-color: #0B3C75 !important; /* Darker blue on hover */
     color: #FFFFFF !important;
 }

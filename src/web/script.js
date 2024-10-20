@@ -34,13 +34,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         dom: '<"top"Bf>rt<"bottom"lip><"clear">', // Define the table control elements
                         buttons: [
                             {
-                                extend: 'colvis', // Column visibility button
-                                text: 'Select Columns', // Button text
-                                columns: ':not(:first-child)', // Exclude the first column
-                                collectionLayout: 'three-column' // Adjust layout if needed
+                                text: 'Select Columns',
+                                action: function (e, dt, node, config) {
+                                    // Toggle the visibility of the custom column visibility buttons
+                                    $('.custom-colvis-btns').toggle();
+                                }
                             },
                             {
-                                text: 'Reset Columns', // Button to reset column visibility
+                                text: 'Reset Columns',
                                 action: function (e, dt, node, config) {
                                     // Clear any saved state
                                     dt.state.clear();
@@ -62,6 +63,12 @@ document.addEventListener("DOMContentLoaded", function () {
                                     // Update button classes
                                     updateButtonClasses();
                                 }
+                            },
+                            {
+                                text: 'Column Visibility',
+                                className: 'custom-colvis-btns',
+                                action: function () {},
+                                extend: null
                             }
                         ],
                         "stateSave": true, // Enable state saving (remember column visibility)
@@ -73,8 +80,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             // Show the data table
                             dataTableElement.classList.remove('hidden');
 
-                            // Update button classes
-                            updateButtonClasses();
+                            // Create custom column visibility buttons
+                            createCustomColVisButtons();
                         },
                         "pagingType": "full_numbers", // Use full pagination controls
                         "language": {
@@ -90,34 +97,46 @@ document.addEventListener("DOMContentLoaded", function () {
                         "autoWidth": false // Disable automatic column width calculation
                     });
 
-                    // Function to update button classes based on column visibility
-                    function updateButtonClasses() {
-                        var colvisButtons = $('.dt-button-collection .dt-button');
+                    // Hide the custom column visibility buttons initially
+                    $('.custom-colvis-btns').hide();
+
+                    // Function to create custom column visibility buttons
+                    function createCustomColVisButtons() {
+                        var buttonsContainer = $('.dt-buttons');
+
+                        // Create a container for the custom buttons
+                        var customButtonsDiv = $('<div class="custom-colvis-btns"></div>');
+                        buttonsContainer.append(customButtonsDiv);
 
                         // Loop through each column
                         table.columns().every(function (index) {
                             var column = this;
-                            var button = colvisButtons.eq(index);
+                            var columnName = column.header().innerText;
 
+                            // Create a button for each column
+                            var button = $('<button class="dt-button"></button>')
+                                .text(columnName)
+                                .on('click', function () {
+                                    // Toggle column visibility
+                                    var visible = column.visible();
+                                    column.visible(!visible);
+
+                                    // Update button active state
+                                    $(this).toggleClass('active', !visible);
+
+                                    // Save the new state
+                                    table.state.save();
+                                });
+
+                            // Set initial active state
                             if (column.visible()) {
-                                button.addClass('column-visible');
-                            } else {
-                                button.removeClass('column-visible');
+                                button.addClass('active');
                             }
+
+                            // Append the button to the custom buttons div
+                            customButtonsDiv.append(button);
                         });
                     }
-
-                    // Update button classes after columns are shown/hidden
-                    table.on('column-visibility.dt', function (e, settings, column, state) {
-                        updateButtonClasses();
-                    });
-
-                    // Update button classes when the column visibility collection is shown
-                    $(document).on('click', '.buttons-colvis', function () {
-                        setTimeout(function () {
-                            updateButtonClasses();
-                        }, 0);
-                    });
                 });
             })
             .catch(error => {
