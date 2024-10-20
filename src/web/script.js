@@ -36,7 +36,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             {
                                 extend: 'colvis', // Column visibility button
                                 text: 'Select Columns', // Button text
-                                columns: ':not(:first-child)' // Exclude the first column
+                                columns: ':not(:first-child)', // Exclude the first column
+                                className: 'colvis-button', // Add a custom class to apply specific styling
                             },
                             {
                                 text: 'Reset Columns', // Button to reset column visibility
@@ -57,6 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                     // Save the new state
                                     dt.state.save();
+
+                                    // Ensure the styles are correctly updated after reset
+                                    updateButtonStyles(node);
                                 }
                             }
                         ],
@@ -85,6 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     table.on('column-visibility.dt', function (e, settings, column, state) {
                         table.columns.adjust().draw(false);
                     });
+
+                    // Update the button styles dynamically based on state
+                    updateAllButtonStyles();
                 });
             })
             .catch(error => {
@@ -94,6 +101,32 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Hide the loading overlay in case of error
                 loadingOverlay.style.display = 'none';
             });
+    }
+
+    // Helper function to update the button styles based on active state
+    function updateButtonStyles(buttonNode) {
+        if (buttonNode.hasClass('active')) {
+            buttonNode.css({
+                'background-color': '#134F9B', // Blue background for active
+                'color': '#FFFFFF' // White text color for active
+            });
+        } else {
+            buttonNode.css({
+                'background-color': '#FFFFFF', // White background for inactive
+                'color': '#134F9B' // Blue text color for inactive
+            });
+        }
+    }
+
+    // Function to update styles for all buttons initially and on click
+    function updateAllButtonStyles() {
+        $('.dt-button').each(function() {
+            updateButtonStyles($(this));
+        });
+
+        $('.dt-button').on('click', function() {
+            updateButtonStyles($(this));
+        });
     }
 
     // Call the loadData function to fetch data and initialize the table
