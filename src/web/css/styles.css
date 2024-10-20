@@ -104,13 +104,19 @@ tbody tr:hover {
 
 /* Styles for DataTables buttons */
 .dt-button {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
-    border: none !important;
+    background-color: #FFFFFF !important; /* Changed to white background */
+    color: #134F9B !important; /* Changed to blue text */
+    border: 1px solid #134F9B !important;
     border-radius: 4px !important;
     margin-right: 5px;
     padding: 6px 12px !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for DataTables buttons */
+.dt-button:hover {
+    background-color: #DCEEFF !important;
+    color: #134F9B !important;
 }
 
 /* Styles for pagination buttons */
@@ -192,35 +198,35 @@ th:hover {
     margin: 10px 0;
 }
 
+/* Hide elements with the 'hidden' class */
+.hidden {
+    display: none !important;
+}
+
 /* Styles for buttons in the column visibility collection */
 .dt-button-collection button {
-    background-color: #134F9B;
-    color: #FFFFFF;
+    background-color: #FFFFFF; /* Changed to white background */
+    color: #134F9B; /* Changed to blue text */
     border: 1px solid #134F9B;
     padding: 6px 12px;
     margin: 2px;
     border-radius: 4px;
 }
 
-/* Styles for active buttons in the column visibility collection */
-.dt-button-collection button.active {
-    background-color: #FFFFFF;
-    color: #134F9B;
-}
-
 /* Hover effect for buttons in the column visibility collection */
 .dt-button-collection button:hover {
-    background-color: #0B3C75;
-    color: #FFFFFF;
-}
-
-/* Hover effect for active buttons in the column visibility collection */
-.dt-button-collection button.active:hover {
     background-color: #DCEEFF;
     color: #134F9B;
 }
 
-/* Hide elements with the 'hidden' class */
-.hidden {
-    display: none !important;
+/* Styles for active buttons in the column visibility collection */
+.dt-button-collection button.active {
+    background-color: #134F9B; /* Changed to blue background */
+    color: #FFFFFF; /* Changed to white text */
+}
+
+/* Hover effect for active buttons in the column visibility collection */
+.dt-button-collection button.active:hover {
+    background-color: #0B3C75; /* Darker blue on hover */
+    color: #FFFFFF;
 }
