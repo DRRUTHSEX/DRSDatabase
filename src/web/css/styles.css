@@ -191,8 +191,8 @@ th:hover {
 
 /* Style the buttons within the "Select Columns" dropdown */
 .dt-button-collection button {
-    background-color: #F5F5F5;
-    color: #134F9B;
+    background-color: #134F9B;
+    color: #FFFFFF;
     border: 1px solid #134F9B;
     padding: 6px 12px;
     margin: 2px;
@@ -201,18 +201,18 @@ th:hover {
 
 /* Style for active (selected) buttons */
 .dt-button-collection button.active {
-    background-color: #134F9B;
-    color: #FFFFFF;
+    background-color: #FFFFFF;
+    color: #134F9B;
 }
 
 /* Hover styles for all buttons in the dropdown */
 .dt-button-collection button:hover {
-    background-color: #DCEEFF;
-    color: #134F9B;
+    background-color: #0B3C75;
+    color: #FFFFFF;
 }
 
 /* Hover styles for active buttons */
 .dt-button-collection button.active:hover {
-    background-color: #0B3C75;
-    color: #FFFFFF;
+    background-color: #DCEEFF;
+    color: #134F9B;
 }
