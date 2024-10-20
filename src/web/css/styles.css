@@ -106,8 +106,8 @@ tbody tr:hover {
 
 /* Styles for DataTables buttons */
 .dt-button {
-    background-color: #134F9B !important; /* Blue background */
-    color: #FFFFFF !important; /* White text */
+    background-color: #134F9B !important;
+    color: #FFFFFF !important;
     border: none !important;
     border-radius: 4px !important;
     margin-right: 5px;
@@ -206,29 +206,29 @@ th:hover {
 }
 
 /* Styles for buttons in the column visibility collection */
-.dt-button-collection button {
-    background-color: #FFFFFF; /* White background */
-    color: #134F9B; /* Blue text */
-    border: 1px solid #134F9B;
+div.dt-button-collection button.dt-button {
+    background-color: #FFFFFF !important; /* White background */
+    color: #134F9B !important; /* Blue text */
+    border: 1px solid #134F9B !important;
     padding: 6px 12px;
     margin: 2px;
     border-radius: 4px;
 }
 
 /* Hover effect for buttons in the column visibility collection */
-.dt-button-collection button:hover {
-    background-color: #DCEEFF;
-    color: #134F9B;
+div.dt-button-collection button.dt-button:hover {
+    background-color: #DCEEFF !important;
+    color: #134F9B !important;
 }
 
 /* Styles for active buttons in the column visibility collection */
-.dt-button-collection button.active {
-    background-color: #134F9B; /* Blue background */
-    color: #FFFFFF; /* White text */
+div.dt-button-collection button.dt-button.active {
+    background-color: #134F9B !important; /* Blue background */
+    color: #FFFFFF !important; /* White text */
 }
 
 /* Hover effect for active buttons in the column visibility collection */
-.dt-button-collection button.active:hover {
-    background-color: #0B3C75; /* Darker blue on hover */
-    color: #FFFFFF;
+div.dt-button-collection button.dt-button.active:hover {
+    background-color: #0B3C75 !important; /* Darker blue on hover */
+    color: #FFFFFF !important;
 }
