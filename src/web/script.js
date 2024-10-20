@@ -7,143 +7,120 @@ document.addEventListener("DOMContentLoaded", function () {
     // The loading overlay is visible by default (set in CSS)
     // The data table is hidden by default (has 'hidden' class)
 
-    // Define the default visible columns by their indices
+    // Define the default visible columns by their indices (zero-based)
     const defaultVisibleColumns = [0, 1, 2, 3, 8, 9];
 
     // Function to load data from the JSON file and initialize the DataTable
     function loadData() {
-        // Fetch data from the JSON file
+        // Fetch data from the JSON file located at '/data/Full_Database_Backend.json'
         fetch('/data/Full_Database_Backend.json')
             .then(response => response.json()) // Parse the JSON response
             .then(data => {
-                // Extract headers from the first data object
+                // Extract headers (keys) from the first data object to use as column names
                 const headers = Object.keys(data[0]);
 
                 // Map headers to DataTables column definitions
                 const columns = headers.map((header, index) => ({
-                    data: header, // Data property for the column
-                    title: header.replace(/([A-Z])/g, ' $1').trim(), // Format header title
-                    visible: defaultVisibleColumns.includes(index) // Set column visibility
+                    // Specify the data property for the column
+                    data: header,
+                    // Format header titles by inserting spaces before uppercase letters
+                    title: header.replace(/([A-Z])/g, ' $1').trim(),
+                    // Set column visibility based on defaultVisibleColumns array
+                    visible: defaultVisibleColumns.includes(index)
                 }));
 
                 // Initialize the DataTable once the document is ready
                 $(document).ready(function () {
+                    // Initialize the DataTable with the specified options
                     var table = $('#data-table').DataTable({
-                        data: data, // Set the data for the table
-                        columns: columns, // Set the column definitions
-                        dom: '<"top"Bf>rt<"bottom"lip><"clear">', // Define the table control elements
+                        // Set the data source for the table
+                        data: data,
+                        // Define the columns configuration
+                        columns: columns,
+                        // Define the table control elements layout
+                        dom: '<"top"Bf>rt<"bottom"lip><"clear">',
+                        // Define the buttons to be displayed
                         buttons: [
                             {
+                                // Add a column visibility control button
+                                extend: 'colvis',
+                                // Set the button text
                                 text: 'Select Columns',
-                                action: function (e, dt, node, config) {
-                                    // Toggle the visibility of the custom column visibility buttons
-                                    $('.custom-colvis-btns').toggle();
-                                }
+                                // Exclude the first column (index 0) from the column visibility list
+                                columns: ':not(:first-child)'
                             },
                             {
+                                // Add a custom button to reset column visibility
                                 text: 'Reset Columns',
+                                // Define the action to be performed when the button is clicked
                                 action: function (e, dt, node, config) {
-                                    // Clear any saved state
+                                    // Clear any saved state to reset to default
                                     dt.state.clear();
 
                                     // Hide all columns
                                     dt.columns().visible(false);
 
-                                    // Show default columns
+                                    // Show only the default visible columns
                                     defaultVisibleColumns.forEach(function (colIndex) {
                                         dt.column(colIndex).visible(true);
                                     });
 
-                                    // Adjust columns and redraw the table
+                                    // Adjust columns and redraw the table without changing the page
                                     dt.columns.adjust().draw(false);
 
                                     // Save the new state
                                     dt.state.save();
-
-                                    // Update button classes
-                                    updateButtonClasses();
                                 }
-                            },
-                            {
-                                text: 'Column Visibility',
-                                className: 'custom-colvis-btns',
-                                action: function () {},
-                                extend: null
                             }
                         ],
-                        "stateSave": true, // Enable state saving (remember column visibility)
-                        "stateDuration": -1, // Save state indefinitely
+                        // Enable state saving to remember column visibility and other settings
+                        "stateSave": true,
+                        // Save the state indefinitely (-1 means no expiration)
+                        "stateDuration": -1,
+                        // Callback function executed once the table initialization is complete
                         "initComplete": function (settings, json) {
                             // Hide the loading overlay
                             loadingOverlay.classList.add('hidden');
 
-                            // Show the data table
+                            // Show the data table by removing the 'hidden' class
                             dataTableElement.classList.remove('hidden');
-
-                            // Create custom column visibility buttons
-                            createCustomColVisButtons();
                         },
-                        "pagingType": "full_numbers", // Use full pagination controls
+                        // Define the pagination control type
+                        "pagingType": "full_numbers",
+                        // Customize the language settings
                         "language": {
-                            "search": "", // Remove default search label text
-                            "searchPlaceholder": "Search records" // Set placeholder for search input
+                            // Remove the default search label text
+                            "search": "",
+                            // Set a placeholder for the search input field
+                            "searchPlaceholder": "Search records"
                         },
-                        "pageLength": 100, // Default number of rows per page
+                        // Set the default number of rows per page
+                        "pageLength": 100,
+                        // Define the options for the number of rows per page
                         "lengthMenu": [
-                            [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000], // Page length options
-                            [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000] // Labels for the options
+                            // Page length options
+                            [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+                            // Labels for the options
+                            [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
                         ],
-                        "order": [[0, 'asc']], // Default sorting (by first column ascending)
-                        "autoWidth": false // Disable automatic column width calculation
+                        // Set the default sorting order (by the first column ascending)
+                        "order": [[0, 'asc']],
+                        // Disable automatic column width calculation for better performance
+                        "autoWidth": false
                     });
 
-                    // Hide the custom column visibility buttons initially
-                    $('.custom-colvis-btns').hide();
-
-                    // Function to create custom column visibility buttons
-                    function createCustomColVisButtons() {
-                        var buttonsContainer = $('.dt-buttons');
-
-                        // Create a container for the custom buttons
-                        var customButtonsDiv = $('<div class="custom-colvis-btns"></div>');
-                        buttonsContainer.append(customButtonsDiv);
-
-                        // Loop through each column
-                        table.columns().every(function (index) {
-                            var column = this;
-                            var columnName = column.header().innerText;
-
-                            // Create a button for each column
-                            var button = $('<button class="dt-button"></button>')
-                                .text(columnName)
-                                .on('click', function () {
-                                    // Toggle column visibility
-                                    var visible = column.visible();
-                                    column.visible(!visible);
-
-                                    // Update button active state
-                                    $(this).toggleClass('active', !visible);
-
-                                    // Save the new state
-                                    table.state.save();
-                                });
-
-                            // Set initial active state
-                            if (column.visible()) {
-                                button.addClass('active');
-                            }
-
-                            // Append the button to the custom buttons div
-                            customButtonsDiv.append(button);
-                        });
-                    }
+                    // Adjust table columns when column visibility changes
+                    table.on('column-visibility.dt', function (e, settings, column, state) {
+                        // Adjust the column sizes and redraw the table without changing the page
+                        table.columns.adjust().draw(false);
+                    });
                 });
             })
             .catch(error => {
-                // Log any errors to the console
+                // Log any errors to the console for debugging
                 console.error('Error loading the data:', error);
 
-                // Hide the loading overlay in case of error
+                // Hide the loading overlay in case of error to prevent blocking the UI
                 loadingOverlay.classList.add('hidden');
             });
     }
