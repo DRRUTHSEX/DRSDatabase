@@ -326,13 +326,13 @@ th:hover {
 /* Styles for buttons inside the "Select Columns" dropdown */
 .dt-button-collection button {
     /* Set background color to deep blue */
-    background-color: #134F9B; /* Deep blue background */
+    background-color: #FFFFFF; /* Deep blue background */
 
     /* Set text color to white */
-    color: #FFFFFF;
+    color: #134F9B;
 
     /* Add a deep blue border */
-    border: 1px solid #134F9B;
+    /* border: 1px solid #134F9B; */
 
     /* Add padding inside buttons */
     padding: 6px 12px;
@@ -347,10 +347,10 @@ th:hover {
 /* Styles for active (selected) buttons inside the dropdown */
 .dt-button-collection button.active {
     /* Set background color to white to indicate selection */
-    background-color: #FFFFFF;
+    background-color: #134F9B;
 
     /* Set text color to deep blue */
-    color: #134F9B;
+    color: #FFFFFF ;
 }
 
 /* Styles for buttons in the dropdown when hovered over */
