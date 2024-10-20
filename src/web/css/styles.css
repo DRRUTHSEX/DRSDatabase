@@ -1,218 +1,221 @@
-
+/* Base styles for the body element */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #F5F5F5;
-    margin: 20px;
-    color: #333;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Set the default font family */
+    background-color: #F5F5F5; /* Light gray background color */
+    margin: 20px; /* Add margin around the body */
+    color: #333; /* Dark gray text color */
 }
 
-
+/* Styles for the main heading */
 h1 {
-    text-align: center;
-    color: #134F9B;
-    margin-bottom: 30px;
-    font-size: 2em;
+    text-align: center; /* Center the heading text */
+    color: #134F9B; /* Blue text color */
+    margin-bottom: 30px; /* Space below the heading */
+    font-size: 2em; /* Increase font size */
 }
 
-
+/* Styles for the loading overlay */
 #loading-overlay {
-    position: fixed;
+    position: fixed; /* Position overlay over the entire viewport */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(245, 245, 245, 0.95);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background: rgba(245, 245, 245, 0.95); /* Semi-transparent background */
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    z-index: 9999; /* Ensure overlay is above other elements */
 }
 
+/* Styles for the loading spinner */
 #loading-overlay .loader {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #134F9B;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-    margin-bottom: 20px;
+    border: 8px solid #f3f3f3; /* Light gray border */
+    border-top: 8px solid #134F9B; /* Blue top border for spinner effect */
+    border-radius: 50%; /* Make it a circle */
+    width: 60px; /* Width of spinner */
+    height: 60px; /* Height of spinner */
+    animation: spin 1s linear infinite; /* Spin animation */
+    margin-bottom: 20px; /* Space below the spinner */
 }
 
+/* Styles for the loading message */
 #loading-overlay p {
-    font-size: 18px;
-    color: #3E3E3E;
+    font-size: 18px; /* Increase font size */
+    color: #3E3E3E; /* Dark gray text color */
 }
 
-
+/* Keyframes for spinner animation */
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); } /* Start position */
+    100% { transform: rotate(360deg); } /* End position */
 }
 
-
+/* Center table headers in DataTables */
 table.dataTable thead th {
     text-align: center !important;
 }
 
-
+/* Styles for the table */
 table {
-
-    border-collapse: collapse;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    table-layout: auto; 
+    border-collapse: collapse; /* Collapse borders */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Hide overflow for rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow */
+    table-layout: auto; /* Automatic table layout */
 }
 
-
+/* Styles for table headers and cells */
 th, td {
-    padding: 14px;
-    text-align: left;
-    font-size: 14px;
-    line-height: 1.5;
+    padding: 14px; /* Padding inside cells */
+    text-align: left; /* Left-align text */
+    font-size: 14px; /* Font size */
+    line-height: 1.5; /* Line height */
 }
 
-
+/* Styles for table headers */
 th {
-    background-color: #134F9B;
-    color: #FFFFFF;
-    text-align: center;
-    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3);
+    background-color: #134F9B; /* Blue background */
+    color: #FFFFFF; /* White text color */
+    text-align: center; /* Center-align text */
+    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3); /* Inner shadow */
 }
 
-
+/* Styles for table cells */
 td {
-    background-color: #FFFFFF;
+    background-color: #FFFFFF; /* White background */
 }
 
-
+/* Alternate row colors for better readability */
 tbody tr:nth-child(even) {
-    background-color: #F7F7F7;
+    background-color: #F7F7F7; /* Light gray background for even rows */
 }
 
-
+/* Hover effect for table rows */
 tbody tr:hover {
-    background-color: #DCEEFF;
+    background-color: #DCEEFF; /* Light blue background on hover */
 }
 
-
+/* Add margin below DataTables buttons */
 .dt-buttons {
     margin-bottom: 20px;
 }
 
-
+/* Styles for DataTables buttons */
 .dt-button {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
-    border: none !important;
-    border-radius: 4px !important;
-    margin-right: 5px;
-    padding: 6px 12px !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #134F9B !important; /* Blue background */
+    color: #FFFFFF !important; /* White text color */
+    border: none !important; /* Remove border */
+    border-radius: 4px !important; /* Rounded corners */
+    margin-right: 5px; /* Space between buttons */
+    padding: 6px 12px !important; /* Padding inside buttons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
 
-
+/* Styles for pagination buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-    background-color: #FFFFFF !important;
-    color: #134F9B !important;
-    border: 1px solid #134F9B !important;
-    border-radius: 4px !important;
-    margin: 2px;
-    padding: 6px 12px;
-    transition: background-color 0.3s;
+    background-color: #FFFFFF !important; /* White background */
+    color: #134F9B !important; /* Blue text color */
+    border: 1px solid #134F9B !important; /* Blue border */
+    border-radius: 4px !important; /* Rounded corners */
+    margin: 2px; /* Space between pagination buttons */
+    padding: 6px 12px; /* Padding inside buttons */
+    transition: background-color 0.3s; /* Smooth transition on hover */
 }
 
+/* Hover effect for pagination buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
+    background-color: #134F9B !important; /* Blue background on hover */
+    color: #FFFFFF !important; /* White text color on hover */
 }
 
+/* Styles for the current pagination button */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background-color: #134F9B !important;
-    color: #FFFFFF !important;
+    background-color: #134F9B !important; /* Blue background */
+    color: #FFFFFF !important; /* White text color */
 }
 
-
+/* Styles for labels in DataTables length and filter controls */
 .dataTables_wrapper .dataTables_length label,
 .dataTables_wrapper .dataTables_filter label {
-    color: #3E3E3E;
+    color: #3E3E3E; /* Dark gray text color */
 }
 
-
+/* Styles for the information text in DataTables */
 .dataTables_wrapper .dataTables_info {
-    color: #3E3E3E;
+    color: #3E3E3E; /* Dark gray text color */
 }
 
-
+/* Styles for the entries per page dropdown */
 .dataTables_length select {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px;
-    background-color: #FFFFFF;
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 4px; /* Padding inside select */
+    background-color: #FFFFFF; /* White background */
 }
 
-
+/* Styles for the search input field */
 .dataTables_filter input {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px;
-    background-color: #FFFFFF;
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 4px; /* Padding inside input */
+    background-color: #FFFFFF; /* White background */
 }
 
-
+/* Hover effect for table headers */
 th:hover {
-    background-color: #0B3C75;
-    cursor: pointer;
+    background-color: #0B3C75; /* Darker blue background on hover */
+    cursor: pointer; /* Change cursor to pointer */
 }
 
-
+/* Add margin above pagination controls */
 .dataTables_wrapper .dataTables_paginate {
     margin-top: 10px;
 }
 
-
+/* Layout adjustments for DataTables footer */
 .dataTables_wrapper .bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: flex; /* Use flex layout */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space items evenly */
+    flex-wrap: wrap; /* Allow items to wrap to next line */
 }
 
-
+/* Remove margin from length label */
 .dataTables_length label {
     margin: 0;
 }
 
-
+/* Add margin to information text */
 .dataTables_info {
     margin: 10px 0;
 }
 
-
+/* Styles for buttons in the column visibility collection */
 .dt-button-collection button {
-    background-color: #134F9B;
-    color: #FFFFFF;
-    border: 1px solid #134F9B;
-    padding: 6px 12px;
-    margin: 2px;
-    border-radius: 4px;
+    background-color: #134F9B; /* Blue background */
+    color: #FFFFFF; /* White text color */
+    border: 1px solid #134F9B; /* Blue border */
+    padding: 6px 12px; /* Padding inside buttons */
+    margin: 2px; /* Space between buttons */
+    border-radius: 4px; /* Rounded corners */
 }
 
-
+/* Styles for active buttons in the column visibility collection */
 .dt-button-collection button.active {
-    background-color: #FFFFFF;
-    color: #134F9B;
+    background-color: #FFFFFF; /* White background */
+    color: #134F9B; /* Blue text color */
 }
 
-
+/* Hover effect for buttons in the column visibility collection */
 .dt-button-collection button:hover {
-    background-color: #0B3C75;
-    color: #FFFFFF;
+    background-color: #0B3C75; /* Darker blue background on hover */
+    color: #FFFFFF; /* White text color on hover */
 }
 
-
+/* Hover effect for active buttons in the column visibility collection */
 .dt-button-collection button.active:hover {
-    background-color: #DCEEFF;
-    color: #134F9B;
+    background-color: #DCEEFF; /* Light blue background on hover */
+    color: #134F9B; /* Blue text color */
 }

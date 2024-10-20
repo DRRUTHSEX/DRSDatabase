@@ -1,19 +1,27 @@
 <!DOCTYPE html>
+<!-- Declare the document type as HTML5 -->
 <html lang="en">
+<!-- Set the language attribute for the document to English -->
 
 <head>
+    <!-- Document metadata and links to external resources -->
     <meta charset="UTF-8">
+    <!-- Define the character encoding for the document -->
     <title>WhyDRS Database</title>
+    <!-- Set the title of the webpage -->
 
-
+    <!-- Link to DataTables CSS for basic table styling -->
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
+    <!-- Link to DataTables Buttons extension CSS for button styling -->
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
  
+    <!-- Link to custom CSS styles -->
     <link rel="stylesheet" type="text/css" href="src/web/css/styles.css">
 
+    <!-- Link to Font Awesome CSS for using icons (if needed) -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         integrity="sha384-6R4xFVxVwVr5yDK2gML1qeKZB7RTTzLJ4ql25nPEvP2hR+ga7Z1/jlVSWdwEly5N"
@@ -22,33 +30,45 @@
 </head>
 
 <body>
+    <!-- Main content of the webpage -->
     <h1>WhyDRS Database</h1>
+    <!-- Heading of the page -->
+
     <div id="loading-overlay">
+        <!-- Overlay displayed while data is loading -->
         <div class="loader"></div>
+        <!-- Spinner or loading animation -->
         <p>Loading data, please wait...</p>
+        <!-- Loading message -->
     </div>
+
     <table id="data-table" style="display: none;">
+        <!-- Data table to display fetched data -->
         <thead>
             <tr>
-
+                <!-- Table headers will be dynamically inserted here -->
             </tr>
         </thead>
         <tbody>
-
+            <!-- Table rows will be dynamically inserted here -->
         </tbody>
     </table>
 
-
+    <!-- Include jQuery library -->
     <script type="text/javascript"
         src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
+    <!-- Include DataTables library -->
     <script type="text/javascript"
         src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
+    <!-- Include DataTables Buttons extension -->
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
 
+    <!-- Include Buttons Column Visibility extension -->
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
 
+    <!-- Include custom JavaScript file -->
     <script src="src/web/script.js"></script>
 </body>
 
