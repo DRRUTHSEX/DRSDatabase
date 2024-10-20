@@ -204,8 +204,8 @@ th:hover {
 
 /* Styles for active buttons in the column visibility collection */
 .dt-button-collection button.active {
-    background-color: #FFFFFF; /* White background */
-    color: #134F9B; /* Blue text color */
+    background-color: #134F9B; /* Blue background */
+    color: #FFFFFF; /* White text color */
 }
 
 /* Hover effect for buttons in the column visibility collection */
