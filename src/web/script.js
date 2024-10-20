@@ -37,30 +37,22 @@ document.addEventListener("DOMContentLoaded", function () {
                                 extend: 'colvis', // Column visibility button
                                 text: 'Select Columns', // Button text
                                 columns: ':not(:first-child)', // Exclude the first column
-                                className: 'colvis-button', // Add a custom class to apply specific styling
+                                className: 'colvis-button' // Add a custom class to apply specific styling
                             },
                             {
                                 text: 'Reset Columns', // Button to reset column visibility
                                 action: function (e, dt, node, config) {
-                                    // Clear any saved state
-                                    dt.state.clear();
+                                    dt.state.clear(); // Clear any saved state
+                                    dt.columns().visible(false); // Hide all columns
 
-                                    // Hide all columns
-                                    dt.columns().visible(false);
-
-                                    // Show default columns
                                     defaultVisibleColumns.forEach(function (colIndex) {
-                                        dt.column(colIndex).visible(true);
+                                        dt.column(colIndex).visible(true); // Show default columns
                                     });
 
-                                    // Adjust columns and redraw the table
-                                    dt.columns.adjust().draw(false);
+                                    dt.columns.adjust().draw(false); // Adjust columns and redraw the table
+                                    dt.state.save(); // Save the new state
 
-                                    // Save the new state
-                                    dt.state.save();
-
-                                    // Ensure the styles are correctly updated after reset
-                                    updateButtonStyles(node);
+                                    updateButtonStates(); // Update button states
                                 }
                             }
                         ],
@@ -70,6 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             // Hide the loading overlay and display the table
                             loadingOverlay.style.display = 'none';
                             dataTableElement.style.display = 'table';
+
+                            updateButtonStates(); // Update button states on initialization
                         },
                         "pagingType": "full_numbers", // Use full pagination controls
                         "language": {
@@ -88,10 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Adjust table columns when column visibility changes
                     table.on('column-visibility.dt', function (e, settings, column, state) {
                         table.columns.adjust().draw(false);
+                        updateButtonStates(); // Update button states whenever visibility changes
                     });
-
-                    // Update the button styles dynamically based on state
-                    updateAllButtonStyles();
                 });
             })
             .catch(error => {
@@ -103,29 +95,14 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Helper function to update the button styles based on active state
-    function updateButtonStyles(buttonNode) {
-        if (buttonNode.hasClass('active')) {
-            buttonNode.css({
-                'background-color': '#134F9B', // Blue background for active
-                'color': '#FFFFFF' // White text color for active
-            });
-        } else {
-            buttonNode.css({
-                'background-color': '#FFFFFF', // White background for inactive
-                'color': '#134F9B' // Blue text color for inactive
-            });
-        }
-    }
-
-    // Function to update styles for all buttons initially and on click
-    function updateAllButtonStyles() {
-        $('.dt-button').each(function() {
-            updateButtonStyles($(this));
-        });
-
-        $('.dt-button').on('click', function() {
-            updateButtonStyles($(this));
+    // Helper function to update the button states by adding/removing the active class
+    function updateButtonStates() {
+        $('.dt-button-collection button').each(function () {
+            if ($(this).hasClass('active')) {
+                $(this).addClass('button-active'); // Add active class
+            } else {
+                $(this).removeClass('button-active'); // Remove active class
+            }
         });
     }
 
