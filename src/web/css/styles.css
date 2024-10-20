@@ -194,8 +194,8 @@ th:hover {
 
 /* Styles for buttons in the column visibility collection */
 .dt-button-collection button {
-    background-color: #134F9B; /* Blue background */
-    color: #FFFFFF; /* White text color */
+    background-color: #FFFFFF; /* White background */
+    color: #134F9B; /* Blue text color */
     border: 1px solid #134F9B; /* Blue border */
     padding: 6px 12px; /* Padding inside buttons */
     margin: 2px; /* Space between buttons */
