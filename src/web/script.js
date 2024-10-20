@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const loadingOverlay = document.getElementById('loading-overlay');
     const dataTableElement = document.getElementById('data-table');
 
-    // Display the loading overlay
-    loadingOverlay.style.display = 'flex';
+    // Show the loading overlay by adding the 'visible' class
+    loadingOverlay.classList.add('visible');
 
     // Define the default visible columns by their indices
     const defaultVisibleColumns = [0, 1, 2, 3, 8, 9];
@@ -36,34 +36,37 @@ document.addEventListener("DOMContentLoaded", function () {
                             {
                                 extend: 'colvis', // Column visibility button
                                 text: 'Select Columns', // Button text
-                                columns: ':not(:first-child)', // Exclude the first column
-                                className: 'colvis-button' // Add a custom class to apply specific styling
+                                columns: ':not(:first-child)' // Exclude the first column
                             },
                             {
                                 text: 'Reset Columns', // Button to reset column visibility
                                 action: function (e, dt, node, config) {
-                                    dt.state.clear(); // Clear any saved state
-                                    dt.columns().visible(false); // Hide all columns
+                                    // Clear any saved state
+                                    dt.state.clear();
 
+                                    // Hide all columns
+                                    dt.columns().visible(false);
+
+                                    // Show default columns
                                     defaultVisibleColumns.forEach(function (colIndex) {
-                                        dt.column(colIndex).visible(true); // Show default columns
+                                        dt.column(colIndex).visible(true);
                                     });
 
-                                    dt.columns.adjust().draw(false); // Adjust columns and redraw the table
-                                    dt.state.save(); // Save the new state
+                                    // Adjust columns and redraw the table
+                                    dt.columns.adjust().draw(false);
 
-                                    updateButtonStates(); // Update button states
+                                    // Save the new state
+                                    dt.state.save();
                                 }
                             }
                         ],
                         "stateSave": true, // Enable state saving (remember column visibility)
                         "stateDuration": -1, // Save state indefinitely
                         "initComplete": function (settings, json) {
-                            // Hide the loading overlay and display the table
-                            loadingOverlay.style.display = 'none';
-                            dataTableElement.style.display = 'table';
-
-                            updateButtonStates(); // Update button states on initialization
+                            // Hide the loading overlay by removing the 'visible' class
+                            loadingOverlay.classList.remove('visible');
+                            // Show the data table by adding the 'visible' class
+                            dataTableElement.classList.add('visible');
                         },
                         "pagingType": "full_numbers", // Use full pagination controls
                         "language": {
@@ -82,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Adjust table columns when column visibility changes
                     table.on('column-visibility.dt', function (e, settings, column, state) {
                         table.columns.adjust().draw(false);
-                        updateButtonStates(); // Update button states whenever visibility changes
                     });
                 });
             })
@@ -91,19 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error('Error loading the data:', error);
 
                 // Hide the loading overlay in case of error
-                loadingOverlay.style.display = 'none';
+                loadingOverlay.classList.remove('visible');
             });
-    }
-
-    // Helper function to update the button states by adding/removing the active class
-    function updateButtonStates() {
-        $('.dt-button-collection button').each(function () {
-            if ($(this).hasClass('active')) {
-                $(this).addClass('button-active'); // Add active class
-            } else {
-                $(this).removeClass('button-active'); // Remove active class
-            }
-        });
     }
 
     // Call the loadData function to fetch data and initialize the table
