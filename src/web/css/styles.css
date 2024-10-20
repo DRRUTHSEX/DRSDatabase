@@ -221,14 +221,14 @@ div.dt-button-collection .dt-button:hover {
     color: #134F9B !important;
 }
 
-/* Styles for active buttons using aria-pressed attribute */
-div.dt-button-collection .dt-button[aria-pressed="true"] {
+/* Styles for active buttons using dt-button-active class */
+div.dt-button-collection .dt-button.dt-button-active {
     background-color: #134F9B !important; /* Active buttons have blue background */
     color: #FFFFFF !important;            /* Active buttons have white text */
 }
 
 /* Hover effect for active buttons */
-div.dt-button-collection .dt-button[aria-pressed="true"]:hover {
+div.dt-button-collection .dt-button.dt-button-active:hover {
     background-color: #0B3C75 !important; /* Darker blue on hover */
     color: #FFFFFF !important;
 }
