@@ -36,7 +36,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             {
                                 extend: 'colvis', // Column visibility button
                                 text: 'Select Columns', // Button text
-                                columns: ':not(:first-child)' // Exclude the first column
+                                columns: ':not(:first-child)', // Exclude the first column
+                                collectionLayout: 'three-column' // Adjust layout if needed
                             },
                             {
                                 text: 'Reset Columns', // Button to reset column visibility
@@ -57,6 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                     // Save the new state
                                     dt.state.save();
+
+                                    // Update button classes
+                                    updateButtonClasses();
                                 }
                             }
                         ],
@@ -68,6 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             // Show the data table
                             dataTableElement.classList.remove('hidden');
+
+                            // Update button classes
+                            updateButtonClasses();
                         },
                         "pagingType": "full_numbers", // Use full pagination controls
                         "language": {
@@ -83,9 +90,33 @@ document.addEventListener("DOMContentLoaded", function () {
                         "autoWidth": false // Disable automatic column width calculation
                     });
 
-                    // Adjust table columns when column visibility changes
+                    // Function to update button classes based on column visibility
+                    function updateButtonClasses() {
+                        var colvisButtons = $('.dt-button-collection .dt-button');
+
+                        // Loop through each column
+                        table.columns().every(function (index) {
+                            var column = this;
+                            var button = colvisButtons.eq(index);
+
+                            if (column.visible()) {
+                                button.addClass('column-visible');
+                            } else {
+                                button.removeClass('column-visible');
+                            }
+                        });
+                    }
+
+                    // Update button classes after columns are shown/hidden
                     table.on('column-visibility.dt', function (e, settings, column, state) {
-                        table.columns.adjust().draw(false);
+                        updateButtonClasses();
+                    });
+
+                    // Update button classes when the column visibility collection is shown
+                    $(document).on('click', '.buttons-colvis', function () {
+                        setTimeout(function () {
+                            updateButtonClasses();
+                        }, 0);
                     });
                 });
             })

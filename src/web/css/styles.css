@@ -206,29 +206,29 @@ th:hover {
 }
 
 /* Styles for buttons in the column visibility collection */
-div.dt-button-collection .dt-button {
+.dt-button-collection .dt-button {
     background-color: #FFFFFF !important; /* Inactive buttons have white background */
     color: #134F9B !important;          /* Inactive buttons have blue text */
     border: 1px solid #134F9B !important;
-    padding: 6px 12px;
+    padding: 6px 12px !important;
     margin: 2px;
     border-radius: 4px;
 }
 
 /* Hover effect for inactive buttons */
-div.dt-button-collection .dt-button:hover {
+.dt-button-collection .dt-button:hover {
     background-color: #DCEEFF !important;
     color: #134F9B !important;
 }
 
-/* Styles for active buttons using dt-button-active class */
-div.dt-button-collection .dt-button.dt-button-active {
+/* Styles for active buttons using custom class */
+.dt-button-collection .dt-button.column-visible {
     background-color: #134F9B !important; /* Active buttons have blue background */
     color: #FFFFFF !important;            /* Active buttons have white text */
 }
 
 /* Hover effect for active buttons */
-div.dt-button-collection .dt-button.dt-button-active:hover {
+.dt-button-collection .dt-button.column-visible:hover {
     background-color: #0B3C75 !important; /* Darker blue on hover */
     color: #FFFFFF !important;
 }
