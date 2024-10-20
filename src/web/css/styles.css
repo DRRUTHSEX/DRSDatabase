@@ -194,8 +194,8 @@ th:hover {
 
 /* Styles for buttons in the column visibility collection */
 .dt-button-collection button {
-    background-color: #FFFFFF;
-    color: #134F9B;
+    background-color: #134F9B;
+    color: #FFFFFF;
     border: 1px solid #134F9B;
     padding: 6px 12px;
     margin: 2px;
@@ -204,8 +204,8 @@ th:hover {
 
 /* Styles for active buttons in the column visibility collection */
 .dt-button-collection button.active {
-    background-color: #134F9B;
-    color: #FFFFFF;
+    background-color: #FFFFFF;
+    color: #134F9B;
 }
 
 /* Hover effect for buttons in the column visibility collection */
