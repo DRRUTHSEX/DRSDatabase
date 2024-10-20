@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const loadingOverlay = document.getElementById('loading-overlay');
     const dataTableElement = document.getElementById('data-table');
 
-    // Show the loading overlay by adding the 'visible' class
-    loadingOverlay.classList.add('visible');
+    // The loading overlay is visible by default (set in CSS)
+    // The data table is hidden by default (has 'hidden' class)
 
     // Define the default visible columns by their indices
     const defaultVisibleColumns = [0, 1, 2, 3, 8, 9];
@@ -63,10 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         "stateSave": true, // Enable state saving (remember column visibility)
                         "stateDuration": -1, // Save state indefinitely
                         "initComplete": function (settings, json) {
-                            // Hide the loading overlay by removing the 'visible' class
-                            loadingOverlay.classList.remove('visible');
-                            // Show the data table by adding the 'visible' class
-                            dataTableElement.classList.add('visible');
+                            // Hide the loading overlay
+                            loadingOverlay.classList.add('hidden');
+
+                            // Show the data table
+                            dataTableElement.classList.remove('hidden');
                         },
                         "pagingType": "full_numbers", // Use full pagination controls
                         "language": {
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error('Error loading the data:', error);
 
                 // Hide the loading overlay in case of error
-                loadingOverlay.classList.remove('visible');
+                loadingOverlay.classList.add('hidden');
             });
     }
 
