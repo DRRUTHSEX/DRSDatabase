@@ -1,218 +1,372 @@
 /* Set the default font family, background color, margin, and text color for the entire page */
 body {
+    /* Use 'Helvetica Neue' font if available, else default to Arial or any sans-serif font */
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #F5F5F5;
+
+    /* Set a light grey background color for the page (#F5F5F5 is RGB(245, 245, 245)) */
+    background-color: #F5F5F5; /* Light grey background */
+
+    /* Add a 20px margin around the page content */
     margin: 20px;
-    color: #333;
+
+    /* Set the default text color to dark grey (#333333 is shorthand for #333) */
+    color: #333; /* Dark grey text color */
 }
 
-/* Style the main heading of the page */
+/* Style the main heading (h1) of the page */
 h1 {
+    /* Center the heading text */
     text-align: center;
-    color: #134F9B;
+
+    /* Set the text color to a shade of blue (#134F9B is RGB(19, 79, 155)) */
+    color: #134F9B; /* Deep blue color for headings */
+
+    /* Add a 30px margin below the heading */
     margin-bottom: 30px;
+
+    /* Set the font size to twice the default size */
     font-size: 2em;
 }
 
-/* Loading overlay styles */
+/* Styles for the loading overlay that covers the entire page */
 #loading-overlay {
+    /* Fix the position so it stays over the viewport */
     position: fixed;
     top: 0;
     left: 0;
+
+    /* Make the overlay cover the full width and height of the viewport */
     width: 100%;
     height: 100%;
-    background: rgba(245, 245, 245, 0.95);
+
+    /* Set a semi-transparent light grey background (RGBA(245, 245, 245, 0.95)) */
+    background: rgba(245, 245, 245, 0.95); /* Light grey with 95% opacity */
+
+    /* Use Flexbox to center content */
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column; /* Arrange children vertically */
+    align-items: center;    /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+
+    /* Place the overlay above other content */
     z-index: 9999;
 }
 
+/* Styles for the loader (spinner) inside the loading overlay */
 #loading-overlay .loader {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #134F9B;
+    /* Create a thick border around the loader */
+    border: 8px solid #F3F3F3; /* Light grey border (#F3F3F3 is RGB(243, 243, 243)) */
+
+    /* Set the top border to a deep blue color to create a spinner effect */
+    border-top: 8px solid #134F9B; /* Deep blue top border (#134F9B is RGB(19, 79, 155)) */
+
+    /* Make the loader a circle */
     border-radius: 50%;
+
+    /* Set the size of the loader */
     width: 60px;
     height: 60px;
+
+    /* Apply a spinning animation */
     animation: spin 1s linear infinite;
+
+    /* Add space below the loader */
     margin-bottom: 20px;
 }
 
+/* Styles for the text inside the loading overlay */
 #loading-overlay p {
+    /* Set the font size to 18px */
     font-size: 18px;
-    color: #3E3E3E;
+
+    /* Set the text color to a dark grey (#3E3E3E is RGB(62, 62, 62)) */
+    color: #3E3E3E; /* Medium-dark grey text */
 }
 
-/* Existing spinner animation */
+/* Define the 'spin' animation for the loader */
 @keyframes spin {
+    /* Start at 0 degrees rotation */
     0% { transform: rotate(0deg); }
+
+    /* End at 360 degrees rotation after one cycle */
     100% { transform: rotate(360deg); }
 }
 
-/* Center table headers within DataTables */
+/* Center the text in table headers when using DataTables */
 table.dataTable thead th {
+    /* Force text alignment to center */
     text-align: center !important;
 }
 
-/* Style the main table */
+/* Styles for the main table */
 table {
-    /* width: 100%; */ /* Commented out to allow automatic width adjustment */
+    /* width: 100%; */ /* Width is commented out to allow the table to adjust its width automatically */
+
+    /* Remove spaces between table cells */
     border-collapse: collapse;
+
+    /* Round the corners of the table */
     border-radius: 8px;
+
+    /* Ensure the border-radius applies by hiding overflow */
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    table-layout: auto; /* Allow the table to adjust its layout automatically */
+
+    /* Add a subtle shadow to the table */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+
+    /* Allow the table to adjust its layout based on content */
+    table-layout: auto;
 }
 
-/* Style table headers and cells */
+/* Styles for both table headers and data cells */
 th, td {
+    /* Add padding inside cells */
     padding: 14px;
+
+    /* Align text to the left */
     text-align: left;
+
+    /* Set font size */
     font-size: 14px;
+
+    /* Set line height for better readability */
     line-height: 1.5;
 }
 
-/* Style table headers specifically */
+/* Styles specifically for table headers */
 th {
-    background-color: #134F9B;
+    /* Set a deep blue background for headers (#134F9B is RGB(19, 79, 155)) */
+    background-color: #134F9B; /* Deep blue background */
+
+    /* Set text color to white */
     color: #FFFFFF;
+
+    /* Center the header text */
     text-align: center;
-    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3);
+
+    /* Add an inset shadow at the bottom of headers for depth */
+    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.3); /* Inner shadow effect */
 }
 
-/* Style table cells */
+/* Styles specifically for table data cells */
 td {
+    /* Set the background color to white */
     background-color: #FFFFFF;
 }
 
-/* Style alternating rows in the table body */
+/* Styles for even-numbered table rows to create a striping effect */
 tbody tr:nth-child(even) {
-    background-color: #F7F7F7;
+    /* Set background color to light grey (#F7F7F7 is RGB(247, 247, 247)) */
+    background-color: #F7F7F7; /* Light grey background for even rows */
 }
 
-/* Style table rows on hover */
+/* Styles for table rows when hovered over */
 tbody tr:hover {
-    background-color: #DCEEFF;
+    /* Change background color to a light blue (#DCEEFF is RGB(220, 238, 255)) */
+    background-color: #DCEEFF; /* Light blue highlight on hover */
 }
 
-/* Style the DataTables buttons container */
+/* Add spacing below the DataTables buttons container */
 .dt-buttons {
+    /* Add a 20px bottom margin */
     margin-bottom: 20px;
 }
 
-/* Style individual DataTables buttons */
+/* Styles for individual DataTables buttons */
 .dt-button {
-    background-color: #134F9B !important;
+    /* Set background color to deep blue (#134F9B is RGB(19, 79, 155)) */
+    background-color: #134F9B !important; /* Deep blue background */
+
+    /* Set text color to white */
     color: #FFFFFF !important;
+
+    /* Remove borders */
     border: none !important;
+
+    /* Round the button corners */
     border-radius: 4px !important;
+
+    /* Add spacing between buttons */
     margin-right: 5px;
+
+    /* Add padding inside buttons */
     padding: 6px 12px !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    /* Add a subtle shadow to buttons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
 }
 
-/* Style DataTables pagination buttons */
+/* Styles for DataTables pagination buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
+    /* Set background color to white */
     background-color: #FFFFFF !important;
+
+    /* Set text color to deep blue */
     color: #134F9B !important;
+
+    /* Add a border in deep blue */
     border: 1px solid #134F9B !important;
+
+    /* Round the button corners */
     border-radius: 4px !important;
+
+    /* Add margin around buttons */
     margin: 2px;
+
+    /* Add padding inside buttons */
     padding: 6px 12px;
+
+    /* Add a transition effect for background color changes */
     transition: background-color 0.3s;
 }
 
+/* Styles for pagination buttons on hover */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    /* Change background to deep blue on hover */
     background-color: #134F9B !important;
+
+    /* Change text color to white on hover */
     color: #FFFFFF !important;
 }
 
+/* Styles for the currently active pagination button */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    /* Highlight current page button with deep blue background */
     background-color: #134F9B !important;
+
+    /* Set text color to white */
     color: #FFFFFF !important;
 }
 
-/* Style labels for length menu and search input */
+/* Styles for the labels of "Show entries" (length menu) and search input */
 .dataTables_wrapper .dataTables_length label,
 .dataTables_wrapper .dataTables_filter label {
-    color: #3E3E3E;
+    /* Set text color to dark grey (#3E3E3E is RGB(62, 62, 62)) */
+    color: #3E3E3E; /* Dark grey text */
 }
 
-/* Style the information text */
+/* Styles for the informational text (e.g., "Showing 1 to 10 of 50 entries") */
 .dataTables_wrapper .dataTables_info {
-    color: #3E3E3E;
+    /* Set text color to dark grey */
+    color: #3E3E3E; /* Dark grey text */
 }
 
-/* Style the select box in the length menu */
+/* Styles for the dropdown select box in the "Show entries" length menu */
 .dataTables_length select {
-    border: 1px solid #ccc;
+    /* Add a light grey border */
+    border: 1px solid #CCC; /* #CCC is shorthand for #CCCCCC, a light grey */
+
+    /* Round the corners of the select box */
     border-radius: 4px;
+
+    /* Add padding inside the select box */
     padding: 4px;
+
+    /* Set background color to white */
     background-color: #FFFFFF;
 }
 
-/* Style the search input */
+/* Styles for the search input box */
 .dataTables_filter input {
-    border: 1px solid #ccc;
+    /* Add a light grey border */
+    border: 1px solid #CCC; /* #CCC is light grey */
+
+    /* Round the corners of the input box */
     border-radius: 4px;
+
+    /* Add padding inside the input box */
     padding: 4px;
+
+    /* Set background color to white */
     background-color: #FFFFFF;
 }
 
-/* Highlight table headers on hover */
+/* Styles for table headers when hovered over */
 th:hover {
-    background-color: #0B3C75;
+    /* Change background color to a darker blue (#0B3C75 is RGB(11, 60, 117)) */
+    background-color: #0B3C75; /* Darker blue on hover */
+
+    /* Change cursor to pointer to indicate interactivity */
     cursor: pointer;
 }
 
-/* Add margin above pagination */
+/* Add spacing above the pagination controls */
 .dataTables_wrapper .dataTables_paginate {
+    /* Add a 10px top margin */
     margin-top: 10px;
 }
 
-/* Center and space out bottom controls */
+/* Styles for the bottom controls of DataTables (e.g., pagination, info) */
 .dataTables_wrapper .bottom {
+    /* Use Flexbox for layout */
     display: flex;
+
+    /* Vertically center items */
     align-items: center;
+
+    /* Distribute space between items */
     justify-content: space-between;
+
+    /* Allow items to wrap to the next line if needed */
     flex-wrap: wrap;
 }
 
-/* Remove margin from "Show entries" label */
+/* Remove default margin from the "Show entries" label */
 .dataTables_length label {
+    /* Remove all margins */
     margin: 0;
 }
 
-/* Add margin to information text */
+/* Add vertical margin to the information text */
 .dataTables_info {
+    /* Add 10px margin on top and bottom */
     margin: 10px 0;
 }
 
-/* Style the buttons within the "Select Columns" dropdown */
+/* Styles for buttons inside the "Select Columns" dropdown */
 .dt-button-collection button {
-    background-color: #134F9B;
+    /* Set background color to deep blue */
+    background-color: #134F9B; /* Deep blue background */
+
+    /* Set text color to white */
     color: #FFFFFF;
+
+    /* Add a deep blue border */
     border: 1px solid #134F9B;
+
+    /* Add padding inside buttons */
     padding: 6px 12px;
+
+    /* Add margin around buttons */
     margin: 2px;
+
+    /* Round the button corners */
     border-radius: 4px;
 }
 
-/* Style for active (selected) buttons */
+/* Styles for active (selected) buttons inside the dropdown */
 .dt-button-collection button.active {
+    /* Set background color to white to indicate selection */
     background-color: #FFFFFF;
+
+    /* Set text color to deep blue */
     color: #134F9B;
 }
 
-/* Hover styles for all buttons in the dropdown */
+/* Styles for buttons in the dropdown when hovered over */
 .dt-button-collection button:hover {
-    background-color: #0B3C75;
+    /* Change background color to darker blue on hover (#0B3C75 is RGB(11, 60, 117)) */
+    background-color: #0B3C75; /* Darker blue on hover */
+
+    /* Set text color to white */
     color: #FFFFFF;
 }
 
-/* Hover styles for active buttons */
+/* Styles for active (selected) buttons when hovered over */
 .dt-button-collection button.active:hover {
-    background-color: #DCEEFF;
+    /* Change background to light blue on hover (#DCEEFF is RGB(220, 238, 255)) */
+    background-color: #DCEEFF; /* Light blue background on hover */
+
+    /* Set text color to deep blue */
     color: #134F9B;
 }
