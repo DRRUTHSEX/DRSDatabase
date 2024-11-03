@@ -63,7 +63,7 @@ for row in data:
     # Check if the row has the correct number of elements (adjust 27 to match the expected number of columns)
     if len(row) == 27:
         cursor.execute('''
-        INSERT OR REPLACE INTO Issers_TA (
+        INSERT OR REPLACE INTO Issuers_TA (
             Ticker, Exchange, CompanyNameIssuer, TransferAgent, OnlinePurchase, DTCMemberNum, TAURL,
             TransferAgentPct, IREmails, IRPhoneNum, IRCompanyAddress, IRURL, IRContactInfo, SharesOutstanding,
             CUSIP, CompanyInfoURL, CompanyInfo, FullProgressPct, CIK, DRS, PercentSharesDRSd, SubmissionReceived,
