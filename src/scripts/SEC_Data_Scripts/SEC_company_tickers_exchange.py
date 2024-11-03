@@ -5,10 +5,6 @@ import time
 # URL of the JSON file
 url = "https://www.sec.gov/files/company_tickers_exchange.json"
 
-# Path to the data folder
-data_folder = "data"
-os.makedirs(data_folder, exist_ok=True)
-
 # Path to the output file
 output_file = os.path.join(data_folder, "SEC_Ticker_Exchange_Company_CIK/company_tickers_exchange.json")
 
