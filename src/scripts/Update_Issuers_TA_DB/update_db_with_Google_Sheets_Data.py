@@ -24,7 +24,7 @@ cursor = conn.cursor()  # Create a cursor object to execute SQL commands
 
 # Create a table if it doesn't exist
 cursor.execute('''
-CREATE TABLE IF NOT EXISTS Issers_TA_new (
+CREATE TABLE IF NOT EXISTS Issuers_TA_new (
     Ticker TEXT PRIMARY KEY,
     Exchange TEXT,
     CompanyNameIssuer TEXT,
