@@ -1,8 +1,6 @@
 name: Update Issuers TA Database with Google Sheets Data
 
-on:
-  schedule:
-    - cron: '0 0 * * *'  # Runs every day at midnight
+on: # Runs every day at midnight
   workflow_dispatch: # Allows manual triggering
 
 concurrency: 
