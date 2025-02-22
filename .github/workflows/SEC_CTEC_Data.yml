@@ -22,6 +22,9 @@ jobs:
       - name: Pull SEC data and update repository
         run: python src/scripts/SEC-CTEC-Data/SEC_company_tickers_exchange.py
 
+      - name: Update Database from JSON
+        run: python src/scripts/SEC-CTEC-Data/update_db_from_json.py
+
       - name: Verify changes
         run: |
           echo "Checking for changes in data files..."
