@@ -1,4 +1,10 @@
 {
+    "fields": [
+        "cik",
+        "name",
+        "ticker",
+        "exchange"
+    ],
     "data": [
         [
             "320193",
