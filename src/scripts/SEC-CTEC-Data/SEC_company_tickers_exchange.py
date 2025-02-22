@@ -26,7 +26,9 @@ def download_and_process_sec_data(url, headers, output_file):
     response.raise_for_status()
     
     # Parse the JSON data
-    data = response.json()['data']
+    json_data = response.json()
+    fields = json_data['fields']
+    data = json_data['data']
     
     # Process each entry to strip whitespace from CIK and Ticker
     processed_data = []
@@ -36,9 +38,14 @@ def download_and_process_sec_data(url, headers, output_file):
         processed_entry[2] = str(processed_entry[2]).strip()  # Ticker
         processed_data.append(processed_entry)
     
-    # Save the processed data
+    # Save the processed data with both fields and data
+    output_json = {
+        "fields": fields,
+        "data": processed_data
+    }
+    
     with open(output_file, "w") as file:
-        json.dump({"data": processed_data}, file, indent=4)
+        json.dump(output_json, file, indent=4)
     print(f"Processed SEC data file saved to {output_file}")
 
 # Download and process the JSON data
