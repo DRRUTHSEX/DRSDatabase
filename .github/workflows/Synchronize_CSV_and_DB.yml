@@ -1,8 +1,9 @@
 name: Synchronize CSV and Database
 
 on:
-  workflow_run:
-  workflow_dispatch: # Allows manual triggering
+#  schedule:
+#    - cron: '0 0 * * *'  # Runs every day at midnight
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   sync_data:
