@@ -1,6 +1,6 @@
 import os
 import json
-from csv_utils import CSVHandler, MultipleCSVHandler
+from csv_utils import MultipleCSVHandler
 from database_utils import DatabaseHandler
 
 # Columns that are the source of truth from the DB (0-based indices):
@@ -9,7 +9,6 @@ SOURCE_OF_TRUTH_COLUMNS = [0, 1, 2, 18]
 def main():
     # Load environment variables if any
     db_file_path = 'data/Issuers/Main_Database.db'
-    csv_file_path = 'data/Issuers/Main_Database.csv'
     csv_dir_path = 'data/Issuers/Main-Database-CSV-Files'
     json_file_path = 'data/Issuers/Main_Database.json'
 
@@ -31,9 +30,6 @@ def main():
 
     # Step 5: Export the updated database to JSON
     db_handler.export_database_to_json(json_file_path)
-    
-    # Step 6: Export all data to the original single CSV for backward compatibility
-    multiple_csv_handler.export_to_single_csv(csv_file_path)
 
     print("Synchronization between CSV files and database completed successfully.")
 
