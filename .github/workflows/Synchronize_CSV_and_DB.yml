@@ -2,7 +2,6 @@ name: Synchronize CSV and Database
 
 on:
   workflow_run:
-    workflows: ["Update Database with SEC Data (CIK, Ticker, Exchange, Company Name)"]
     types:
   workflow_dispatch: # Allows manual triggering
 
