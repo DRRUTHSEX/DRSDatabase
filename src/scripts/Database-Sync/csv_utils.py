@@ -186,6 +186,18 @@ class MultipleCSVHandler:
         # Process database data
         letter_to_rows = {}
         
+        # First, distribute existing rows to their respective letter files
+        for row in existing_data:
+            ticker = row[0].strip() if row[0] else ''
+            first_letter = ticker[0].upper() if ticker else "SPECIAL"
+            if not first_letter.isalpha():
+                first_letter = "SPECIAL"
+            
+            if first_letter not in letter_to_rows:
+                letter_to_rows[first_letter] = []
+            letter_to_rows[first_letter].append(row)
+        
+        # Then process database updates
         for db_row in db_data:
             db_row = list(db_row)
             # Extract keys from the DB row
@@ -202,20 +214,26 @@ class MultipleCSVHandler:
             ci_key = (CIK.lower(), Ticker.lower(), CompanyNameIssuer.lower())
             
             if ci_key in key_to_row:
-                # Existing row in CSV
+                # Update existing row with source-of-truth columns
                 csv_row = key_to_row[ci_key]
-                # Update only source-of-truth columns
                 for i in self.source_of_truth_columns:
                     if i < len(db_row):
                         csv_row[i] = db_row[i] if db_row[i] else ''
                 
-                # Add to the appropriate letter file
+                # Remove old version of the row
+                if first_letter in letter_to_rows:
+                    letter_to_rows[first_letter] = [
+                        r for r in letter_to_rows[first_letter] 
+                        if (r[18].strip().lower() if r[18] else '') != CIK.lower() or
+                           (r[0].strip().lower() if r[0] else '') != Ticker.lower() or
+                           (r[2].strip().lower() if r[2] else '') != CompanyNameIssuer.lower()
+                    ]
+                
+                # Add updated version
                 if first_letter not in letter_to_rows:
                     letter_to_rows[first_letter] = []
                 letter_to_rows[first_letter].append(csv_row)
                 
-                # Remove from mapping to track processed rows
-                del key_to_row[ci_key]
             else:
                 # New row from database
                 new_row = [''] * 27
@@ -227,25 +245,16 @@ class MultipleCSVHandler:
                     letter_to_rows[first_letter] = []
                 letter_to_rows[first_letter].append(new_row)
         
-        # Add any remaining CSV rows that weren't in the database
-        for row in key_to_row.values():
-            ticker = row[0].strip() if row[0] else ''
-            first_letter = ticker[0].upper() if ticker else "SPECIAL"
-            if not first_letter.isalpha():
-                first_letter = "SPECIAL"
-            
-            if first_letter not in letter_to_rows:
-                letter_to_rows[first_letter] = []
-            letter_to_rows[first_letter].append(row)
-        
         # Write updated data back to CSV files
-        for letter, rows in letter_to_rows.items():
+        for letter in list(string.ascii_uppercase) + ["SPECIAL"]:
             file_path = self._get_file_path_for_letter(letter)
+            rows = letter_to_rows.get(letter, [])
             with open(file_path, 'w', newline='', encoding='utf-8') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow(self.headers)
-                writer.writerows(rows)
-            print(f"CSV updated successfully at {file_path}")
+                writer.writerows(sorted(rows, key=lambda x: x[0].upper() if x[0] else ''))
+            if rows:
+                print(f"CSV updated successfully at {file_path}")
             
         # Ensure all letter files exist, even if empty (with just headers)
         self._initialize_csv_files()
