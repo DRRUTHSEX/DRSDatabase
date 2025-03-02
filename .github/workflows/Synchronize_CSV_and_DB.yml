@@ -2,7 +2,6 @@ name: Synchronize CSV and Database
 
 on:
   workflow_run:
-    types:
   workflow_dispatch: # Allows manual triggering
 
 jobs:
